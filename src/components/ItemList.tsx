@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import React, { useState } from 'react';
 import { AvatarMenu } from './AvatarMenu';
 
@@ -27,7 +27,7 @@ export const ItemList: React.FC = () => {
             key={i}
             className="bg-white rounded-xl px-3 py-2 flex items-center shadow-sm hover:bg-gray-100 transition cursor-pointer"
           >
-            {/* Foto clicável */}
+            
             <img
               src={item.avatarUrl}
               alt={`Avatar de ${item.name}`}
