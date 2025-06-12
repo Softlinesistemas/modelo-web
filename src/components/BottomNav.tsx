@@ -24,7 +24,7 @@ export const BottomNav: React.FC = () => {
       icon: <FiHome />,
       label: 'Central',
       color: 'text-[#8F7E76]',
-      onClick: () => setActiveAction(null), // Reset para tela central
+      onClick: () => setActiveAction(null), 
     },
     {
       icon: <FiUsers />,
