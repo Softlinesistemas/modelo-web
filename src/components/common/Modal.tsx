@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import Button from './Button';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { useTranslation } from "react-i18next";
-import { MainContext } from "@/context/MainContext";
 
 interface ModalProps {
   title: string;
@@ -38,7 +37,6 @@ const Modal: React.FC<ModalProps> = ({
   noMargin = false,
   fitModal = false,
 }) => {
-  const { showCommands } = useContext(MainContext);
   const { t, i18n } = useTranslation();
 
   const modalRef = useOutsideClick(onClose);
@@ -70,19 +68,6 @@ const Modal: React.FC<ModalProps> = ({
           full ? 'mx-48 lg:mx-8 md:mx-4 sm:mx-1' : 'max-w-3xl mx-auto'
         } ${noMargin ? "my-2" :"my-16"} bg-white-light rounded-lg shadow-lg transform ${fitModal ? "w-fit mx-0 max-w-[500px]" : ""}`}
       >
-        <div className="px-6 py-4">
-          <p className="text-gray-700">{title}</p>
-          {showCommands && ( 
-              <div className="text-gray-200 font-medium text-sm flex items-center gap-1 my-1">
-                  <p>{"("}</p>
-                  <p>{t("close")}</p>
-                  <div className="bg-gray-700 rounded px-1 py-0.5 flex items-center gap-1 text-xs">
-                    Esc
-                  </div>                                   
-                  <p>{")"}</p>
-              </div>
-          )}
-        </div>
 
         <div
           className={`flex flex-wrap justify-start items-start gap-4 px-6 ${contentClassName}`}
