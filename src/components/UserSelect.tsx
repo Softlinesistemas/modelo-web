@@ -15,11 +15,12 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const [showQrCode, setShowQrCode] = useState(false);
 
   const [selectedUser, setSelectedUser] = useState({
-    name: 'João Silva',
-    role: 'Motorista',
+    name: 'Sítio Canaã',
+    role: 'Alimentos Orgânicos',
   });
 
   const users = [
+    { name: 'Sítio Canaã', role: 'Alimentos Orgânicos' },
     { name: 'João Silva', role: 'Motorista' },
     { name: 'Maria Souza', role: 'Operadora' },
     { name: 'Carlos Lima', role: 'Supervisor' },
