@@ -53,13 +53,13 @@ export const ClockView = () => {
   return (
     <div className="flex flex-col items-center justify-center h-[350px] text-center gap-6 p-6">
       {/* Relógio */}
-      <h2 className="text-2xl font-bold">Relógio Atual</h2>
+      {/* <h2 className="text-2xl font-bold">Relógio Atual</h2>
       <div className="text-5xl font-mono text-purple-700">
         {formatNumber(time.getHours())}:{formatNumber(time.getMinutes())}:{formatNumber(time.getSeconds())}
       </div>
       <div className="text-gray-600 mb-8">
         {time.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
-      </div>
+      </div> */}
 
       {/* Cronômetro */}
       <h2 className="text-2xl font-bold">Cronômetro</h2>
