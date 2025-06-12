@@ -12,6 +12,5 @@ export function Badge({ variant = "success", children }: BadgeProps) {
     warning: "bg-yellow-100 text-yellow-700",
     destructive: "bg-red-100 text-red-700",
   };
-
   return <span className={cn(baseStyle, variants[variant])}>{children}</span>;
 }
