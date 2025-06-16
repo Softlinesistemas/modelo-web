@@ -15,15 +15,15 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const [showQrCode, setShowQrCode] = useState(false);
 
   const [selectedUser, setSelectedUser] = useState({
-    name: 'Sítio Canaã',
-    role: 'Alimentos Orgânicos',
+    name: 'Maria da Silva',
+    role: '',
   });
 
   const users = [
     { name: 'Sítio Canaã', role: 'Alimentos Orgânicos' },
-    { name: 'João Silva', role: 'Motorista' },
-    { name: 'Maria Souza', role: 'Operadora' },
-    { name: 'Carlos Lima', role: 'Supervisor' },
+    { name: 'Maria da Silva', role: '' },
+    // { name: 'Maria Souza', role: 'Operadora' },
+    // { name: 'Carlos Lima', role: 'Supervisor' },
   ];
 
   const toggleDropdown = () => setShowDropdown(!showDropdown);
@@ -36,7 +36,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const handleCloseQrCode = () => setShowQrCode(false); // Fechar QR Code se quiser
 
   return (
-    <div className="bg-green-100 p-3 rounded w-full max-w-md mx-auto">
+    <div className="bg-green-100 p-3 rounded w-full mx-auto border-black border-y-2">
       {/* Renderiza o QR Code ou a seleção de usuário */}
       {showQrCode ? (
         <QrCode 

@@ -1,5 +1,6 @@
-import './globals.css';           
+import './globals.css';
 import { ReactNode } from 'react';
+import { AppProvider } from './context/UserContext';
 
 export const metadata = {
   title: 'GooAgro',
@@ -13,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-green-50 min-h-screen flex flex-col p-3 rounded w-full max-w-md mx-auto">
+      <body className="bg-green-50 min-h-screen flex flex-col pb-16 relative mx-auto w-full">
         {children}
       </body>
     </html>
