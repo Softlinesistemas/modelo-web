@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { BottomNav } from '@/components/BottomNav';
 
-// Simulando lista de chats (futuramente você pode puxar de uma API)
+
 const chats = [
   {
     id: 1,
