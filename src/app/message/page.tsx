@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams, useRouter } from 'next/navigation'; // ✅ Mantém só esse
+import { useSearchParams, useRouter } from 'next/navigation'; 
 import React, { useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { FiPaperclip, FiSmile, FiCamera, FiMic, FiArrowLeft } from 'react-icons/fi';
@@ -17,7 +17,7 @@ type Message = {
 
 const MessagePage: React.FC = () => {
   const searchParams = useSearchParams();
-  const router = useRouter(); // ✅ Hook certo no lugar certo
+  const router = useRouter(); 
 
   const name = searchParams.get('name') || 'Contato';
   const avatar = searchParams.get('avatar') || '';
