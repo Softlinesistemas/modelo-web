@@ -1,7 +1,7 @@
 import fs from "fs";
 import { s3 } from "../services/s3BackBlaze";
 import { S3 } from "aws-sdk";
-
+ 
 const uploadImagens = async (files: any) => {
   let fileContents: any[] = [];
   let originalFile: any[] = [];
