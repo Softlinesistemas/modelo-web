@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
@@ -34,7 +34,7 @@ interface FotoAlbum {
 }
 
 export default function Cadastro() {
-  // Estados dos campos
+  
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [nomePublico, setNomePublico] = useState('');
