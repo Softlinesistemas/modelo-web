@@ -1,4 +1,4 @@
-import cn  from "@/utils/cn";
+import cn  from "@/utils/cn"; 
 
 interface BadgeProps {
   variant?: "success" | "warning" | "destructive";
