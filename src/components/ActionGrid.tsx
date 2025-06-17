@@ -8,7 +8,6 @@ import {
   FiUserPlus,
 } from 'react-icons/fi';
 
-
 type Button = {
   label: string;
   icon: React.ReactNode;
