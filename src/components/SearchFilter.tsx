@@ -1,36 +1,83 @@
-// src/components/SearchFilter.tsx
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
+import MessageFilter, { FilterType } from './MessageFilter';
+import { ItemList } from './ItemList';
+
+type Item = {
+  name: string;
+  lastMessage: string;
+  avatarUrl: string;
+  time: string;
+};
 
 export const SearchFilter: React.FC = () => {
-  const filters = ['Todas', 'Não lidas', 'Favoritas'];
+  const [activeFilter, setActiveFilter] = useState<FilterType>('todos');
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [unreadItems, setUnreadItems] = useState<number[]>([1, 3, 5]); // Exemplo: os itens 1,3,5 começam como não lidos
+
+  const items: Item[] = Array.from({ length: 8 }).map((_, i) => ({
+    name: `Contato ${i + 1}`,
+    lastMessage: 'Última mensagem do contato exibida aqui...',
+    avatarUrl: `https://i.pravatar.cc/150?img=${i + 10}`,
+    time: '12:3' + i,
+  }));
+
+  const handleFilterChange = (filter: FilterType) => {
+    setActiveFilter(filter);
+  };
+
+  const toggleFavorite = (index: number) => {
+    setFavorites((prev) =>
+      prev.includes(index)
+        ? prev.filter((i) => i !== index)
+        : [...prev, index]
+    );
+  };
+
+  const toggleReadStatus = (index: number) => {
+    setUnreadItems((prev) =>
+      prev.includes(index)
+        ? prev.filter((i) => i !== index)
+        : [...prev, index]
+    );
+  };
+
+  // Aplicando o filtro
+  const filteredItems = items.filter((_, index) => {
+    if (activeFilter === 'favoritos') {
+      return favorites.includes(index);
+    }
+    if (activeFilter === 'nao_lidas') {
+      return unreadItems.includes(index);
+    }
+    return true; // Caso "todos"
+  });
 
   return (
-    <div className="px-4">
+    <div className="px-4 py-3 space-y-5">
       {/* Campo de busca */}
-      <div className="flex items-center bg-white rounded-lg shadow p-2">
+      <div className="flex items-center bg-white rounded-lg shadow-sm px-3 py-2">
         <FiSearch className="text-gray-500 mr-2" />
         <input
           type="text"
-          placeholder="Busque por grupo ou nome de usuário"
-          className="w-full outline-none"
+          placeholder="Procure por Pessoas, Empresas, Grupos ou Clientes"
+          className="w-full text-sm placeholder-gray-400 outline-none"
         />
       </div>
-      {/* Botões de filtro */}
-      <div className="flex space-x-2 mt-2">
-        {filters.map((filter) => (
-          <button
-            key={filter}
-            className={`flex-1 text-center py-1 rounded ${
-              filter === 'Todas'
-                ? 'bg-green-300 text-white'
-                : 'bg-gray-200 text-gray-700'
-            }`}
-          >
-            {filter}
-          </button>
-        ))}
-      </div>
+
+      {/* Filtros */}
+      <MessageFilter activeFilter={activeFilter} onFilterChange={handleFilterChange} />
+
+      {/* Lista */}
+      <ItemList
+        items={filteredItems}
+        favorites={favorites}
+        unreadItems={unreadItems}
+        toggleFavorite={toggleFavorite}
+        toggleReadStatus={toggleReadStatus}
+      />
     </div>
   );
 };

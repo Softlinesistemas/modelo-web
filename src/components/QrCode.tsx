@@ -12,24 +12,24 @@ const QrCode: React.FC<QrCodeProps> = ({ qrValue, onScanClick }) => {
 
       {/* Topo com QR */}
       <div className="flex-1 flex flex-col items-center justify-center bg-lime-200 p-6">
+
+        <p className="text-gray-700 text-lg mb-4 font-medium">
+          Aponte a câmera para este código
+        </p>
+
         <div className="bg-white p-6 rounded-xl shadow-xl max-w-sm">
           <QRCodeSVG value={qrValue} size={200} />
         </div>
-        <p className="text-gray-700 text-lg mt-4 font-medium">
-          Aponte a câmera para este código
-        </p>
+
       </div>
 
       {/* Rodapé fixo com ação */}
       <div className="bg-amber-400 py-6 px-4 flex flex-col items-center">
-        <p className="text-gray-800 text-md font-semibold mb-2">
-          Quer escanear um novo código?
-        </p>
         <button
           onClick={onScanClick}
-          className="bg-white text-amber-600 border border-amber-600 px-6 py-2 rounded-full font-bold hover:bg-amber-100 transition duration-200"
+          className="bg-white text-amber-600 border border-amber-600 px-10 py-4 text-lg rounded-full font-bold hover:bg-amber-100 transition duration-200 shadow-lg"
         >
-          Ler QR-Code
+          📷 Ler QR-Code
         </button>
       </div>
     </div>

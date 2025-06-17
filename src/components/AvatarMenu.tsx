@@ -28,7 +28,7 @@ export const AvatarMenu: React.FC<Props> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50"
+      className="fixed inset-0 z-50 flex items-center sm:items-center justify-center bg-black/50"
       onClick={onClose} // fechar ao clicar fora
     >
       <div

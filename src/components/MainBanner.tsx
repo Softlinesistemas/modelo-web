@@ -11,7 +11,7 @@ export const MainBanner: React.FC = () => {
         <Image 
           src={bannerGov}
           alt="Banner ilustrativo"
-          className="w-full h-full object-fill z-0"
+          className="w-full h-full object-contain z-0"
         />
       <div className="relative z-10 ">  
         {/* <strong>Indução de defesa:</strong> uma nova abordagem no manejo de doenças

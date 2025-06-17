@@ -1,35 +1,43 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-interface MessageFilterProps {
+export type FilterType = 'todos' | 'favoritos' | 'nao_lidas';
+
+type Props = {
   activeFilter: FilterType;
   onFilterChange: (filter: FilterType) => void;
-}
+};
 
-export type FilterType = "todos" | "não lidos" | "favoritos";
-
-const filters: FilterType[] = ["todos", "não lidos", "favoritos"];
-
-export default function MessageFilter({
-  activeFilter,
-  onFilterChange,
-}: MessageFilterProps) {
+const MessageFilter: React.FC<Props> = ({ activeFilter, onFilterChange }) => {
   return (
     <div className="flex justify-around bg-white py-2 shadow">
-      {filters.map((filter: FilterType) => (
-        <button
-          key={filter}
-          onClick={() => onFilterChange(filter || "")}
-          className={`px-4 py-1 rounded-full text-sm font-medium transition ${
-            activeFilter === filter
-              ? "bg-green-600 text-white"
-              : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-          }`}
-        >
-          {filter.charAt(0).toUpperCase() + filter.slice(1)}
-        </button>
-      ))}
+      <button
+        className={`px-4 py-1 rounded-full text-sm font-medium ${
+          activeFilter === 'todos' ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700'
+        }`}
+        onClick={() => onFilterChange('todos')}
+      >
+        Todos
+      </button>
+      <button
+        className={`px-4 py-1 rounded-full text-sm font-medium ${
+          activeFilter === 'favoritos' ? 'bg-yellow-400 text-white' : 'bg-gray-200 text-gray-700'
+        }`}
+        onClick={() => onFilterChange('favoritos')}
+      >
+        Favoritos
+      </button>
+      <button
+        className={`px-4 py-1 rounded-full text-sm font-medium ${
+          activeFilter === 'nao_lidas' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+        }`}
+        onClick={() => onFilterChange('nao_lidas')}
+      >
+        Não lidas
+      </button>
     </div>
   );
-}
+};
+
+export default MessageFilter;
