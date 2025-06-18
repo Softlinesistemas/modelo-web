@@ -11,14 +11,14 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-[#3F523F] p-4 flex items-center justify-between text-white">
+      <header className="bg-white mb-1 border-b-2 p-1 flex items-center justify-between text-black">
         {/* Botão do menu hamburguer */}
         <button onClick={() => setShowMenu(true)}>
           <FiMenu size={24} />
         </button>
 
         {/* Título da aplicação */}
-        <h1 className="font-bold text-sm text-center flex-1">GooAgro - Conectando Produtores & Clientes</h1>
+        <h1 className="font-bold text-sm text-center flex-1  text-green-700">GooAgro - Conectando Agricultores & Clientes.</h1>
 
         {/* Botão de compartilhar */}
         <button onClick={() => setShowShare(true)}>

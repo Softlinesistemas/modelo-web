@@ -18,7 +18,7 @@ export const AuthScreen = () => {
       <div
         className="h-48 w-full bg-cover bg-center rounded-b-[40px] opacity-40 drop-shadow-lg shadow-gray-300"
         style={{
-          backgroundImage: `url('/images/bg-auth.jpg')`, // Troque pelo caminho da sua imagem
+          backgroundImage: `url('/images/bg-auth.jpg')`,
         }}
       ></div>
 

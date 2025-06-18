@@ -1,9 +1,9 @@
 'use client'
 
-import { useSearchParams, useRouter } from 'next/navigation'; 
+import { useSearchParams, useRouter } from 'next/navigation';
 import React, { useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { FiPaperclip, FiSmile, FiCamera, FiMic, FiArrowLeft } from 'react-icons/fi';
+import { FiPaperclip, FiSmile, FiCamera, FiMic, FiArrowLeft, FiSend } from 'react-icons/fi';
 
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
@@ -17,7 +17,7 @@ type Message = {
 
 const MessagePage: React.FC = () => {
   const searchParams = useSearchParams();
-  const router = useRouter(); 
+  const router = useRouter();
 
   const name = searchParams.get('name') || 'Contato';
   const avatar = searchParams.get('avatar') || '';
@@ -33,7 +33,7 @@ const MessagePage: React.FC = () => {
   const [recording, setRecording] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const onEmojiClick = (event: any, emojiObject: any) => {
+  const onEmojiClick = (_: any, emojiObject: any) => {
     setInputText((prev) => prev + emojiObject.emoji);
     setShowEmojiPicker(false);
   };
@@ -48,10 +48,7 @@ const MessagePage: React.FC = () => {
     setShowEmojiPicker(false);
   };
 
-  const onClickAttach = () => {
-    fileInputRef.current?.click();
-    setShowActions(false);
-  };
+  const onClickAttach = () => fileInputRef.current?.click();
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -60,12 +57,7 @@ const MessagePage: React.FC = () => {
       reader.onload = () => {
         setMessages((prev) => [
           ...prev,
-          {
-            id: prev.length + 1,
-            from: 'user',
-            text: '',
-            image: reader.result as string,
-          },
+          { id: prev.length + 1, from: 'user', text: '', image: reader.result as string },
         ]);
       };
       reader.readAsDataURL(file);
@@ -75,59 +67,36 @@ const MessagePage: React.FC = () => {
   const onToggleRecording = () => {
     setRecording((r) => !r);
     setShowActions(false);
-    // Aqui pode entrar código real de gravação com MediaRecorder
+    // Aqui pode colocar integração real com MediaRecorder depois
   };
 
   return (
     <div className="flex flex-col h-screen bg-white">
-      {/* Header com botão voltar */}
-      <div className="flex items-center gap-3 p-4 border-b shadow-sm">
-        <button
-          onClick={() => router.push('/chat')} // ✅ Agora usando o hook correto
-          className="text-gray-600 hover:text-gray-900 transition-colors duration-200 flex items-center gap-2"
-          type="button"
-        >
-          <FiArrowLeft size={24} />
-          Voltar
+      {/* Header */}
+      <div className="flex items-center gap-3 p-4 shadow-sm sticky top-0 bg-white z-10">
+        <button onClick={() => router.push('/chat')} type="button">
+          <FiArrowLeft size={24} className="text-gray-700" />
         </button>
-        <img
-          src={avatar}
-          alt={`Avatar de ${name}`}
-          className="w-10 h-10 rounded-full object-cover"
-        />
-        <h2 className="text-base font-semibold">{name}</h2>
+        <img src={avatar} alt={name} className="w-10 h-10 rounded-full object-cover" />
+        <h2 className="text-base font-bold text-gray-800">{name}</h2>
       </div>
 
-      {/* Corpo das mensagens */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${
-              message.from === 'user' ? 'justify-end' : 'justify-start'
-            }`}
-          >
+      {/* Chat body */}
+      <div className="flex-1 overflow-y-auto px-3 py-2 bg-gray-50">
+        {messages.map((msg) => (
+          <div key={msg.id} className={`flex mb-2 ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div
-              className={`max-w-[70%] px-3 py-2 rounded-lg shadow text-sm ${
-                message.from === 'user'
-                  ? 'bg-green-100 text-right'
-                  : 'bg-white text-left'
+              className={`rounded-lg px-3 py-2 text-sm shadow-md ${
+                msg.from === 'user'
+                  ? 'bg-green-100 text-gray-800'
+                  : 'bg-white text-gray-800'
               }`}
             >
-              {message.from === 'contact' && (
-                <p className="text-xs text-gray-500 mb-1">{name}</p>
-              )}
-              {message.text}
-              {message.image && (
-                <img
-                  src={message.image}
-                  alt="Imagem enviada"
-                  className="mt-2 max-w-full rounded"
-                />
-              )}
-              {message.audio && (
+              {msg.text}
+              {msg.image && <img src={msg.image} alt="Imagem enviada" className="mt-2 max-w-[200px] rounded" />}
+              {msg.audio && (
                 <audio controls className="mt-2 w-full">
-                  <source src={message.audio} />
+                  <source src={msg.audio} />
                   Seu navegador não suporta áudio.
                 </audio>
               )}
@@ -136,82 +105,45 @@ const MessagePage: React.FC = () => {
         ))}
       </div>
 
-      {/* Footer: input + botões */}
-      <div className="p-4 border-t flex items-center gap-2 bg-white relative">
-        <button
-          onClick={() => setShowActions((v) => !v)}
-          className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
-          aria-label="Abrir opções"
-          type="button"
-        >
-          <FiPaperclip size={24} />
+      {/* Footer */}
+      <div className="relative p-3 border-t flex items-center bg-white gap-2">
+        <button onClick={() => setShowActions(!showActions)} type="button">
+          <FiPaperclip size={24} className="text-gray-600" />
         </button>
 
         {showActions && (
-          <div className="absolute bottom-14 left-4 z-10 bg-white p-2 rounded shadow flex gap-4 border border-gray-200">
-            <button
-              onClick={() => {
-                setShowEmojiPicker(true);
-                setShowActions(false);
-              }}
-              className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
-              aria-label="Emoji"
-              type="button"
-            >
-              <FiSmile size={24} />
-            </button>
-
-            <button
-              onClick={onClickAttach}
-              className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
-              aria-label="Enviar foto"
-              type="button"
-            >
-              <FiCamera size={24} />
-            </button>
-
-            <button
-              onClick={onToggleRecording}
-              className={`transition-colors duration-200 ${
-                recording ? 'text-red-500' : 'text-gray-600 hover:text-gray-900'
-              }`}
-              aria-label="Gravar áudio"
-              type="button"
-            >
-              <FiMic size={24} />
+          <div className="absolute bottom-14 left-4 bg-white border shadow-md rounded p-2 flex gap-3 z-20">
+            <button onClick={() => setShowEmojiPicker(true)}><FiSmile size={24} className="text-orange-500" /></button>
+            <button onClick={onClickAttach}><FiCamera size={24} className="text-green-500" /></button>
+            <button onClick={onToggleRecording}>
+              <FiMic size={24} className={`${recording ? 'text-red-500' : 'text-gray-700'}`} />
             </button>
           </div>
         )}
 
         <input
-          type="file"
           ref={fileInputRef}
+          type="file"
           className="hidden"
           accept="image/*"
           onChange={onFileChange}
         />
 
         <input
-          type="text"
-          placeholder="Digite sua mensagem..."
-          className="flex-1 px-3 py-2 border rounded-lg outline-none text-sm"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') sendMessage();
-          }}
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+          type="text"
+          placeholder="Digite sua mensagem..."
+          className="flex-1 text-sm px-3 py-2 border rounded-lg outline-none"
         />
 
-        <button
-          onClick={sendMessage}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600"
-          type="button"
-        >
-          Enviar
+        <button onClick={sendMessage} type="button" className="p-2 text-green-600">
+          {inputText.trim() ? <FiSend size={24} /> : <FiMic size={24} />}
         </button>
 
         {showEmojiPicker && (
-          <div className="absolute bottom-20 left-14 z-10">
+          <div className="absolute bottom-20 left-14 z-30">
             <Picker onEmojiClick={onEmojiClick} />
           </div>
         )}

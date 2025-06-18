@@ -1,5 +1,5 @@
 import user from "./images/user.png";
-import bannerGov from "./images/banners/bannergov.jpg";
+import bannerGov from "./images/banners/bannergov.png";
 
 
 

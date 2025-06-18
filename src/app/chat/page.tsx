@@ -1,10 +1,9 @@
-'use client'
+'use client';
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { BottomNav } from '@/components/BottomNav';
-
 
 const chats = [
   {
@@ -21,16 +20,9 @@ const chats = [
     lastMessage: 'Vamos nos encontrar amanhã?',
     time: 'Ontem',
   },
-  {
-    id: 3,
-    name: 'Carla Mendes',
-    avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
-    lastMessage: 'Ok, combinado!',
-    time: 'Sábado',
-  },
 ];
 
-export default function Chat() {
+export default function ChatListPage() {
   const router = useRouter();
 
   const openChat = (chat: typeof chats[0]) => {
@@ -38,30 +30,28 @@ export default function Chat() {
   };
 
   return (
-    <div className="h-screen bg-white">
-    <Header />
+    <div className="h-screen bg-white flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b shadow-sm">
-        <h1 className="text-lg font-bold">Conversas</h1>
-      </div>
+      <Header />
+      <h1 className="p-4 border-b text-lg font-bold text-green-700">Conversas</h1>
 
       {/* Lista de chats */}
-      <div className="overflow-y-auto">
+      <div className="flex-1 overflow-y-auto">
         {chats.map((chat) => (
           <div
             key={chat.id}
             onClick={() => openChat(chat)}
-            className="flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50 transition"
+            className="flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-100 transition"
           >
             <img
               src={chat.avatar}
-              alt={`Avatar de ${chat.name}`}
+              alt={chat.name}
               className="w-12 h-12 rounded-full object-cover"
             />
             <div className="flex-1">
               <div className="flex justify-between items-center">
-                <h2 className="text-sm font-semibold">{chat.name}</h2>
-                <span className="text-xs text-gray-400">{chat.time}</span>
+                <h2 className="text-sm font-semibold text-gray-800">{chat.name}</h2>
+                <span className="text-xs text-gray-500">{chat.time}</span>
               </div>
               <p className="text-xs text-gray-600 truncate">{chat.lastMessage}</p>
             </div>

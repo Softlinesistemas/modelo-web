@@ -6,7 +6,7 @@ import React from 'react';
 
 export const MainBanner: React.FC = () => {
   return (
-    <div className="bg-[#B6D3B7] text-center text-sm h-20 ">
+    <div className="bg-[#ffffff] text-center text-sm h-16 ">
       {/* Imagem de fundo opcional — descomente e ajuste o path quando for utilizar */}
         <Image 
           src={bannerGov}

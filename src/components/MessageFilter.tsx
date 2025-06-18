@@ -11,26 +11,28 @@ type Props = {
 
 const MessageFilter: React.FC<Props> = ({ activeFilter, onFilterChange }) => {
   return (
-    <div className="flex justify-around bg-white py-2 shadow">
+    <div className="flex justify-around bg-white py-2 shadow sticky top-0 z-10">
       <button
-        className={`px-4 py-1 rounded-full text-sm font-medium ${
-          activeFilter === 'todos' ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700'
+        className={`px-4 py-1 rounded-full text-sm font-semibold ${
+          activeFilter === 'todos' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-800'
         }`}
         onClick={() => onFilterChange('todos')}
       >
         Todos
       </button>
+
       <button
-        className={`px-4 py-1 rounded-full text-sm font-medium ${
-          activeFilter === 'favoritos' ? 'bg-yellow-400 text-white' : 'bg-gray-200 text-gray-700'
+        className={`px-4 py-1 rounded-full text-sm font-semibold ${
+          activeFilter === 'favoritos' ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-800'
         }`}
         onClick={() => onFilterChange('favoritos')}
       >
         Favoritos
       </button>
+
       <button
-        className={`px-4 py-1 rounded-full text-sm font-medium ${
-          activeFilter === 'nao_lidas' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+        className={`px-4 py-1 rounded-full text-sm font-semibold ${
+          activeFilter === 'nao_lidas' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-gray-800'
         }`}
         onClick={() => onFilterChange('nao_lidas')}
       >
