@@ -44,11 +44,11 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
           onScanClick={handleCloseQrCode}
         />
       ) : (
-        <div className="flex h-[80px]">
+        <div className="flex h-24">
           {/* Avatar */}
-          <div className="w-[100px] h-full rounded overflow-hidden flex-shrink-0">
+          <div className="h-full rounded overflow-hidden flex-shrink-0">
             <img
-              src="/avatar.jpg"
+              src="/avatar2.jpeg"
               alt="Avatar"
               className="w-full h-full object-cover"
             />

@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Classe para aplicar a animação de deslizamento contínuo */
+.animate-slide {
+  animation: slide 20s linear infinite; /* 20 segundos para completar um ciclo, ajuste se quiser mais rápido ou mais lento */
+}
