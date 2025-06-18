@@ -2,7 +2,8 @@
 'use client';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiStar, FiTrash2, FiCheck, FiCheckDouble } from 'react-icons/fi';
+import { FiStar, FiTrash2, FiCheck } from 'react-icons/fi';
+import { IoCheckmarkDone } from "react-icons/io5";
 
 type Message = {
   id: number;
@@ -22,8 +23,8 @@ type Props = {
 
 const statusIcon = {
   sent: <FiCheck className="text-gray-500" />,
-  delivered: <FiCheckDouble className="text-gray-500" />,
-  read: <FiCheckDouble className="text-green-500" />,
+  delivered: <IoCheckmarkDone className="text-gray-500" />,
+  read: <IoCheckmarkDone className="text-green-500" />,
 };
 
 const MessageItem: React.FC<Props> = ({ message, onFavorite, onDelete, onReact }) => {
@@ -34,7 +35,7 @@ const MessageItem: React.FC<Props> = ({ message, onFavorite, onDelete, onReact }
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: 50 }}
-      className={\`relative p-2 rounded-lg text-sm shadow \${message.from === 'user' ? 'bg-green-100 self-end' : 'bg-white self-start'}\`}
+      className={`relative p-2 rounded-lg text-sm shadow ${message.from === 'user' ? 'bg-green-100 self-end' : 'bg-white self-start'}`}
     >
       <p>{message.text}</p>
       <div className="flex items-center justify-between mt-1 text-xs text-gray-500">
