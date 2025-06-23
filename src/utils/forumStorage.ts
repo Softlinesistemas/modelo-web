@@ -1,0 +1,1 @@
+// forumStorage mock content

@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import {
   FiLayers,
   FiUsers,
@@ -9,20 +11,20 @@ import {
 } from 'react-icons/fi';
 
 import { useRouter } from 'next/navigation';
-
+import { CreateGroupModal } from './modals/CreateGroupModal';
 type Button = {
   label: string;
   icon: React.ReactNode;
-  color: string; 
-  onClick: () => void; // adicionando função de clique ao tipo
+  color: string;
+  onClick: () => void;
 };
 
 export const ActionGrid: React.FC = () => {
   const navigate = useRouter();
+  const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(false);  // Estado de controle
 
   const handleEditarFeed = () => {
     console.log('Editar Feed clicado');
-    // Coloque aqui sua lógica de navegação ou abrir modal
   };
 
   const handleEditarPerfil = () => {
@@ -35,6 +37,7 @@ export const ActionGrid: React.FC = () => {
 
   const handleCriarGrupo = () => {
     console.log('Criar Grupo clicado');
+    setIsCreateGroupModalOpen(true);  // Abre o modal
   };
 
   const handleProcurar = () => {
@@ -45,7 +48,10 @@ export const ActionGrid: React.FC = () => {
     navigate.push('/chat');
   };
 
-  // Lista dos botões com a função de clique vinculada
+  const handleCloseModal = () => {
+    setIsCreateGroupModalOpen(false);  // Fecha o modal
+  };
+
   const actionButtons: Button[] = [
     { label: 'Editar Feed', icon: <FiLayers />, color: 'bg-[#8F7E76] hover:bg-[#dfcdb5]', onClick: handleEditarFeed },
     { label: 'Editar Perfil', icon: <FiUserPlus />, color: 'bg-[#BEB780] hover:bg-[#dfcdb5]', onClick: handleEditarPerfil },
@@ -56,18 +62,23 @@ export const ActionGrid: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-3 mt-1 sm:grid-cols-3 gap-2 p-4 w-full rounded-sm">
-      {actionButtons.map((btn, idx) => (
-        <button
-          key={idx}
-          onClick={btn.onClick} // associando a função de clique aqui
-          className={`flex flex-col items-center justify-center p-4 rounded-lg transition ${btn.color}`}
-          type="button"
-        >
-          <div className="text-2xl mb-2 text-gray-700">{btn.icon}</div>
-          <span className="text-sm font-medium text-gray-800">{btn.label}</span>
-        </button>
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-3 mt-1 sm:grid-cols-3 gap-2 p-2 w-full rounded-sm">
+        {actionButtons.map((btn, idx) => (
+          <button
+            key={idx}
+            onClick={btn.onClick}
+            className={`flex flex-col items-center justify-center p-1 rounded-lg transition ${btn.color}`}
+            type="button"
+          >
+            <div className="text-2xl mb-2 text-gray-700">{btn.icon}</div>
+            <span className="text-md font-medium text-gray-800">{btn.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Modal Criar Grupo */}
+      <CreateGroupModal isOpen={isCreateGroupModalOpen} onClose={handleCloseModal} />
+    </>
   );
 };

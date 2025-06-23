@@ -28,6 +28,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/components/groups/topics/ForumTopic.TXT"  ],
   "exclude": ["node_modules"]
 }

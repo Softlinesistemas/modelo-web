@@ -36,7 +36,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const handleCloseQrCode = () => setShowQrCode(false); // Fechar QR Code se quiser
 
   return (
-    <div className="bg-green-100 mt-2 p-3 w-full mx-auto border-2 border-gray-300">
+    <div className="bg-green-100 mt-1 p-1 w-full mx-auto border-2 border-gray-300">
       {/* Renderiza o QR Code ou a seleção de usuário */}
       {showQrCode ? (
         <QrCode 
