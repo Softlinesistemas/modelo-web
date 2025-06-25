@@ -21,6 +21,7 @@
     "@fullcalendar/resource-timeline": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
     "@headlessui/react": "^2.2.4",
+    "@hookform/resolvers": "^5.1.1",
     "apexcharts": "^4.5.0",
     "aws-sdk": "^2.1580.0",
     "axios": "^1.6.8",
@@ -36,7 +37,7 @@
     "flag-icon-css": "^4.1.7",
     "flag-icons": "^7.3.2",
     "formidable": "^3.5.1",
-    "framer-motion": "^11.2.6",
+    "framer-motion": "^11.18.2",
     "html-to-image": "^1.11.11",
     "html5-qrcode": "^2.3.8",
     "i18next": "^24.2.3",
@@ -62,6 +63,7 @@
     "react-day-picker": "^9.0.3",
     "react-dom": "^19.1.0",
     "react-draggable": "^4.4.6",
+    "react-hook-form": "^7.58.1",
     "react-i18next": "^15.5.3",
     "react-icons": "^5.0.1",
     "react-image-crop": "^11.0.5",
@@ -87,7 +89,8 @@
     "ts-node": "^10.9.2",
     "uuid": "^9.0.1",
     "video.js": "^8.17.3",
-    "zipcodes": "^8.0.0"
+    "zipcodes": "^8.0.0",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",

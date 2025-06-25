@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { Input } from '@/utils/ui/Input';
 import { Label } from '@/utils/ui/Label';
-import Input from './common/Input';
+import { useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { userBasicSchema, UserBasicSchema } from '@/schemas/userSchema';
 
-// === Tipagens das APIs ===
 interface Estado {
   id: number;
   sigla: string;
@@ -19,65 +20,62 @@ interface Pais {
 }
 
 export const AuthScreen = () => {
+  const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<UserBasicSchema>({
+    resolver: zodResolver(userBasicSchema),
+    defaultValues: {
+      Role: 'USER',
+      TermosPrivacidade: false,
+      ParticiparEvento: false,
+      Pais: 'Brasil',
+      Privacidade: 'PUBLICO'
+    }
+  });
+
   const [activeTab, setActiveTab] = useState<'login' | 'cadastro'>('login');
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("Esse usuário já existe")
-
-  const [nome, setNome] = useState("");
-
-  const [emailLogin, setEmailLogin] = useState('');
-  const [senhaLogin, setSenhaLogin] = useState('');
-
-  const [cep, setCep] = useState('');
-  const [logradouro, setLogradouro] = useState('');
-  const [bairro, setBairro] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [estado, setEstado] = useState('');
-  const [pais, setPais] = useState('Brasil');
-
   const [listaEstados, setListaEstados] = useState<Estado[]>([]);
   const [listaPaises, setListaPaises] = useState<Pais[]>([]);
 
+  const onSubmit = (data: UserBasicSchema) => {
+    console.log('Dados válidos:', data);
+  };
+
   useEffect(() => {
-    async function fetchEstados() {
-      const resp = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados');
-      const data: Estado[] = await resp.json();
-      setListaEstados(data.sort((a, b) => a.nome.localeCompare(b.nome)));
-    }
-    fetchEstados();
+    fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+      .then(res => res.json())
+      .then((data: Estado[]) => setListaEstados(data.sort((a, b) => a.nome.localeCompare(b.nome))));
   }, []);
 
   useEffect(() => {
-    async function fetchPaises() {
-      const resp = await fetch('https://restcountries.com/v3.1/all?fields=name,cca2');
-      const data: Pais[] = await resp.json();
-      setListaPaises(data.sort((a, b) => a.name.common.localeCompare(b.name.common)));
-    }
-    fetchPaises();
+    fetch('https://restcountries.com/v3.1/all?fields=name,cca2')
+      .then(res => res.json())
+      .then((data: Pais[]) => setListaPaises(data.sort((a, b) => a.name.common.localeCompare(b.name.common))));
   }, []);
 
   const handleBuscarCep = async () => {
-    if (cep.length !== 8) {
+    const cep = watch('Cep');
+    if (!cep || cep.length !== 7) {
       alert('Digite um CEP válido com 8 dígitos.');
       return;
     }
+
     try {
       const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data = await resp.json();
 
       if (data.erro) {
         alert('CEP não encontrado. Preencha manualmente.');
-        setLogradouro('');
-        setBairro('');
-        setCidade('');
-        setEstado('');
-        setPais('Brasil');
+        setValue('Endereco', '');
+        setValue('Bairro', '');
+        setValue('Cidade', '');
+        setValue('Estado', '');
+        setValue('Pais', 'Brasil');
       } else {
-        setLogradouro(data.logradouro || '');
-        setBairro(data.bairro || '');
-        setCidade(data.localidade || '');
-        setEstado(data.uf || '');
-        setPais('Brasil');
+        setValue('Endereco', data.logradouro || '');
+        setValue('Bairro', data.bairro || '');
+        setValue('Cidade', data.localidade || '');
+        setValue('Estado', data.uf || '');
+        setValue('Pais', 'Brasil');
       }
     } catch (err) {
       console.error('Erro ao buscar CEP:', err);
@@ -87,15 +85,13 @@ export const AuthScreen = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col relative">
-      <div
-        className="h-48 w-full bg-cover bg-center rounded-b-[40px] opacity-40 drop-shadow-lg shadow-gray-300"
-        style={{ backgroundImage: `url('/images/bg-auth.jpg')` }}
-      />
+      <div className="h-48 w-full bg-cover bg-center rounded-b-[40px] opacity-40 drop-shadow-lg shadow-gray-300"
+        style={{ backgroundImage: `url('/images/bg-auth.jpg')` }} />
 
-      <div className="flex-1 bg-green-100 flex items-start justify-center pt-[-3rem] relative">
+      <div className="flex-1 bg-green-100 flex items-start justify-center relative">
         <div className="relative z-10 bg-white w-80 max-w-sm rounded-3xl shadow-lg p-6 -mt-16">
 
-          {/* Abas */}
+          {/* Tabs */}
           <div className="flex bg-gray-100 rounded-full p-1 mb-6">
             <button
               onClick={() => setActiveTab('login')}
@@ -110,24 +106,14 @@ export const AuthScreen = () => {
           {/* Login */}
           {activeTab === 'login' && (
             <div className="space-y-5">
-              <Label>E-mail</Label>
-              <Input
-                type="email"
-                value={emailLogin}
-                onChange={e => setEmailLogin(e.target.value)}
-              />
+              <Label>Email</Label>
+              <Input type="email" />
 
               <Label>Senha</Label>
               <div className="relative">
-                <Input
-                  type={showPassword ? 'text' : 'password'}
-                  value={senhaLogin}
-                  onChange={e => setSenhaLogin(e.target.value)}
-                />
-                <div
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
-                  onClick={() => setShowPassword(prev => !prev)}
-                >
+                <Input type={showPassword ? 'text' : 'password'} />
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+                  onClick={() => setShowPassword(prev => !prev)}>
                   {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                 </div>
               </div>
@@ -135,50 +121,43 @@ export const AuthScreen = () => {
               <button className="w-full bg-green-700 text-white py-2 rounded-full font-semibold hover:bg-green-800 transition">
                 Acessar
               </button>
-
-              <div className="text-center">
-                <button className="text-green-700 text-sm hover:underline">Esqueci a senha</button>
-              </div>
             </div>
           )}
 
           {/* Cadastro */}
           {activeTab === 'cadastro' && (
-            <form className="space-y-1">
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <Label>Nome público *</Label>
-              <Input type="text" />
+              <Input type="text" {...register('Usuario')} error={errors.Usuario?.message} />
 
               <Label>Usuário *</Label>
-              <Input type="text" error="Esse usuário já existe" />
-              {/* Usuário */}
-              <label className="block text-sm font-medium text-gray-700">Usuário *</label>
-              <Input  type="text" error={error} onFocusRemoveError={() => setError("")} onChange={(e: any) => {
-                setNome(e.target.value);
-                if (!e.target.value) {
-                  setError("");
-                  return;
-                }
-                setError("Esse usuário já existe");
-              }}/>
+              <Input type="text" {...register('Nome')} error={errors.Nome?.message} />
 
-              <Label>Telefone</Label>
-              <Input type="text" />
+              <Label>Telefone *</Label>
+              <Input type="text" {...register('Telefone')} error={errors.Telefone?.message} />
 
-              <Label>Repetir telefone</Label>
-              <Input type="text" />
+              <Label>Email *</Label>
+              <Input type="email" {...register('Email')} error={errors.Email?.message} />
 
-              <Label>E-mail</Label>
-              <Input type="email" />
+              <Label>CPF</Label>
+              <Input type="text" {...register('CPF')} error={errors.CPF?.message} />
 
-              <Label>Repetir e-mail</Label>
-              <Input type="email" />
+              <Label>Data de nascimento *</Label>
+              <div className="flex gap-2">
+                <Input placeholder="Dia" type="number" {...register('DiaNascimento')} error={errors.DiaNascimento?.message} />
+                <Input placeholder="Mês" type="number" {...register('MesNascimento')} error={errors.MesNascimento?.message} />
+                <Input placeholder="Ano" type="number" {...register('AnoNascimento')} error={errors.AnoNascimento?.message} />
+              </div>
+
+              <Label>Privacidade</Label>
+              <select {...register('Privacidade')} className="w-full border rounded-lg p-2">
+                <option value="PUBLICO">Público</option>
+                <option value="PRIVADO">Privado</option>
+                <option value="AMIGOS">Amigos</option>
+              </select>
 
               <Label>País</Label>
-              <select
-                value={pais}
-                onChange={e => setPais(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
+              <select {...register('Pais')} className="w-full border rounded-lg p-2">
                 <option value="">Selecione o país</option>
                 {listaPaises.map(p => (
                   <option key={p.cca2} value={p.name.common}>{p.name.common}</option>
@@ -186,59 +165,50 @@ export const AuthScreen = () => {
               </select>
 
               <Label>Estado (UF)</Label>
-              <select
-                value={estado}
-                onChange={e => setEstado(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
+              <select {...register('Estado')} className="w-full border rounded-lg p-2">
                 <option value="">Selecione o estado</option>
                 {listaEstados.map(uf => (
                   <option key={uf.id} value={uf.sigla}>{uf.nome} ({uf.sigla})</option>
                 ))}
               </select>
 
+              <Label>Cidade</Label>
+              <Input type="text" {...register('Cidade')} error={errors.Cidade?.message} />
+
               <Label>CEP</Label>
-              <div className="flex space-x-2 border border-gray-300 rounded-lg">
-                <Input
-                  type="text"
-                  value={cep}
-                  onChange={e => setCep(e.target.value.replace(/\D/g, ''))}
-                />
-                <button
-                  type="button"
-                  onClick={handleBuscarCep}
-                  className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm"
-                >
+              <div className="flex space-x-2">
+                <Input type="text" {...register('Cep')} />
+                <button type="button" onClick={handleBuscarCep} className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm">
                   Buscar
                 </button>
               </div>
 
-              <Label>Rua / Logradouro</Label>
-              <Input
-                type="text"
-                value={logradouro}
-                onChange={e => setLogradouro(e.target.value)}
-              />
+              <Label>Endereço</Label>
+              <Input type="text" {...register('Endereco')} />
+
+              <Label>Número</Label>
+              <Input type="text" {...register('NumeroEndereco')} />
+
+              <Label>Complemento</Label>
+              <Input type="text" {...register('Complemento')} />
 
               <Label>Bairro</Label>
-              <Input
-                type="text"
-                value={bairro}
-                onChange={e => setBairro(e.target.value)}
-              />
+              <Input type="text" {...register('Bairro')} />
 
-              <Label>Cidade</Label>
-              <Input
-                type="text"
-                value={cidade}
-                onChange={e => setCidade(e.target.value)}
-              />
+              <Label>Senha *</Label>
+              <Input type="password" {...register('Senha')} error={errors.Senha?.message} />
 
-              <Label>Data de nascimento *</Label>
-              <Input type="date" />
-              <p className="text-xs text-gray-500">Sua idade ficará sempre oculta.</p>
+              <div className="flex gap-2 items-center">
+                <input type="checkbox" {...register('TermosPrivacidade')} />
+                <span className="text-sm">Li e aceito os Termos de Privacidade</span>
+              </div>
 
-              <button className="w-full bg-green-700 text-white py-2 rounded-full font-semibold hover:bg-green-800 transition">
+              <div className="flex gap-2 items-center">
+                <input type="checkbox" {...register('ParticiparEvento')} />
+                <span className="text-sm">Aceito receber notificações de eventos</span>
+              </div>
+
+              <button type="submit" className="w-full bg-green-700 text-white py-2 rounded-full font-semibold hover:bg-green-800 transition">
                 Criar conta
               </button>
 
