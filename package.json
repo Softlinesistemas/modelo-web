@@ -20,6 +20,7 @@
     "@fullcalendar/react": "^6.1.15",
     "@fullcalendar/resource-timeline": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
+    "@headlessui/react": "^2.2.4",
     "apexcharts": "^4.5.0",
     "aws-sdk": "^2.1580.0",
     "axios": "^1.6.8",
