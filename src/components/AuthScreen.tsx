@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import Input from './common/Input';
 
 // === Tipagens para resposta das APIs ===
 interface Estado {
@@ -20,6 +21,9 @@ export const AuthScreen = () => {
   // === Controle de abas ===
   const [activeTab, setActiveTab] = useState<'login' | 'cadastro'>('login');
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("Esse usuário já existe")
+
+  const [nome, setNome] = useState("");
 
   // === Estados para login ===
   const [emailLogin, setEmailLogin] = useState('');
@@ -186,11 +190,14 @@ export const AuthScreen = () => {
 
               {/* Usuário */}
               <label className="block text-sm font-medium text-gray-700">Usuário *</label>
-              <input
-                type="text"
-                className="w-full px-4 py-2 border border-red-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-              <span className="text-red-600 text-xs">Esse usuário já existe</span>
+              <Input  type="text" error={error} onFocusRemoveError={() => setError("")} onChange={(e: any) => {
+                setNome(e.target.value);
+                if (!e.target.value) {
+                  setError("");
+                  return;
+                }
+                setError("Esse usuário já existe");
+              }}/>
 
               {/* Telefone */}
               <label className="block text-sm font-medium text-gray-700">Telefone</label>
