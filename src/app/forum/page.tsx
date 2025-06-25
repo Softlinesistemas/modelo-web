@@ -1,1 +1,0 @@
-// Forum page mock content
