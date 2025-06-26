@@ -6,7 +6,6 @@ import { Header } from '@/components/Header';
 const LoginPage = () => {
   return (
     <>
-      <Header />
       <AuthScreen />
     </>
   );

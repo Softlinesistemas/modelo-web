@@ -20,7 +20,7 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="w-full">
-      <div className="relative w-full">
+      <div className="relative w-full -top-2">
         {/* Ícone à esquerda */}
         {leftIcon && (
           <div className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">

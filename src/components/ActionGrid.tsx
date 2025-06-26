@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React, { useState } from 'react';
 import {
@@ -32,7 +32,7 @@ export const ActionGrid: React.FC = () => {
   };
 
   const handleEditarAlbum = () => {
-    console.log('Editar Álbum clicado');
+    navigate.push('/galeria');
   };
 
   const handleCriarGrupo = () => {

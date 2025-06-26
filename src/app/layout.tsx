@@ -1,23 +1,20 @@
 import './globals.css';
 import { ReactNode, Suspense } from 'react';
 import { AppProvider } from './context/UserContext';
+import { Header } from '../components/Header';
+import { BottomNav } from '../components/BottomNav';
 
-export const metadata = {
-  title: 'GooAgro',
-  description: 'Conectando Produtores & Clientes',
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className="bg-green-50 min-h-screen flex flex-col pb-16 relative mx-auto w-full">
-        <Suspense fallback={<div className='absolute inset-0 w-full h-full'>Carregando...</div>}>
-          {children}
-        </Suspense>
+        <AppProvider>
+          <Header />
+          <Suspense fallback={<div className="absolute inset-0 w-full h-full">Carregando...</div>}>
+            <main className="flex-grow">{children}</main>
+          </Suspense>
+          <BottomNav />
+        </AppProvider>
       </body>
     </html>
   );

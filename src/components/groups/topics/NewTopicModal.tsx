@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Topic } from './ForumTopic.TXT';
+import { Topic } from '../ForumTopic';
 import { format } from 'date-fns';
 
 type Props = {
