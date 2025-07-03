@@ -37,7 +37,7 @@ export const ActionGrid: React.FC = () => {
 
   const handleCriarGrupo = () => {
     console.log('Criar Grupo clicado');
-    setIsCreateGroupModalOpen(true);  // Abre o modal
+    setIsCreateGroupModalOpen(true);  
   };
 
   const handleProcurar = () => {
@@ -49,7 +49,7 @@ export const ActionGrid: React.FC = () => {
   };
 
   const handleCloseModal = () => {
-    setIsCreateGroupModalOpen(false);  // Fecha o modal
+    setIsCreateGroupModalOpen(false);  
   };
 
   const actionButtons: Button[] = [
