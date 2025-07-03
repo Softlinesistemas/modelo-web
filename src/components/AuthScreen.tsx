@@ -7,7 +7,7 @@ import { Label } from '@/utils/ui/Label';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userBasicSchema, UserBasicSchema } from '@/schemas/userSchema';
-import { BottomNav } from './BottomNav';
+
 
 interface Estado {
   id: number;
@@ -105,7 +105,7 @@ export const AuthScreen = () => {
         style={{ backgroundImage: `url('/images/bg-auth.jpg')` }} />
 
       <div className="flex-1 bg-green-100 max-w-full flex items-start justify-center relative">
-        <div className="relative z-10 bg-white max-w-full rounded-3xl shadow-lg p-6 -mt-16">
+        <div className="relative z-10 w-4/5 bg-white max-w-full rounded-3xl shadow-lg p-6 -mt-16">
 
           {/* Tabs */}
           <div className="flex bg-gray-100 rounded-full p-1 mb-6">
@@ -144,7 +144,7 @@ export const AuthScreen = () => {
 
           {/* Cadastro */}
           {activeTab === 'cadastro' && (
-            <form className="space-y-4 " onSubmit={handleSubmit(onSubmit)}>
+            <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
               {/* Nome público */}
               <Label>Nome público *</Label>
               <Input type="text" {...register('Nome')} error={errors.Nome?.message} />
@@ -165,8 +165,15 @@ export const AuthScreen = () => {
               <Label>Repetir e-mail</Label>
               <Input type="email" {...register('Email')} />
 
+                            {/* Senha e repetr senha */}
+              <Label>Senha *</Label>
+              <Input type="senha" {...register('Senha')} error={errors.Senha?.message} />
+              <Label>Repetir Senha</Label>
+              <Input type="senha" {...register('Senha')} />
+
+
               {/* País e Estado lado a lado */}
-              <div className="flex gap-2">
+              <div className="flex gap-5">
                 <div className="space-y-4">
                   <Label>País</Label>
                   <select {...register('Pais')} className="w-full border rounded-lg p-2">
@@ -185,19 +192,18 @@ export const AuthScreen = () => {
                     ))}
                   </select>
                 </div>
-              </div>
 
-              {/* Cidade e Bairro */}
-              <div className="flex gap-2">
-                <div className="space-y-4">
+                {/* Cidade e Bairro */}
+                <div className="space-y-4 p-2">
                   <Label>Cidade</Label>
                   <Input type="text" {...register('Cidade')} />
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-4 p-2">
                   <Label>Bairro / Local / Região</Label>
                   <Input type="text" {...register('Bairro')} />
                 </div>
               </div>
+            
 
               {/* Data de nascimento */}
               <Label>Data de nascimento *</Label>

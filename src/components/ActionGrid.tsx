@@ -41,7 +41,7 @@ export const ActionGrid: React.FC = () => {
   };
 
   const handleProcurar = () => {
-    console.log('Procurar clicado');
+    navigate.push('/buscador');
   };
 
   const handleMensagem = () => {

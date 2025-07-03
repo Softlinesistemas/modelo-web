@@ -1,12 +1,28 @@
 'use client'
+import { bannerGov3 } from '../../public';
+import Image from 'next/image';
+
 import React from 'react';
 
-export const SecondaryBanner: React.FC = () => (
-  <div className="bg-blue-700 text-white p-1 m-1 rounded-lg text-center">
-    
-    <strong>AgroInvest Banrisul</strong>
-    <p className="mt-1">Invista em inovação e melhore seus resultados no campo.</p>
-    
-    <button className="mt-1 px-1 py-1 border border-white rounded">Saiba mais</button>
-  </div>
-);
+export const SecondaryBanner: React.FC = () => {
+  return (
+    <div className="bg-[#ffffff] text-center text-sm h-48 ">
+      {/* Imagem de fundo opcional — descomente e ajuste o path quando for utilizar */}
+      <a
+        href="https://www.gov.br/mda/pt-br/acesso-a-informacao/acoes-e-programas/programas-projetos-acoes-obras-e-atividades/plano-safra-da-agricultura-familiar"
+        target="_blank"
+        rel="boopener noreferrer"
+        >
+        <Image 
+          src={bannerGov3}
+          alt="Banner ilustrativo"
+          className="w-full h-full object-contain z-0"
+        />
+        </a>
+      <div className="relative z-10 ">  
+        {/* <strong>Indução de defesa:</strong> uma nova abordagem no manejo de doenças
+        <button className="ml-2 underline">QUERO ME INSCREVER AGORA!</button> */}
+      </div>
+    </div>
+  );
+};

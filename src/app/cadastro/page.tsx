@@ -40,7 +40,7 @@ export default function Cadastro() {
   const [nomePublico, setNomePublico] = useState('');
   const [usuario, setUsuario] = useState('');
   const [email, setEmail] = useState('');
-  const [contato, setContato] = useState(''); // WhatsApp ou Telegram
+  const [contato, setContato] = useState(''); 
   const [pais, setPais] = useState('');
   const [estado, setEstado] = useState('');
   const [cidade, setCidade] = useState('');

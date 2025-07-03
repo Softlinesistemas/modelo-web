@@ -31,8 +31,7 @@ export default function ChatListPage() {
 
   return (
     <div className="h-screen bg-white flex flex-col">
-      {/* Header */}
-      <Header />
+
       <h1 className="p-4 border-b text-lg font-bold text-green-700">Conversas</h1>
 
       {/* Lista de chats */}
