@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { FiEye, FiEyeOff, FiChevronDown, FiChevronUp, FiPlus } from 'react-icons/fi';
+import { FiEye, FiEyeOff, FiChevronDown, FiChevronUp, FiPlus, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { Input } from '@/utils/ui/Input';
 import { Label } from '@/utils/ui/Label';
 import { useForm } from "react-hook-form";
@@ -104,8 +104,9 @@ export const AuthScreen = () => {
       <div className="h-72 w-full bg-cover bg-center rounded-b-[40px] opacity-40 drop-shadow-lg shadow-gray-300"
         style={{ backgroundImage: `url('/images/bg-auth.jpg')` }} />
 
+
       <div className="flex-1 bg-green-100 max-w-full flex items-start justify-center relative">
-        <div className="relative z-10 w-4/5 bg-white max-w-full rounded-3xl shadow-lg p-6 -mt-16">
+        <div className="relative z-10 w-max bg-white max-w-full rounded-3xl shadow-lg p-6 -mt-16">
 
           {/* Tabs */}
           <div className="flex bg-gray-100 rounded-full p-1 mb-6">
@@ -124,7 +125,7 @@ export const AuthScreen = () => {
             <div className="space-y-3">
               <Label>Usuário</Label>
               <div className="relative -top-2">
-              <Input type="text" />
+                <Input type="text" />
               </div>
 
               <Label>Senha</Label>
@@ -144,7 +145,15 @@ export const AuthScreen = () => {
 
           {/* Cadastro */}
           {activeTab === 'cadastro' && (
-            <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
+
+            <form
+              className="space-y-4 w-full max-w-[700px] px-4 mx-auto"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              {/* Descrição PESSOA-FÍSICA */}
+              <div className="text-sm text-gray-700 bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-md">
+                <strong>1- PESSOA-FÍSICA:</strong> Participante de Grupos Diversos; Clientes de Serviços & Produtos; Pesquisadores; Empreendedores; Estudantes e Funcionários/RH de Instituições.
+              </div>
               {/* Nome público */}
               <Label>Nome público *</Label>
               <Input type="text" {...register('Nome')} error={errors.Nome?.message} />
@@ -165,27 +174,36 @@ export const AuthScreen = () => {
               <Label>Repetir e-mail</Label>
               <Input type="email" {...register('Email')} />
 
-                            {/* Senha e repetr senha */}
+              {/* Senha e repetr senha */}
               <Label>Senha *</Label>
               <Input type="senha" {...register('Senha')} error={errors.Senha?.message} />
               <Label>Repetir Senha</Label>
               <Input type="senha" {...register('Senha')} />
 
 
-              {/* País e Estado lado a lado */}
-              <div className="flex gap-5">
-                <div className="space-y-4">
+              {/* País, Estado, Cidade e Bairro */}
+              <div className="flex flex-wrap gap-4">
+                {/* País */}
+                <div className="flex-1 min-w-[200px] space-y-2">
                   <Label>País</Label>
-                  <select {...register('Pais')} className="w-full border rounded-lg p-2">
+                  <select
+                    {...register('Pais')}
+                    className="w-full border rounded-lg p-2"
+                  >
                     <option value="">Selecione o país</option>
                     {listaPaises.map(p => (
                       <option key={p.cca2} value={p.name.common}>{p.name.common}</option>
                     ))}
                   </select>
                 </div>
-                <div className="space-y-4">
+
+                {/* Estado */}
+                <div className="flex-1 min-w-[200px] space-y-2">
                   <Label>Estado (UF)</Label>
-                  <select {...register('Estado')} className="w-full border rounded-lg p-2">
+                  <select
+                    {...register('Estado')}
+                    className="w-full border rounded-lg p-2"
+                  >
                     <option value="">Selecione o estado</option>
                     {listaEstados.map(uf => (
                       <option key={uf.id} value={uf.sigla}>{uf.nome} ({uf.sigla})</option>
@@ -193,17 +211,20 @@ export const AuthScreen = () => {
                   </select>
                 </div>
 
-                {/* Cidade e Bairro */}
-                <div className="space-y-4 p-2">
+                {/* Cidade */}
+                <div className="flex-1 min-w-[200px] space-y-2">
                   <Label>Cidade</Label>
                   <Input type="text" {...register('Cidade')} />
                 </div>
-                <div className="space-y-4 p-2">
+
+                {/* Bairro */}
+                <div className="flex-1 min-w-[200px] space-y-2">
                   <Label>Bairro / Local / Região</Label>
                   <Input type="text" {...register('Bairro')} />
                 </div>
               </div>
-            
+
+
 
               {/* Data de nascimento */}
               <Label>Data de nascimento *</Label>
@@ -214,42 +235,91 @@ export const AuthScreen = () => {
               </div>
               <p className="text-xs text-gray-500 -mt-2">Sua idade ficará sempre oculta.</p>
 
-              {/* Contato adicional */}
-              <Label>Por adicionar contato de comunicação (Até 3)</Label>
-              <div className="border rounded-lg p-2 bg-gray-50 text-sm text-gray-600">
-                (Pais/Responsáveis, Cônjuge, Familiar, Parceria, etc.)
-              </div>
+              <div className="space-y-3 mt-4">
+                <Label>Por adicionar contato de comunicação (Até 3)</Label>
+                <div className="border rounded-lg p-3 bg-gray-50 text-sm text-gray-600">
+                  (Pais/Responsáveis, Cônjuge, Familiar, Parceria, etc.)
+                </div>
 
-              {contatosApoio.map((contato, index) => {
-                const usuarioField = `ContatosApoio.${index}.ContatoId` as const;
-                const nomeField = `ContatosApoio.${index}.NomeContato` as const;
-                const telefoneField = `ContatosApoio.${index}.TelefoneContato` as const;
-                const emailField = `ContatosApoio.${index}.EmailContato` as const;
-                const relacaoField = `ContatosApoio.${index}.Relacao` as const;
+                {contatosApoio.map((contato, index) => {
+                  const usuarioField = `ContatosApoio.${index}.ContatoId` as const;
+                  const nomeField = `ContatosApoio.${index}.NomeContato` as const;
+                  const telefoneField = `ContatosApoio.${index}.TelefoneContato` as const;
+                  const emailField = `ContatosApoio.${index}.EmailContato` as const;
+                  const relacaoField = `ContatosApoio.${index}.Relacao` as const;
 
-                const nome = watch(nomeField);
+                  const nome = watch(nomeField);
 
-                return (
-                  <div key={index} className="bg-white border rounded-lg p-3 mt-2">
-                    <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleContato(index)}>
-                      <Label className="text-sm">
-                        {nome ? nome : `Contato ${index + 1}`}
-                      </Label>
-                      {contato.open ? <FiChevronUp size={18} /> : <FiChevronDown size={18} />}
-                    </div>
+                  const handleCancelar = () => {
+                    setValue(usuarioField, 0);
+                    setValue(nomeField, '');
+                    setValue(telefoneField, '');
+                    setValue(emailField, '');
+                    setValue(relacaoField, '');
+                  };
 
-                    {contato.open && (
-                      <div className="mt-3 space-y-2">
-                        <Input placeholder="Selecione um usuario GooAgro " {...register(usuarioField)} />
-                        <Input placeholder="Nome *" {...register(nomeField)} />
-                        <Input placeholder="Telefone *" {...register(telefoneField)} />
-                        <Input placeholder="Relação *" {...register(relacaoField)} />
-                        <Input placeholder="E-mail" {...register(emailField)} />
+                  const handleExcluir = () => {
+                    setContatosApoio((prev) => prev.filter((_, i) => i !== index));
+                  };
+
+                  const handleSalvar = () => {
+                    setContatosApoio((prev) =>
+                      prev.map((c, i) => (i === index ? { ...c, open: false, editando: false } : c))
+                    );
+                  };
+
+                  const handleEditar = () => {
+                    setContatosApoio((prev) =>
+                      prev.map((c, i) => (i === index ? { ...c, open: true, editando: true } : c))
+                    );
+                  };
+
+                  return (
+                    <div key={index} className="bg-gray-100 rounded-lg p-3 space-y-3">
+                      <div className="flex justify-between items-center bg-green-100 p-2 rounded-full">
+                        <span className="text-sm font-medium text-gray-800 px-3">
+                          {nome || `Contato ${index + 1}`}
+                        </span>
+                        <div className="flex gap-3 pr-2">
+                          <button type="button" onClick={handleEditar} className="text-green-700 hover:text-green-900">
+                            <FiEdit2 size={16} />
+                          </button>
+                          <button type="button" onClick={handleExcluir} className="text-red-600 hover:text-red-800">
+                            <FiTrash2 size={16} />
+                          </button>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+
+                      {contato.open && (
+                        <div className="space-y-3">
+                          <Input placeholder="Usuário *" {...register(usuarioField)} className="w-full rounded-xl text-sm" />
+                          <Input placeholder="Nome *" {...register(nomeField)} className="w-full rounded-xl text-sm" />
+                          <Input placeholder="Telefone *" {...register(telefoneField)} className="w-full rounded-xl text-sm" />
+                          <Input placeholder="Relação *" {...register(relacaoField)} className="w-full rounded-xl text-sm" />
+                          <Input placeholder="E-mail" {...register(emailField)} className="w-full rounded-xl text-sm" />
+
+                          <div className="flex justify-end gap-3 pt-2">
+                            <button
+                              type="button"
+                              onClick={handleCancelar}
+                              className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-1.5 rounded-full"
+                            >
+                              ❌ Cancelar
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleSalvar}
+                              className="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-1.5 rounded-full"
+                            >
+                              ✅ Salvar
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
 
               {contatosApoio.length < 3 && (
                 <button type="button" onClick={adicionarContato} className="flex items-center gap-2 text-green-700 mt-2 text-sm">
@@ -274,18 +344,16 @@ export const AuthScreen = () => {
                 </label>
               </div>
 
-              <button type="submit" className="w-full bg-green-700 text-white py-2 rounded-full font-semibold hover:bg-green-800 transition">
-                Criar conta
-              </button>
-
-              <p className="text-[10px] text-gray-600 mt-5">
-                * Atendendo à Lei Geral de Proteção de Dados Pessoais Nº 13.709/18
-              </p>
+              <div className="pt-4 pb-24">
+                <button type="submit" className="w-full bg-green-700 text-white py-2 rounded-full font-semibold hover:bg-green-800 transition">
+                  Criar conta
+                </button>
+                <p className="text-[10px] text-gray-600 mt-5">
+                  * Atendendo à Lei Geral de Proteção de Dados Pessoais Nº 13.709/18
+                </p>
+              </div>
             </form>
           )}
-          <div className="mt-6 text-center text-xs text-gray-600 pt-9">
-            Ajuda / FAQ / Tutoriais
-          </div>
         </div>
       </div>
     </div>
