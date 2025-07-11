@@ -1,94 +1,88 @@
-// components/PhotoGallery.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Trash2, ZoomIn } from "react-feather";
+import { Heart } from "react-feather";
 import ZoomModal from "./ZoomModal";
-// import { getItem, setItem } from "@/utils/storage";
 import type { Photo, Album } from "@/utils/models";
 
-export default function PhotoGallery({fotos, setFotos, albums, setAlbums}: any) {
-  const [photos, setPhotos] = useState<Photo[]>([]);
+interface PhotoGridProps {
+  fotos: Photo[];
+  setFotos: (fotos: Photo[]) => void;
+  albums: Album[];
+  setAlbums: (albums: Album[]) => void;
+}
+
+export default function PhotoGallery({
+  fotos, 
+  setFotos, 
+  albums, 
+  setAlbums
+}: PhotoGridProps) {
   const [zoomSrc, setZoomSrc] = useState<string>("");
+  const [activePhoto, setActivePhoto] = useState<Photo | null>(null);
 
-  // Carrega fotos e álbuns do localStorage ao montar o componente
-  // useEffect(() => {
-  //   setPhotos(getItem<Photo[]>("photos") || []);
-  //   setAlbums(getItem<Album[]>("albums") || []);
-  // }, []);
-
-  // Remove uma foto específica
-  const removePhoto = (id: string) => {
-    const updated = photos.filter((p) => p.id !== id);
-    setPhotos(updated);
-    // setItem("photos", updated);
+  // Alternar like
+  const toggleLike = (id: string) => {
+    const updated = fotos.map(photo => 
+      photo.id === id ? { ...photo, likes: (photo.likes || 0) + (photo.liked ? -1 : 1), liked: !photo.liked } : photo
+    );
+    setFotos(updated);
   };
 
-  // Retorna o nome do álbum dado um ID
-  const getAlbumName = (id?: string) =>
-    albums.find((a: any) => a.id === id)?.name || null;
-
   return (
-    <div className="px-4 py-6 max-w-5xl mx-auto">
-      <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-        Sua Galeria
-      </h2>
-
-      {/* Grade fixa de 3 colunas */}
-      <div className="grid grid-cols-3 gap-4">
-        {photos.map((photo) => (
+    <div className="pb-4">
+      <div className="grid grid-cols-3 gap-0.5">
+        {fotos.map((photo) => (
           <motion.div
             key={photo.id}
-            className="relative group overflow-hidden rounded-xl shadow-md border border-gray-200 hover:shadow-xl transition-all"
-            whileHover={{ scale: 1.03 }}
+            className="relative aspect-square overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {/* Imagem com zoom ao clicar */}
             <img
               src={photo.src}
-              onClick={() => setZoomSrc(photo.src)}
+              onClick={() => {
+                setZoomSrc(photo.src);
+                setActivePhoto(photo);
+              }}
               alt="Foto"
-              className="w-full h-[180px] object-cover cursor-pointer"
+              className="w-full h-full object-cover cursor-pointer"
             />
-
-            {/* Indicador de destaque */}
-            {photo.isHighlighted && (
-              <div className="absolute top-1 left-1 bg-yellow-400 text-white text-xs px-2 py-0.5 rounded shadow">
-                Destaque
+            
+            {/* Overlay de interação */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-green-300 to-transparent p-2">
+              <div className="flex justify-between items-center">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleLike(photo.id);
+                  }}
+                  className="text-black"
+                >
+                  <Heart 
+                    size={18} 
+                    fill={photo.liked ? "currentColor" : "none"} 
+                  />
+                </button>
+                <span className="text-xs text-blcak font-medium">
+                  {photo.likes || 0}
+                </span>
               </div>
-            )}
-
-            {/* Nome do álbum */}
-            {photo.albumId && (
-              <span className="absolute bottom-1 left-1 bg-white/80 text-xs px-2 py-0.5 rounded font-medium text-gray-700 backdrop-blur-sm">
-                {getAlbumName(photo.albumId)}
-              </span>
-            )}
-
-            {/* Botões visíveis apenas no hover */}
-            <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-              {/* Botão de Zoom */}
-              <button
-                onClick={() => setZoomSrc(photo.src)}
-                className="bg-white/90 backdrop-blur-md text-gray-800 p-2 rounded-full shadow-lg hover:scale-105 hover:bg-white transition"
-              >
-                <ZoomIn size={18} />
-              </button>
-
-              {/* Botão de Remoção */}
-              <button
-                onClick={() => removePhoto(photo.id)}
-                className="bg-red-600 text-white p-2 rounded-full shadow-lg hover:scale-105 hover:bg-red-700 transition"
-              >
-                <Trash2 size={18} />
-              </button>
             </div>
           </motion.div>
         ))}
       </div>
 
-      {/* Modal de zoom */}
-      <ZoomModal src={zoomSrc} onClose={() => setZoomSrc("")} />
+      {/* Modal de zoom com detalhes */}
+      {activePhoto && (
+        <ZoomModal 
+          src={zoomSrc} 
+          photo={activePhoto}
+          onClose={() => setZoomSrc("")}
+          onLike={toggleLike}
+        />
+      )}
     </div>
   );
 }

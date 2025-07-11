@@ -1,13 +1,18 @@
-export type Album = {
+export interface Photo {
+  id: string;
+  albumId?: string;
+  date: string;
+  src: string;
+  description?: string;
+  likes?: number;
+  liked?: boolean;
+  isHighlighted?: boolean;
+}
+
+export interface Album {
   id: string;
   name: string;
-  description: string;
-};
-
-export type Photo = {
-  id: string;
-  src: string;
-  caption?: string;
-  albumId?: string; // referência ao Album.id
-  isHighlighted?: boolean;
+  description?: string;
+  createdAt: string;
+  cover?: string | null;
 }

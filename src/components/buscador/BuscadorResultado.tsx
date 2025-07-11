@@ -1,3 +1,4 @@
+
 'use client';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,9 +13,14 @@ export type BuscadorResultado = {
 
 interface Props {
   results: BuscadorResultado[];
+  filterType: string;
 }
 
-export const BuscadorResultado: React.FC<Props> = ({ results }) => {
+export const BuscadorResultado: React.FC<Props> = ({ results, filterType }) => {
+  const filterName = filterType === 'amigos' ? 'Amigos' : 
+                    filterType === 'grupos' ? 'Grupos' : 
+                    filterType.charAt(0).toUpperCase() + filterType.slice(1);
+  
   return (
     <AnimatePresence>
       {results.length > 0 && (
@@ -26,22 +32,24 @@ export const BuscadorResultado: React.FC<Props> = ({ results }) => {
           transition={{ duration: 0.4 }}
           className="mt-6"
         >
-          <h3 className="text-lg font-bold mb-2 text-green-800">Resultados encontrados:</h3>
-          <ul className="space-y-3">
+          <h3 className="text-lg font-bold mb-2 text-green-800">
+            Filtrar {filterName} Resultados encontrados:
+          </h3>
+          
+          <div className="space-y-3">
             {results.map((item, index) => (
-              <li
+              <div
                 key={index}
-                className="bg-gray-100 border border-gray-300 p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="border-l-4 border-green-500 pl-3 py-1"
               >
                 <p className="font-semibold">{item.nome}</p>
-                <p className="text-sm text-gray-600">{item.descricao}</p>
-                <p className="text-xs text-gray-500">Local: {item.localizacao}</p>
-                {item.categoria && (
-                  <p className="text-xs text-gray-400 italic">Categoria: {item.categoria}</p>
+                <p className="text-sm">{item.descricao}</p>
+                {item.localizacao && (
+                  <p className="text-xs text-gray-500">Local: {item.localizacao}</p>
                 )}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

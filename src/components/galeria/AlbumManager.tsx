@@ -1,113 +1,108 @@
-// components/AlbumManager.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { v4 as uuid } from "uuid";
-// import { getItem, setItem } from "@/utils/storage";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { PlusCircle, X } from "react-feather";
 import type { Album } from "@/utils/models";
-import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { PlusCircle } from "react-feather";
-import api from "@/utils/api";
+
+interface AlbumManagerProps {
+  albums: Album[];
+  setAlbums: (albums: Album[]) => void;
+}
 
 export default function AlbumManager({
-  onAlbumCreated,
-  fotos, 
-  setFotos,
   albums, 
   setAlbums
-}: {
-  onAlbumCreated?: () => void;
-  fotos: any[];
-  setFotos: (value: any[]) => void;
-  albums: Album[];
-  setAlbums: (value: Album[]) => void;
-}) {
+}: AlbumManagerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
 
-  // useEffect(() => {
-  //   const saved = getItem<Album[]>("albums") || [];
-  //   setAlbums(saved);
-  // }, []);
-
   const createAlbum = () => {
-    if (!name) return;
-    const newAlbum = { id: uuid(), name, description: desc };
+    if (!name.trim()) return;
+    
+    const newAlbum: Album = { 
+      id: uuid(), 
+      name, 
+      description: desc,
+      createdAt: new Date().toISOString(),
+      cover: albums.length > 0 ? albums[0].cover : null
+    };
+    
     const updated = [...albums, newAlbum];
     setAlbums(updated);
-    // setItem("albums", updated);
+    
     setName("");
     setDesc("");
     setIsOpen(false);
-    onAlbumCreated?.();
-
-    setTimeout(() => {
-      if (confirm("Adicionar fotos agora?")) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        document.getElementById("upload-form")?.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 100);
   };
 
-  const viewAlbumImages = async (albumId: any) => {
-    // Esperar o felipe mandar a rota correta
-    try {
-      const response = await api.get("api/pegar/imagens/album/" + albumId);
-      const fotosArray = response.data;
-      setFotos(fotosArray);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
-    <div className="mb-6">
+    <div>
       <div className="flex justify-between items-center mb-4">
-        <h3 className="font-bold text-lg">Álbuns</h3>
+        <h3 className="font-bold text-lg">Seus Álbuns</h3>
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          className="flex items-center gap-2 bg-green-600 text-white px-3 py-1.5 rounded text-sm"
         >
-          <PlusCircle size={18} /> Criar Álbum
+          <PlusCircle size={16} /> Novo
         </button>
       </div>
 
-      <ul className="text-sm text-gray-700 grid grid-cols-2 sm:grid-cols-3 gap-2">
-        {albums.map((a) => (
-          <li onClick={() => viewAlbumImages(a.id)} key={a.id} className="bg-gray-100 rounded p-2 shadow-sm">
-            <strong>{a.name}</strong>
-            <p className="text-xs text-gray-500">{a.description}</p>
-          </li>
+      <div className="grid grid-cols-2 gap-4">
+        {albums.map((album) => (
+          <div key={album.id} className="bg-white border rounded-lg overflow-hidden shadow">
+            {album.cover ? (
+              <img src={album.cover} alt={album.name} className="aspect-square object-cover w-full" />
+            ) : (
+              <div className="aspect-square bg-gray-100 flex items-center justify-center">
+                <span className="text-gray-400 text-sm">Sem capa</span>
+              </div>
+            )}
+            <div className="p-3">
+              <h4 className="font-bold truncate">{album.name}</h4>
+              <p className="text-sm text-gray-500 truncate">{album.description}</p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
 
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center">
-          <DialogPanel className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
-            <DialogTitle className="text-xl font-bold mb-4">Criar Novo Álbum</DialogTitle>
-            <input
-              placeholder="Nome do álbum"
-              className="border p-2 w-full mb-2 rounded"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <textarea
-              placeholder="Descrição (opcional)"
-              className="border p-2 w-full mb-4 rounded resize-none"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-            />
-            <div className="flex justify-end gap-2">
-              <button
-                onClick={() => setIsOpen(false)}
-                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
-              >
-                Cancelar
-              </button>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <DialogPanel className="bg-white rounded-xl w-full max-w-md shadow-lg">
+            <div className="p-5">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold">Criar Álbum</h3>
+                <button onClick={() => setIsOpen(false)} className="text-gray-500">
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <input
+                placeholder="Nome do álbum *"
+                className="w-full border rounded-lg px-4 py-2.5 mb-3"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              
+              <textarea
+                placeholder="Descrição (opcional)"
+                className="w-full border rounded-lg px-4 py-2.5 mb-4 resize-none"
+                rows={3}
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
+              />
+              
               <button
                 onClick={createAlbum}
-                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                disabled={!name.trim()}
+                className={`w-full py-3 rounded-lg font-medium ${
+                  !name.trim()
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-green-600 text-white hover:bg-green-700"
+                }`}
               >
                 Criar Álbum
               </button>

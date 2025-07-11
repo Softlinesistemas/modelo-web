@@ -25,10 +25,12 @@ export const ActionGrid: React.FC = () => {
 
   const handleEditarFeed = () => {
     console.log('Editar Feed clicado');
+    navigate.push('/editarFeed');
   };
 
   const handleEditarPerfil = () => {
     console.log('Editar Perfil clicado');
+    navigate.push('/editarPerfil');
   };
 
   const handleEditarAlbum = () => {

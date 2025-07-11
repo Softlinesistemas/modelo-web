@@ -11,7 +11,7 @@ type Props = {
 
 const MessageFilter: React.FC<Props> = ({ activeFilter, onFilterChange }) => {
   return (
-    <div className="flex justify-around bg-white py-2 shadow sticky top-0 z-10">
+    <div className="flex justify-around bg-white p-2 box-border shadow-gray-300 shadow-md rounded-md sticky top-0 z-10">
       <button
         className={`px-4 py-1 rounded-full text-sm font-semibold ${
           activeFilter === 'todos' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-800'

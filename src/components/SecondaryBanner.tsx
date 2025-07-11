@@ -6,7 +6,7 @@ import React from 'react';
 
 export const SecondaryBanner: React.FC = () => {
   return (
-    <div className="bg-[#ffffff] text-center text-sm h-48 ">
+    <div className="bg-[#ffffff] text-center text-sm h-32 ">
       {/* Imagem de fundo opcional — descomente e ajuste o path quando for utilizar */}
       <a
         href="https://www.gov.br/mda/pt-br/acesso-a-informacao/acoes-e-programas/programas-projetos-acoes-obras-e-atividades/plano-safra-da-agricultura-familiar"
@@ -16,7 +16,7 @@ export const SecondaryBanner: React.FC = () => {
         <Image 
           src={bannerGov3}
           alt="Banner ilustrativo"
-          className="w-full h-full object-contain z-0"
+          className="w-full max-h-full object-contain z-0"
         />
         </a>
       <div className="relative z-10 ">  

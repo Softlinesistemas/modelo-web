@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { FiCalendar, FiClock, FiCloud, FiChevronDown } from 'react-icons/fi';
 import { MdOutlineQrCodeScanner } from "react-icons/md";
-import QrCode from './QrCode'; // Ajuste o caminho conforme a pasta real
+import QrCode from './QrCode';
 
 export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }> = ({ onActionSelect }) => {
   const handleSearchClick = () => onActionSelect?.('qrcode');

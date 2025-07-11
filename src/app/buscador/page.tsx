@@ -1,16 +1,11 @@
-// app/search/page.tsx
-'use client';
-import React from 'react';
-import { GooAgroFinder } from '@/components/Buscador';
-import { MainBanner } from '@/components/MainBanner';
 
-const Buscador = () => {
+import { Buscador } from '@/components/buscador/Buscador';
+import VinculosSociais from '@/components/VinculosSociais';
+
+export default function SearchPage() {
   return (
-    <main className="min-h-screen bg-[#f1fdf1] p-4">
-      <MainBanner />
-      <GooAgroFinder />
+    <main className="w-full bg-[#f1fdf1] flex items-center justify-center p-4">
+      <Buscador />
     </main>
   );
-};
-
-export default Buscador;
+}
