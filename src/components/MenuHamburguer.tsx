@@ -52,7 +52,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
         `}
       >
         {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b">
+        <div className="flex justify-between p-4 border-b">
           <h2 className="text-lg font-semibold">Menu</h2>
           <button onClick={handleClose}>
             <FiX size={24} />
@@ -60,36 +60,51 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
         </div>
 
         {/* Navegação */}
-        <nav className="flex flex-col gap-3 p-4">
-          {isLoggedIn && (
+        <nav className="flex flex-col gap-3 p-4 text-left">
+          {/* {isLoggedIn && ( */}
             <>
               {/* Meu Perfil */}
               <button
                 className="text-left"
                 onClick={() => handleNavigate('/meu-perfil')}
               >
-                Meu Perfil
+                Meu Perfil / Cadastro Básico
               </button>
+
+              <button
+                className="text-left"
+                onClick={() => handleNavigate('/editarPerfil')}
+              >
+                Editar Perfil / Informações Adicionais
+              </button>
+              
+              <button
+                className="text-left"
+                onClick={() => handleNavigate('/editarPerfil')}
+              >
+                Minha Tela-Pública
+              </button>
+              
 
               {/* Criar Perfil com Submenu */}
               <div>
                 <button
-                  className="text-left font-semibold"
+                  className="font-semibold text-left"
                   onClick={() => setShowCriarPerfilSubmenu(!showCriarPerfilSubmenu)}
                 >
                   Criar Perfil {showCriarPerfilSubmenu ? '▲' : '▼'}
                 </button>
 
                 {showCriarPerfilSubmenu && (
-                  <div className="ml-4 mt-2 flex flex-col gap-2">
-                    <button onClick={() => handleNavigate('/criar-perfil/cnpj-instituicoes')}>
-                      CNPJ Instituições
-                    </button>
+                  <div className="px-6 mt-2 flex flex-col gap-2 items-start text-green-800">
                     <button onClick={() => handleNavigate('/criar-perfil/fornecedor-pf')}>
                       Fornecedor (Pessoa Física)
                     </button>
                     <button onClick={() => handleNavigate('/criar-perfil/fornecedor-cnpj-caf')}>
                       Fornecedor (CNPJ ou CAF)
+                    </button>
+                    <button onClick={() => handleNavigate('/criar-perfil/cnpj-instituicoes')}>
+                      CNPJ Instituições
                     </button>
                     <button onClick={() => handleNavigate('/criar-perfil/cnpj-corporativo')}>
                       CNPJ Corporativo
@@ -103,12 +118,22 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
                 className="text-left"
                 onClick={() => handleNavigate('/pagamento')}
               >
-                Pagamento
+                Pagamento / Assinatura
+              </button>
+
+                            <button
+                className="text-left"
+                onClick={() => handleNavigate('/download')}
+              >
+                {/* <a src='https://hemediagnostico.com.br/gooagro/'> Arquivos Baixar / Download </a> */}
               </button>
             </>
-          )}
+          
+          {/* ) */}
 
           {/* Seções públicas (Visível sempre) */}
+          {isLoggedIn && ( 
+            <>
           <button
             className="text-left"
             onClick={() => handleNavigate('/login')}
@@ -122,13 +147,8 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
           >
             Criar Perfil
           </button>
-
-          <button
-            className="text-left"
-            onClick={() => handleNavigate('/sobre')}
-          >
-            Sobre o GooAgro
-          </button>
+          </>
+          )}
 
           <button
             className="text-left"
@@ -139,13 +159,20 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
 
           <button
             className="text-left"
+            onClick={() => handleNavigate('/sobre')}
+          >
+            Sobre o GooAgro
+          </button>
+
+
+          <button
+            className="text-left"
             onClick={() => handleNavigate('/ajuda')}
           >
             Ajuda / FAQ
           </button>
 
-          {isLoggedIn && (
-            <>
+         
               {/* Sair */}
               <button
                 className="text-left text-red-600"
@@ -156,8 +183,8 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
               >
                 Sair
               </button>
-            </>
-          )}
+            
+        
         </nav>
       </div>
     </>

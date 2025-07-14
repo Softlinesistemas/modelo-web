@@ -6,6 +6,7 @@ import { FiltroExpandido } from './FiltroExpandido';
 import { BuscadorResultado } from './BuscadorResultado';
 import { fetchMockResults } from './api';
 import { MainBanner } from '../MainBanner';
+import { Label } from '@/utils/ui/Label';
 
 export const Buscador: React.FC = () => {
   const [search, setSearch] = useState('');
@@ -29,21 +30,10 @@ export const Buscador: React.FC = () => {
   return (
     <div className="bg-white p-6 rounded shadow max-w-2xl mx-auto">
       <div className='mb-2 p-1'>
-      <MainBanner />
+        <MainBanner />
       </div>
-      <h1 className="text-2xl font-bold text-center mb-4 text-green-700">BUSCADOR GooAgro</h1>
+      <h1 className="text-2xl font-bold text-center mb-4 text-green-700"><span className='text-black'>BUSCADOR</span> GooAgro</h1>
 
-      {/* Campo de busca */}
-      <div className="flex items-center space-x-2 mb-4">
-        <FaSearch className="text-gray-600" />
-        <input
-          type="text"
-          placeholder="Digite sua busca..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 border-b-2 border-gray-300 px-3 py-2 outline-none"
-        />
-      </div>
 
 
       <div className="grid grid-cols-2 gap-4 mb-6 text-center ">
@@ -83,7 +73,7 @@ export const Buscador: React.FC = () => {
             : 'bg-[#c5d34d]'
             }`}
         >
-          <h3 className="font-semibold text-lg">Fornecedor</h3>
+          <h3 className="font-semibold text-lg">Fornecedores</h3>
           <div className="mt-1">
 
             <p className="text-sm mt-1">Produtos & Serviços</p>
@@ -98,20 +88,54 @@ export const Buscador: React.FC = () => {
             : 'bg-[#8F7E76]'
             }`}
         >
-          <h3 className="font-semibold text-lg">Clientes</h3>
+          <h3 className="font-semibold text-lg">Empresas</h3>
           <div className="mt-1">
             <p className="text-sm mt-1">Produtos & Serviços</p>
           </div>
         </div>
       </div>
 
+      {/* Campo de busca */}
+      <div className='flex w-full justify-center p-2 font-bold'>
+        <label className='font-semibold te-black' >Pesquise pelo Nome ou Usuário <span className="text-green-600 font-bold font-2xl">GooAgro</span></label>
+      </div>
+      <div className="flex items-center space-x-2 mb-4">
+        <FaSearch className="text-green-600" />
+        <input
+          type="text"
+          placeholder="Digite sua busca..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 border-2 rounded-md border-gray-300 px-3 py-2"
+        />
+      </div>
+      <div className='text-center py-3'>
+        <span className='text-xl text-green-700 p-2 font-semibold'> Quer usar Filtros Básicos?</span>
+      </div>
+      <div className="border-t border-gray-300 pt-3">
+                <div className="mb-4">
+
+          {/* Selects sempre visíveis */}
+          <div className="space-y-3 mb-3">
+            <select className="w-full p-2 border border-gray-300 rounded">
+              <option>Tipo de Interesse</option>
+            </select>
+            <select className="w-full p-2 border border-gray-300 rounded">
+              <option>Selecione uma Categoria</option>
+            </select>
+            <select className="w-full p-2 border border-gray-300 rounded">
+              <option>Selecione uma Classe</option>
+            </select>
+          </div>
+        </div>
+
       <div className="flex justify-center mb-5">
         {/* Botão Opções de Filtro */}
         <button
           onClick={() => setShowExtraFilters(!showExtraFilters)}
-          className="flex items-center justify-between bg-green-900 text-white py-4 px-3 rounded-lg shadow-md font-bold w-64 h-24"
+          className="flex items-center justify-between bg-green-600 text-white py-4 px-3 rounded-lg shadow-md font-bold w-64 h-24"
         >
-          <span>Opções de Filtros</span>
+          <span className='text-xl'> + Opções de Filtros</span>
           <svg
             className={`w-5 h-5 transform transition-transform ${showExtraFilters ? 'rotate-180' : ''
               }`}
@@ -127,45 +151,29 @@ export const Buscador: React.FC = () => {
             />
           </svg>
         </button>
-        </div>
+      </div>
 
-        <div className="border-t border-gray-300 pt-3">
-          <div className="mb-4">
-
-            {/* Selects sempre visíveis */}
-            <div className="space-y-3 mb-3">
-              <select className="w-full p-2 border border-gray-300 rounded">
-                <option>Tipo de Interesse</option>
+        {/* Filtros adicionais (apenas quando expandido) */}
+        <FiltroExpandido isOpen={showExtraFilters}>
+          <div className="space-y-3">
+            {['Categoria', 'Mobilidade', 'Variedade', 'Nacionalidade', 'Bioma', 'Divisão geopolítica', 'Cidade/Estado', 'Bairro'].map((item) => (
+              <select key={item} className="w-full p-2 border border-gray-300 rounded">
+                <option>{item}</option>
               </select>
-              <select className="w-full p-2 border border-gray-300 rounded">
-                <option>Selecione uma categoria</option>
-              </select>
-              <select className="w-full p-2 border border-gray-300 rounded">
-                <option>Selecione uma classe</option>
-              </select>
-            </div>
+            ))}
           </div>
-          
-          {/* Filtros adicionais (apenas quando expandido) */}
-          <FiltroExpandido isOpen={showExtraFilters}>
-            <div className="space-y-3">
-              {['Categoria', 'Mobilidade', 'Variedade', 'Nacionalidade', 'Bioma', 'Divisão geopolítica', 'Cidade/Estado', 'Bairro'].map((item) => (
-                <select key={item} className="w-full p-2 border border-gray-300 rounded">
-                  <option>{item}</option>
-                </select>
-              ))}
-            </div>
-          </FiltroExpandido>
-        </div>
-      
-      {/* Botão de busca */}
-      <button
-        onClick={handleSearch}
-        className="mt-4 w-full bg-green-500 text-white py-2 rounded shadow font-semibold"
-      >
-        Buscar
-      </button>
+        </FiltroExpandido>
+      </div>
 
+      {/* Botão de busca */}
+      <div className="flex text-center justify-center mb-5">
+        <button
+          onClick={handleSearch}
+          className="text-center text-[30px] bg-green-900 text-white rounded-lg shadow-md font-bold w-80 h-12"
+        >
+          BUSCAR
+        </button>
+      </div>
       {/* Resultados */}
       <BuscadorResultado results={results} filterType={selectedFilter} />
     </div>

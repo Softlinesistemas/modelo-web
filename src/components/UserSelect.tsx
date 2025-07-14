@@ -63,7 +63,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
                 className="w-full text-left px-1 py-1 bg-green-200 rounded flex items-center justify-between"
               >
                 <span className="text-sm font-medium">
-                  {selectedUser.name} - {selectedUser.role}
+                  {selectedUser.name}  {selectedUser.role}
                 </span>
                 <FiChevronDown />
               </button>
