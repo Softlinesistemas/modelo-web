@@ -73,7 +73,7 @@ const MessagePage: React.FC = () => {
   return (
     <div className="flex flex-col h-screen bg-white">
       {/* Header */}
-      <div className="flex items-center gap-3 p-4 shadow-sm sticky top-0 bg-white z-10">
+      <div className="flex items-center gap-3 p-4 sticky top-0 bg-white z-10">
         <button onClick={() => router.push('/chat')} type="button">
           <FiArrowLeft size={24} className="text-gray-700" />
         </button>

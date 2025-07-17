@@ -1,6 +1,4 @@
-
 import { Buscador } from '@/components/buscador/Buscador';
-import VinculosSociais from '@/components/VinculosSociais';
 
 export default function SearchPage() {
   return (

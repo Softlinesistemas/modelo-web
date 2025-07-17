@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { FiCalendar, FiClock, FiCloud, FiChevronDown } from 'react-icons/fi';
 import { MdOutlineQrCodeScanner } from "react-icons/md";
 import QrCode from './QrCode';
+import { Button } from '@/utils/ui/Button';
 
 export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }> = ({ onActionSelect }) => {
   const handleSearchClick = () => onActionSelect?.('qrcode');
@@ -36,7 +37,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const handleCloseQrCode = () => setShowQrCode(false); // Fechar QR Code se quiser
 
   return (
-    <div className="bg-green-100 mt-1 p-1 w-full mx-auto border-2 border-gray-300">
+    <div className="bg-green-100 mt-1 p-1 w-full mx-auto rounded-md shadow-md">
       {/* Renderiza o QR Code ou a seleção de usuário */}
       {showQrCode ? (
         <QrCode 
@@ -84,38 +85,42 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
             </div>
 
             {/* Ícones de ação */}
-            <div className="mt-2 flex justify-around text-gray-700 text-xl">
-              <button
+            <div className="mt-2 flex justify-around text-gray-700 text-xl gap-2 pb-3">
+              <Button
                 onClick={handleSearchClick}
                 className="hover:text-green-600 transition"
                 title="Buscar"
+                variant="userSelect"
               >
                 <MdOutlineQrCodeScanner size={40} />
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={handleCalendarClick}
                 className="hover:text-green-600 transition"
                 title="Calendário"
+                variant="userSelect"
               >
                 <FiCalendar size={40} />
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={handleClockClick}
                 className="hover:text-green-600 transition"
                 title="Relógio"
+                variant="userSelect"
               >
                 <FiClock size={40} />
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={handleCloudClick}
                 className="hover:text-green-600 transition"
                 title="Nuvem"
+                variant="userSelect"
               >
                 <FiCloud size={40} />
-              </button>
+              </Button>
             </div>
           </div>
         </div>

@@ -60,7 +60,7 @@ const handleChatClick = (index: number) => {
               <img
                 src={item.avatarUrl}
                 alt={`Avatar de ${item.name}`}
-                className="w-12 h-12 rounded-full object-cover mr-3 border cursor-pointer"
+                className="w-12 h-12 rounded-sm object-cover mr-3 border cursor-pointer"
                 onClick={() => handleAvatarClick(item)}
               />
 

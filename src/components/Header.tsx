@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
 
         {/* Título da aplicação */}
         <h1 className="font-bold text-green-700 text-[clamp(8px, 5vw, 20px)] text-center whitespace-nowrap px-2 w-full">
-          GooAgro <span className='text-black'>- Conectando Agricultores & Clientes.</span></h1>
+          GooAgro - Conectando Agricultores & Clientes.</h1>
 
         {/* Botão de compartilhar */}
         <button onClick={() => setShowShare(true)}>

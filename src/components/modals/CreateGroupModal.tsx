@@ -1,9 +1,35 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import { AppModal } from '@/utils/ui/AppModal';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
+
+// Novo Modal de Apoio
+const SupportContactsModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
+  // Contatos mockados (pode vir de API futuramente)
+  const supportContacts = [
+    { name: 'Equipe GG - Suporte', email: 'suporte@gg.com', phone: '(11) 98888-0001' },
+    { name: 'Coordenação Esportiva', email: 'esportes@gg.com', phone: '(11) 97777-0002' },
+  ];
+
+  return (
+    <AppModal isOpen={isOpen} onClose={onClose} title="Contatos de Apoio de Comunicação">
+      <ul className="space-y-2">
+        {supportContacts.map((contact, index) => (
+          <li key={index} className="border p-2 rounded shadow-sm bg-gray-50">
+            <p className="font-semibold">{contact.name}</p>
+            <p>Email: <a href={`mailto:${contact.email}`} className="text-blue-500">{contact.email}</a></p>
+            <p>Telefone: <a href={`tel:${contact.phone}`} className="text-blue-500">{contact.phone}</a></p>
+          </li>
+        ))}
+      </ul>
+    </AppModal>
+  );
+};
 
 type CreateGroupModalProps = {
   isOpen: boolean;
@@ -27,6 +53,9 @@ export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({ isOpen, onCl
     termsAccepted: false,
   });
 
+  // Controle do modal de apoio
+  const [showSupportModal, setShowSupportModal] = useState(false);
+
   const modalitiesOptions = [
     'Futebol',
     'Vôlei',
@@ -40,12 +69,10 @@ export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({ isOpen, onCl
     'Outro',
   ];
 
-  // Função genérica para campos de input
   const handleInputChange = (field: string, value: string | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Controle de modalidades (checkbox)
   const handleModalityToggle = (modality: string) => {
     setForm((prev) => ({
       ...prev,
@@ -55,7 +82,6 @@ export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({ isOpen, onCl
     }));
   };
 
-  // Resetar formulário
   const resetForm = () => {
     setForm({
       groupName: '',
@@ -71,49 +97,57 @@ export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({ isOpen, onCl
     });
   };
 
-  // Ação ao salvar
   const handleSubmit = () => {
     console.log('Dados do Grupo Criado:', form);
 
     const confirmGoToGroup = window.confirm('Deseja ir para a página do grupo agora?');
 
     if (confirmGoToGroup) {
-      // Aqui você pode pegar o ID real depois (ex: vindo do backend)
       const mockGroupId = '123';
-      router.push('/group/123');
-      // router.push(`/group/${mockGroupId}`);
+      router.push(`/group/${mockGroupId}`);
     } else {
-      // Apenas fecha o modal e limpa os campos
       onClose();
       resetForm();
     }
   };
 
   return (
-    <AppModal isOpen={isOpen} onClose={onClose} title="Criar Grupo - GG">
-      {/* Campos do formulário */}
-      <div className="flex gap-2">
-        <input
-          readOnly
-          value={format(new Date(), 'dd/MM/yyyy')}
-          className="w-1/2 p-2 border rounded bg-gray-100 text-gray-600"
-          placeholder="Data"
-        />
-        <input
-          readOnly
-          value="SergioBitencourt"
-          className="w-1/2 p-2 border rounded bg-gray-100 text-gray-600"
-          placeholder="Criador"
-        />
-      </div>
+    <>
+      <AppModal isOpen={isOpen} onClose={onClose} title="Criar Grupo - GG">
+        {/* Botão de Ajuda */}
+        <div className="text-right mb-2">
+          <button
+            onClick={() => setShowSupportModal(true)}
+            className="text-sm text-blue-600 hover:underline"
+          >
+            Precisa de ajuda? Contatos de Apoio
+          </button>
+        </div>
 
-      <input
-        type="text"
-        placeholder="Nome do Grupo *"
-        className="w-full p-2 border rounded"
-        value={form.groupName}
-        onChange={(e) => handleInputChange('groupName', e.target.value)}
-      />
+        {/* Formulário */}
+        <div className="flex gap-2">
+          <input
+            readOnly
+            value={format(new Date(), 'dd/MM/yyyy')}
+            className="w-1/2 p-2 border rounded bg-gray-100 text-gray-600"
+            placeholder="Data"
+          />
+          <input
+            readOnly
+            value="SergioBitencourt"
+            className="w-1/2 p-2 border rounded bg-gray-100 text-gray-600"
+            placeholder="Criador"
+          />
+        </div>
+
+
+       <input
+          type="text"
+          placeholder="Nome do Grupo *"
+          className="w-full p-2 border rounded"
+          value={form.groupName}
+          onChange={(e) => handleInputChange('groupName', e.target.value)}
+        />
 
       <input
         type="text"
@@ -202,28 +236,35 @@ export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({ isOpen, onCl
         />
       </div>
 
-      <label className="flex items-start space-x-2 text-sm">
-        <input
-          type="checkbox"
-          checked={form.termsAccepted}
-          onChange={(e) => handleInputChange('termsAccepted', e.target.checked)}
-        />
-        <span>
-          Eu li e concordo com a{' '}
-          <a href="#" className="text-blue-500 underline">
-            Política de Privacidade
-          </a>{' '}
-          e desejo me cadastrar gratuitamente.
-        </span>
-      </label>
+       <label className="flex items-start space-x-2 text-sm mt-2">
+          <input
+            type="checkbox"
+            checked={form.termsAccepted}
+            onChange={(e) => handleInputChange('termsAccepted', e.target.checked)}
+          />
+          <span>
+            Eu li e concordo com a{' '}
+            <a href="#" className="text-blue-500 underline">
+              Política de Privacidade
+            </a>{' '}
+            e desejo me cadastrar gratuitamente.
+          </span>
+        </label>
 
-      {/* Botão Salvar com confirmação */}
-      <button
-        onClick={handleSubmit}
-        className="w-full py-2 mt-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
-      >
-        SALVAR
-      </button>
-    </AppModal>
+        {/* Botão Salvar */}
+        <button
+          onClick={handleSubmit}
+          className="w-full py-2 mt-3 bg-green-600 text-white rounded hover:bg-green-700 transition"
+        >
+          SALVAR
+        </button>
+      </AppModal>
+
+      {/* Modal com os contatos de apoio */}
+      <SupportContactsModal
+        isOpen={showSupportModal}
+        onClose={() => setShowSupportModal(false)}
+      />
+    </>
   );
 };

@@ -1,4 +1,3 @@
-
 import { BuscadorResultado } from './BuscadorResultado';
 
 export const fetchMockResults = async (filters: any): Promise<BuscadorResultado[]> => {
