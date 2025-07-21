@@ -1,13 +1,18 @@
 'use client';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { FaMapMarkerAlt, FaUserAlt, FaUsers } from 'react-icons/fa';
+import Image from 'next/image';
 
 export type BuscadorResultado = {
+  id: string;
   nome: string;
   descricao: string;
   localizacao: string;
-  tipo: string;
+  tipo: 'amigos' | 'grupos' | 'fornecedores' | 'clientes'; // tipos esperados
   categoria?: string;
+  fotoUrl?: string; // opcional
 };
 
 interface Props {
@@ -16,10 +21,19 @@ interface Props {
 }
 
 export const BuscadorResultado: React.FC<Props> = ({ results, filterType }) => {
-  const filterName = filterType === 'amigos' ? 'Amigos' : 
-                    filterType === 'grupos' ? 'Grupos' : 
-                    filterType.charAt(0).toUpperCase() + filterType.slice(1);
-  
+  const router = useRouter();
+
+  const handleClick = (item: BuscadorResultado) => {
+    const basePath = item.tipo === 'amigos' ? '/perfil'
+                   : item.tipo === 'grupos' ? '/grupo'
+                   : '/entidade'; // genérico para fornecedores, clientes etc.
+    router.push(`${basePath}/${item.id}`);
+  };
+
+  const filterName = filterType === 'amigos' ? 'Amigos' :
+                     filterType === 'grupos' ? 'Grupos' :
+                     filterType.charAt(0).toUpperCase() + filterType.slice(1);
+
   return (
     <AnimatePresence>
       {results.length > 0 && (
@@ -31,22 +45,47 @@ export const BuscadorResultado: React.FC<Props> = ({ results, filterType }) => {
           transition={{ duration: 0.4 }}
           className="mt-6"
         >
-          <h3 className="text-lg font-bold mb-2 text-green-800">
-            Filtrar {filterName} Resultados encontrados:
+          <h3 className="text-lg font-bold mb-4 text-green-800">
+            Resultados encontrados em {filterName}:
           </h3>
-          
-          <div className="space-y-3">
+
+          <div className="grid gap-3">
             {results.map((item, index) => (
-              <div
-                key={index}
-                className="border-l-4 border-green-500 pl-3 py-1"
+              <motion.div
+                key={item.id}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => handleClick(item)}
+                className="flex items-center gap-4 p-3 bg-white rounded-xl shadow border cursor-pointer hover:shadow-lg transition"
               >
-                <p className="font-semibold">{item.nome}</p>
-                <p className="text-sm">{item.descricao}</p>
-                {item.localizacao && (
-                  <p className="text-xs text-gray-500">Local: {item.localizacao}</p>
-                )}
-              </div>
+                {/* FOTO */}
+                <div className="w-14 h-14 relative rounded-sm overflow-hidden border-2 border-green-600">
+                  {item.fotoUrl ? (
+                    <Image
+                      src={item.fotoUrl}
+                      alt={item.nome}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-green-100 flex items-center justify-center text-green-600 text-xl">
+                      {item.tipo === 'grupos' ? <FaUsers /> : <FaUserAlt />}
+                    </div>
+                  )}
+                </div>
+
+                {/* INFO */}
+                <div className="flex flex-col">
+                  <p className="font-semibold text-green-800">{item.nome}</p>
+                  <p className="text-sm text-gray-700">{item.descricao}</p>
+                  {item.localizacao && (
+                    <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                      <FaMapMarkerAlt className="text-green-600" />
+                      {item.localizacao}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>

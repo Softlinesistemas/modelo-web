@@ -1,6 +1,6 @@
 // components/CollapsibleSection.tsx
 import { useState } from 'react';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
 
 interface CollapsibleSectionProps {
   title: string;
@@ -9,21 +9,65 @@ interface CollapsibleSectionProps {
   bgColor?: string;
 }
 
-export const CollapsibleSection = ({ title, subTitle, children, bgColor = 'bg-green-500' }: CollapsibleSectionProps) => {
+export const CollapsibleSection = ({
+  title,
+  subTitle,
+  children,
+  bgColor = 'bg-green-500',
+}: CollapsibleSectionProps) => {
   const [open, setOpen] = useState(true);
 
   return (
     <div className={`rounded border mb-4 ${bgColor} text-white`}>
       <div
         onClick={() => setOpen(!open)}
-        className="cursor-pointer flex justify-between items-center px-4 py-2 font-bold text-center"
+        // cursor pointer na div toda para clicar em qualquer lugar do cabeçalho
+        className="cursor-pointer flex justify-between items-center px-4 py-2 font-bold"
       >
-        <FaChevronDown className={`${open ? 'rotate-180' : ''} transition`} />
+        {/* Container da coluna de texto: título + subtítulo */}
+        <div className="flex flex-col">
           <h3 className="font-semibold text-base md:text-lg">{title}</h3>
-          {/* <p className="text-xs md:text-sm mt-1">{subTitle}</p> */}
-        <FaChevronDown className={`${open ? 'rotate-180' : ''} transition`} />
+          {/* Mostrar subtítulo só se existir */}
+          {subTitle && (
+            <p className="text-xs md:text-sm mt-1">{subTitle}</p>
+          )}
+        </div>
+        {/* Ícone com rotação dependendo do estado */}
+        <FaChevronDown className={`${open ? 'rotate-180' : ''} transition-transform`} />
       </div>
       {open && <div className="bg-white text-black p-4">{children}</div>}
     </div>
   );
 };
+
+
+
+// // components/CollapsibleSection.tsx
+// import { useState } from 'react';
+// import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+
+// interface CollapsibleSectionProps {
+//   title: string;
+//   subTitle?: string;
+//   children: React.ReactNode;
+//   bgColor?: string;
+// }
+
+// export const CollapsibleSection = ({ title, subTitle, children, bgColor = 'bg-green-500' }: CollapsibleSectionProps) => {
+//   const [open, setOpen] = useState(true);
+
+//   return (
+//     <div className={`rounded border mb-4 ${bgColor} text-white`}>
+//       <div
+//         onClick={() => setOpen(!open)}
+//         className="cursor-pointer flex justify-between items-center px-4 py-2 font-bold text-center"
+//       >
+//         <FaChevronDown className={`${open ? 'rotate-180' : ''} transition`} />
+//           <h3 className="font-semibold text-base md:text-lg">{title}</h3>
+//           {/* <p className="text-xs md:text-sm mt-1">{subTitle}</p> */}
+//         <FaChevronDown className={`${open ? 'rotate-180' : ''} transition`} />
+//       </div>
+//       {open && <div className="bg-white text-black p-4">{children}</div>}
+//     </div>
+//   );
+// };

@@ -13,6 +13,7 @@ import { GeoReferenceSection } from "./GeoReferenceSection";
 import { ProductsServicesSection } from "./ProductsServicesSection";
 import { SocialLinksSection } from "./SocialLinksSection";
 import { ScheduleSection } from "./ScheduleSection";
+import { IdDemografica } from "./IdDemografica";
 
 export const Buscador: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -216,148 +217,14 @@ export const Buscador: React.FC = () => {
 
       {/* Filtros avançados */}
       <FiltroExpandido isOpen={showAdvancedFilters}>
-<div className="max-w-2xl mx-auto p-4 space-y-6">
-
-  {/* Faixa Etária */}
-  <div>
-    <Label className="font-bold block mb-2">FAIXA ETÁRIA</Label>
-    <div className="flex items-center gap-2">
-      <Input
-        type="number"
-        placeholder="≥"
-        value={faixaEtariaMin}
-        onChange={(e) => setFaixaEtariaMin(e.target.value)}
-        className="w-full border-gray-300 focus:ring-green-500"
-      />
-      <span className="text-gray-500">a</span>
-      <Input
-        type="number"
-        placeholder="≤"
-        value={faixaEtariaMax}
-        onChange={(e) => setFaixaEtariaMax(e.target.value)}
-        className="w-full border-gray-300 focus:ring-green-500"
-      />
-    </div>
-  </div>
-
-  {/* Tipo de Pessoa */}
-  <div>
-    <Label className="font-bold block mb-2">TIPO</Label>
-    <div className="flex flex-wrap gap-2">
-      {["Pessoa Física", "Pessoa Jurídica / Empresa"].map((item) => (
-        <Button
-          key={item}
-          variant={tipoPessoa.includes(item) ? "primary" : "outline"}
-          size="sm"
-          onClick={() => toggleTipoPessoa(item)}
-        >
-          {item}
-        </Button>
-      ))}
-    </div>
-    <p className="text-xs text-gray-500 mt-2">
-      Pode marcar até 2 opções.
-    </p>
-  </div>
-
-  {/* Entrega ao Cliente */}
-  <div>
-    <Label className="font-bold block mb-2">ENTREGA AO CLIENTE</Label>
-    <div className="flex flex-wrap gap-2">
-      {["Em nossa sede", "No cliente / DELIVERY"].map((item) => (
-        <Button
-          key={item}
-          variant={entrega === item ? "primary" : "outline"}
-          size="sm"
-          onClick={() => setEntrega(item)}
-        >
-          {item}
-        </Button>
-      ))}
-    </div>
-  </div>
-
-  {/* Modalidade */}
-  <div>
-    <Label className="font-bold block mb-2">MODALIDADE</Label>
-    <div className="flex flex-wrap gap-2">
-      {["Nacional", "Internacional"].map((item) => (
-        <Button
-          key={item}
-          variant={modalidade === item ? "primary" : "outline"}
-          size="sm"
-          onClick={() => setModalidade(item)}
-        >
-          {item}
-        </Button>
-      ))}
-    </div>
-  </div>
-
-  {/* Escolaridade */}
-  <div>
-    <Label className="font-bold block mb-2">
-      NÍVEL, SÉRIE OU GRAU DE ESCOLARIDADE
-    </Label>
-    <select
-      className="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500"
-      value={nivelEscolaridade}
-      onChange={(e) => setNivelEscolaridade(e.target.value)}
-    >
-      <option value="">Selecione</option>
-      <option value="1º Ano - Ensino Médio">1º Ano - Ensino Médio</option>
-      <option value="2º Ano - Ensino Médio">2º Ano - Ensino Médio</option>
-      <option value="3º Ano - Ensino Médio">3º Ano - Ensino Médio</option>
-      <option value="Graduação">Graduação</option>
-      <option value="Pós-graduação">Pós-graduação</option>
-    </select>
-  </div>
-
-  {/* Checkboxes */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {[
-      { id: "pcd", label: "CUIDADO ESPECIAL OU DOENÇA CRÔNICA / PCD", state: pcd, setState: setPcd },
-      { id: "voluntariado", label: "VOLUNTARIADO", state: voluntariado, setState: setVoluntariado },
-      { id: "economia-solidaria", label: "ECONOMIA SOLIDÁRIA", state: economiaSolidaria, setState: setEconomiaSolidaria },
-      { id: "cultura-popular", label: "CULTURA POPULAR", state: culturaPopular, setState: setCulturaPopular },
-      { id: "acao-ambiental", label: "AÇÃO AMBIENTAL / ECOLOGIA", state: acaoAmbiental, setState: setAcaoAmbiental },
-      { id: "religiao", label: "RELIGIÃO", state: false, setState: () => {} },
-    ].map((item) => (
-      <div key={item.id} className="flex items-start">
-        <input
-          type="checkbox"
-          id={item.id}
-          className="h-5 w-5 mt-1 text-green-600 rounded focus:ring-green-500"
-          checked={item.state}
-          onChange={(e) => item.setState(e.target.checked)}
-        />
-        <label htmlFor={item.id} className="ml-2 text-gray-700">
-          {item.label}
-        </label>
-      </div>
-    ))}
-  </div>
-
-  {/* Grupo Caatingueiros */}
-  <div className="flex items-start">
-    <input
-      type="checkbox"
-      id="caatingueiros"
-      className="h-5 w-5 mt-1 text-green-600 rounded focus:ring-green-500"
-    />
-    <label htmlFor="caatingueiros" className="ml-2 text-gray-700">
-      CAATINGUEIROS
-    </label>
-  </div>
-
-  {/* Sessões adicionais */}
-  <GeoReferenceSection />
-  <ScheduleSection />
-  <ProductsServicesSection />
-  <SocialLinksSection />
-
-</div>
-
+        <div className="max-w-2xl mx-auto p-4 space-y-6">
+          {/* Sessões adicionais */}
+          <IdDemografica />
+          <GeoReferenceSection />
+          <ScheduleSection />
+          <ProductsServicesSection />
+          <SocialLinksSection />
+        </div>
       </FiltroExpandido>
 
       {/* Botão de busca */}
