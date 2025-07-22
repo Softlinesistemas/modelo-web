@@ -6,7 +6,7 @@ export default function VinculosSociais() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
-  // Estados para cada seção
+  
   const [economiaSolidaria, setEconomiaSolidaria] = useState<string | null>(null);
   const [projetoSocial, setProjetoSocial] = useState<string | null>(null);
   const [cuidadoEspecial, setCuidadoEspecial] = useState<string[]>([]);
