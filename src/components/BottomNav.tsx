@@ -11,7 +11,7 @@ import {
 import Image from 'next/image'
 
 // Simulando mensagens não lidas (depois você integra com backend ou contexto)
-const unreadMessages = {
+const unreadMessages: any = {
   '/amigos': false,
   '/grupos': true,
   '/fornecedores': false,
