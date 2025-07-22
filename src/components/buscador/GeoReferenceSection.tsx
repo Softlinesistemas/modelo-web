@@ -177,7 +177,7 @@ export const GeoReferenceSection = () => {
             onChange={(e) => setRegiaoSelecionada(e.target.value)}
           >
             <option value="">Selecione a região</option>
-            {regioes.map((regiao) => (
+            {regioes?.map((regiao: any) => (
               <option key={regiao.id} value={regiao.nome}>
                 {regiao.nome}
               </option>
