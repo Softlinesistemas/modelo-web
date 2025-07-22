@@ -5,12 +5,12 @@ import { AppModal } from '@/utils/ui/AppModal';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
-// Novo Modal de Apoio
+
 const SupportContactsModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
   onClose,
 }) => {
-  // Contatos mockados (pode vir de API futuramente)
+ 
   const supportContacts = [
     { name: 'Equipe GG - Suporte', email: 'suporte@gg.com', phone: '(11) 98888-0001' },
     { name: 'Coordenação Esportiva', email: 'esportes@gg.com', phone: '(11) 97777-0002' },
