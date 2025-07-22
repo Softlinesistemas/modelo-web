@@ -47,7 +47,7 @@ export const ActionGrid: React.FC = () => {
   };
 
   const handleMensagem = () => {
-    navigate.push('/chat');
+    navigate.push('/mensageiro');
   };
 
   const handleCloseModal = () => {

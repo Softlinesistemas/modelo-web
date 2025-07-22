@@ -5,6 +5,7 @@ import { Label } from "@/utils/ui/Label";
 
 import React, { useEffect, useState } from "react";
 
+
 const biomas = [
   { nome: "Amazônia", cor: "#1b5e20" },
   { nome: "Mata Atlântica", cor: "#2e7d32" },
@@ -14,12 +15,43 @@ const biomas = [
   { nome: "Pantanal", cor: "#0288d1" },
 ];
 
+const regioes = [
+  {nome: "TODOS" },
+  {nome: "Irecê" },
+  {nome: "Sisal" },
+  {nome: "Litoral Sul" },
+  {nome: "Baixo Sul" },
+  {nome: "Extremo Sul" },
+  {nome: "Médio Sudoeste da Bahia" },
+  {nome: "Vale do Jiquiriçá" },
+  {nome: "Sertão do São Francisco" },
+  {nome: "Bacia do Rio Grande" },
+  {nome: "Bacia do Paramirim" },
+  {nome: "Sertão Produtivo" },
+  {nome: "Piemonte do Paraguaçu" },
+  {nome: "Bacia do Jacuípe" },
+  {nome: "Piemonte da Diamantina" },
+  {nome: "Semiárido Nordeste II" },
+  {nome: "Litoral Norte e Agreste Baiano" },
+  {nome: "Portal do Sertão" },
+  {nome: "Sudoeste Baiano" },
+  {nome: "Recôncavo" },
+  {nome: "Médio Rio de Contas" },
+  {nome: "Bacia do Rio Corrente" },
+  {nome: "Itaparica" },
+  {nome: "Piemonte Norte do Itapicuru" },
+  {nome: "Metropolitano de Salvador" },
+  {nome: "Costa do Descobrimento" }
+  ];
+
+
+
 export const GeoReferenceSection = () => {
   const [estados, setEstados] = useState<
     { id: number; nome: string; sigla: string }[]
   >([]);
   const [cidades, setCidades] = useState<{ id: number; nome: string }[]>([]);
-  const [regioes, setRegioes] = useState<{ id: number; nome: string }[]>([]);
+  // const [regioes, setRegioes] = useState<{ id: number; nome: string }[]>([]);
 
   const [estadoSelecionado, setEstadoSelecionado] = useState("");
   const [cidadeSelecionada, setCidadeSelecionada] = useState("");
@@ -36,12 +68,12 @@ export const GeoReferenceSection = () => {
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
-    fetch("https://servicodados.ibge.gov.br/api/v1/localidades/regioes")
-      .then((res) => res.json())
-      .then(setRegioes)
-      .catch(console.error);
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://servicodados.ibge.gov.br/api/v1/localidades/regioes")
+  //     .then((res) => res.json())
+  //     .then(setRegioes)
+  //     .catch(console.error);
+  // }, []);
 
   useEffect(() => {
     if (estadoSelecionado) {

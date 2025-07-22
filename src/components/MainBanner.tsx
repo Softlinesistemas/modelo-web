@@ -6,7 +6,7 @@ import React from 'react';
 
 export const MainBanner: React.FC = () => {
   return (
-    <div className="bg-[#ffffff] text-center text-sm h-16 rounded-md shadow-md">
+    <div className="bg-[#ffffff] text-center text-sm h-16 rounded-md shadow-md border-2 border-gray-900">
       {/* Imagem de fundo opcional — descomente e ajuste o path quando for utilizar */}
               <a
         href="https://www.gov.br/mda/pt-br"

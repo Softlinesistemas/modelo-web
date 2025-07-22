@@ -1,21 +1,22 @@
 "use client";
+
+import { MensagemDireta } from "@/components/buscador/MensagemDireta";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { BuscadorResultado } from "./BuscadorResultado";
-import { fetchMockResults } from "./api";
-import { MainBanner } from "../MainBanner";
-import { FiltroExpandido } from "./FiltroExpandido";
 import { Button } from "@/utils/ui/Button";
 import { Input } from "@/utils/ui/Input";
 import { Label } from "@/utils/ui/Label";
-// import VinculosSociais from '../VinculosSociais';
-import { GeoReferenceSection } from "./GeoReferenceSection";
-import { ProductsServicesSection } from "./ProductsServicesSection";
-import { SocialLinksSection } from "./SocialLinksSection";
-import { ScheduleSection } from "./ScheduleSection";
-import { IdDemografica } from "./IdDemografica";
+import { MainBanner } from "@/components/MainBanner";
+import { FiltroExpandido } from "@/components/buscador/FiltroExpandido";
+import { IdDemografica } from "@/components/buscador/IdDemografica";
+import { GeoReferenceSection } from "@/components/buscador/GeoReferenceSection";
+import { ProductsServicesSection } from "@/components/buscador/ProductsServicesSection";
+import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
+import { BuscadorResultado } from "@/components/buscador/BuscadorResultado";
+import { fetchMockResults } from "@/components/buscador/api";
 
-export const Buscador: React.FC = () => {
+
+export const MensageiroPage: React.FC = () => {
   const [search, setSearch] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<string>("amigos");
   const [results, setResults] = useState<any[]>([]);
@@ -67,16 +68,16 @@ export const Buscador: React.FC = () => {
 
   return (
     <div className="bg-white p-4 md:p-6 rounded-lg shadow-md max-w-4xl mx-auto">
-      <div className="mb-4">
+      <div className="mb-1">
         <MainBanner />
       </div>
       <h1 className="text-2xl font-bold text-center mb-6">
-        <span className="text-gray-800">BUSCADOR</span>{" "}
+        <span className="text-gray-800">MENSAGEIRO</span>{" "}
         <span className="text-green-700">GooAgro</span>
       </h1>
 
       {/* Grid de filtros principais - responsivo */}
-      <div className="grid grid-cols-2 gap-3 md:gap-4 mb-6">
+      <div className="grid grid-cols-2 gap-3 md:gap-4 mb-6 items-center text-center">
         {/* Bloco Amigos */}
         <div
           onClick={() => setSelectedFilter("amigos")}
@@ -86,7 +87,7 @@ export const Buscador: React.FC = () => {
               : "bg-amber-300 hover:bg-amber-200"
           }`}
         >
-          <h3 className="font-semibold text-base md:text-lg">Amigos</h3>
+          <h3 className="font-semibold text-base md:text-lg">AMIGOS</h3>
         </div>
 
         {/* Bloco Grupos */}
@@ -98,7 +99,7 @@ export const Buscador: React.FC = () => {
               : "bg-green-500 hover:bg-green-400"
           }`}
         >
-          <h3 className="font-semibold text-base md:text-lg">Grupos</h3>
+          <h3 className="font-semibold text-base md:text-lg">GRUPOS</h3>
         </div>
 
         {/* Bloco Fornecedor */}
@@ -110,7 +111,7 @@ export const Buscador: React.FC = () => {
               : "bg-lime-400 hover:bg-lime-300"
           }`}
         >
-          <h3 className="font-semibold text-base md:text-lg">Fornecedores</h3>
+          <h3 className="font-semibold text-base md:text-lg">FORNECEDORES</h3>
           <p className="text-xs md:text-sm mt-1">Produtos & Serviços</p>
         </div>
 
@@ -123,7 +124,7 @@ export const Buscador: React.FC = () => {
               : "bg-amber-700 hover:bg-amber-600 text-white"
           }`}
         >
-          <h3 className="font-semibold text-base md:text-lg">Empresas</h3>
+          <h3 className="font-semibold text-base md:text-lg">EMPRESAS</h3>
           <p className="text-xs md:text-sm mt-1">Produtos & Serviços</p>
         </div>
       </div>
@@ -136,9 +137,8 @@ export const Buscador: React.FC = () => {
         </Label>
       </div>
       <div className="flex items-center mb-6">
-        <FaSearch className="flex left-4 top-1/2 transform -translate-y-1/2 text-green-900" />
-        <div className="w-full">
-          
+       <FaSearch className="left-3 top-1/2 transform -translate-y-1/2 text-green-600" />
+        <div className="relative flex-1">
           <Input
             type="text"
             placeholder="Digite sua busca..."
@@ -155,13 +155,13 @@ export const Buscador: React.FC = () => {
           Quer usar Filtros Básicos?
         </Label>
         <div className="space-y-3">
-          <select className="w-full p-2 border border-green-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
-            <option>Tipo de Interesse</option>
+          <select className="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+            <option>Interesse</option>
           </select>
-          <select className="w-full p-2 border border-green-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+          <select className="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
             <option>Categoria</option>
           </select>
-          <select className="w-full p-2 border border-green-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+          <select className="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
             <option>Modalidade</option>
           </select>
         </div>
@@ -220,28 +220,19 @@ export const Buscador: React.FC = () => {
       <FiltroExpandido isOpen={showAdvancedFilters}>
         <div className="max-w-2xl mx-auto p-4 space-y-6">
           {/* Sessões adicionais */}
-          <IdDemografica />
-          <GeoReferenceSection />
-          <ScheduleSection />
-          <ProductsServicesSection />
-          <SocialLinksSection />
+            <IdDemografica />
+            <GeoReferenceSection />
+            {/* <ScheduleSection /> */}
+            <ProductsServicesSection />
+            <SocialLinksSection />   
+            
         </div>
       </FiltroExpandido>
-
-      {/* Botão de busca */}
-      <div className="flex justify-center mt-8">
-        <Button
-          onClick={handleSearch}
-          className="bg-green-800 hover:bg-green-900 text-white font-bold py-3 px-8 rounded-lg shadow text-xl transition-colors w-full max-w-xs"
-        >
-          BUSCAR
-        </Button>
-      </div>
-
-      {/* Resultados */}
-      <div className="mt-8">
-        <BuscadorResultado results={results} filterType={selectedFilter} />
-      </div>
+        <div className="max-w-2xl mx-auto p-4 ">
+      <MensagemDireta />
+        </div>
     </div>
   );
 };
+
+export default MensageiroPage;

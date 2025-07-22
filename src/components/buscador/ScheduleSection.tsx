@@ -28,7 +28,7 @@ export const ScheduleSection = () => {
   ];
 
   return (
-    <CollapsibleSection title="AGENDA / DIAS / HORÁRIOS PARA BUSCAR GRUPOS">
+    <CollapsibleSection title="AGENDA / DIAS " subTitle=" HORÁRIOS PARA BUSCAR GRUPOS">
       <div className="max-w-2xl mx-auto space-y-6 text-sm p-4">
         {/* Dias da semana */}
         <MultiSelectButtonGroup

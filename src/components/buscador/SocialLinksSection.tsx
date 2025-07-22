@@ -90,7 +90,7 @@ export const SocialLinksSection = () => {
 
 
   return (
-    <CollapsibleSection title="VÍNCULOS SOCIAIS">
+    <CollapsibleSection title="VÍNCULOS SOCIAIS" subTitle="PCD.GÊNERO.CULTURA.SOCIAL. SSE .MEIO AMBIENTE">
       <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
         {/* ECONOMIA SOLIDÁRIA - SINGLE SELECT */}
         <div>
