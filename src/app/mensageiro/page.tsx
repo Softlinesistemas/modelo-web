@@ -16,7 +16,7 @@ import { BuscadorResultado } from "@/components/buscador/BuscadorResultado";
 import { fetchMockResults } from "@/components/buscador/api";
 
 
-export const MensageiroPage: React.FC = () => {
+export default function MensageiroPage() {
   const [search, setSearch] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<string>("amigos");
   const [results, setResults] = useState<any[]>([]);
