@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 956c99bc6b75e861c53a8029229b49eb783c7185
 import { useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { motion } from 'framer-motion';
