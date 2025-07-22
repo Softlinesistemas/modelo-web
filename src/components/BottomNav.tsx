@@ -79,7 +79,7 @@ export const BottomNav: React.FC = () => {
       
       {/* Avatar do usuário no canto esquerdo */}
       <button
-        onClick={() => router.push('/feed')}
+        onClick={() => router.push('/')}
         className="flex flex-col items-center text-xs"
       >
         <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-300">

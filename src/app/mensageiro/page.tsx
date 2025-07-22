@@ -234,5 +234,3 @@ export const MensageiroPage: React.FC = () => {
     </div>
   );
 };
-
-export default MensageiroPage;
