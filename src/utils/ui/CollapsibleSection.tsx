@@ -1,4 +1,4 @@
-// components/CollapsibleSection.tsx
+
 import { useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 
