@@ -15,7 +15,7 @@ export const FeedPhotoGallery: React.FC<FeedPhotoGalleryProps> = ({ photos }) =>
       {photos.map((photo, index) => (
         <div
           key={index}
-          className="relative min-w-[130px] h-[90px] rounded-md overflow-hidden border border-gray-300 shadow-sm"
+          className="relative min-w-[180px] h-[130px] rounded-md overflow-hidden border border-black shadow-sm"
         >
           <Image
             src={photo.url}
