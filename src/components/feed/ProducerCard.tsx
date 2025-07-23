@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { FiShare2, FiCopy, FiUserPlus, FiUserCheck } from "react-icons/fi";
+import { FiShare2, FiCopy, FiUserPlus, FiUserCheck, FiMessageCircle, FiPhone, FiVideo } from "react-icons/fi";
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/common/Card";
 import { Button } from "@/utils/ui/Button"; // Importando seu componente Button
@@ -26,7 +26,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
   return (
     <>
       {/* Card 1: Informações básicas e galeria */}
-      <Card className="border shadow-sm mb-4">
+      <Card className="border shadow-sm mb-1">
         <CardHeader className="p-3 border-b">
           <div className="flex items-center">
             <Image
@@ -52,52 +52,56 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
         </CardHeader>
 
         <CardContent className="p-0">
-          {/* Gallery */}
-          <div className="flex gap-1 px-3 pb-2">
-            {galleryImages.map((img, i) => (
-              <Image
-                key={i}
-                src={img}
-                alt={`foto-${i}`}
-                width={60}
-                height={40}
-                className="rounded-sm object-cover"
-              />
-            ))}
-          </div>
+          <div className="px-3 pb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            {/* Ações de comunicação */}
+            <div className="flex gap-4 justify-start sm:justify-start">
+              <button className="flex flex-col items-center text-gray-700 hover:text-orange-500">
+                <FiMessageCircle size={24} />
+                <span className="text-xs">Mensagem</span>
+              </button>
+              <button className="flex flex-col items-center text-gray-700 hover:text-blue-500">
+                <FiPhone size={24} />
+                <span className="text-xs">Ligar</span>
+              </button>
+              <button className="flex flex-col items-center text-gray-700 hover:text-green-500">
+                <FiVideo size={24} />
+                <span className="text-xs">Vídeo</span>
+              </button>
+            </div>
 
-          {/* Botão Amigo - Usando seu componente Button */}
-          <div className="px-3 pb-2 flex justify-end">
-            <Button
-              onClick={toggleFriendship}
-              variant={isFriend ? "secondary" : "primary"}
-              size="sm"
-              className={`flex items-center gap-1 ${
-                isFriend 
-                  ? "border border-green-600 text-green-900" 
-                  : "text-white"
-              }`}
-            >
-              {isFriend ? (
-                <>
-                  <FiUserCheck size={14} />
-                  <span>Amigo</span>
-                </>
-              ) : (
-                <>
-                  <FiUserPlus size={14} />
-                  <span>Adicionar</span>
-                </>
-              )}
-            </Button>
+            {/* Botão Ser Amigo alinhado à direita */}
+            <div className="flex justify-end">
+              <Button
+                onClick={toggleFriendship}
+                variant={isFriend ? "secondary" : "primary"}
+                size="sm"
+                className={`flex items-center gap-1 ${
+                  isFriend
+                    ? "border border-green-600 text-green-900"
+                    : "text-white"
+                }`}
+              >
+                {isFriend ? (
+                  <>
+                    <FiUserCheck size={14} />
+                    <span>Amigo</span>
+                  </>
+                ) : (
+                  <>
+                    <FiUserPlus size={14} />
+                    <span>Ser Amigo</span>
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Card 2: Descrição */}
       <Card className="border shadow-sm">
-        <CardContent className="p-0">
-          <div className="px-3 py-2 text-sm bg-gray-50 text-gray-800 relative">
+        <CardContent className="p-0.5">
+          <div className="px-3 py-2 text-sm bg-gray-50 text-gray-800 relative ">
             <div>
               {expanded ? (
                 <>
@@ -124,7 +128,10 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
                   Oferecemos Café da Manhã - Excursão, avise antes.
                   <br />
                   Temos Banana, Mandioca, Farinha...
-                  <span className="text-green-600 cursor-pointer ml-1" onClick={() => setExpanded(true)}>
+                  <span
+                    className="text-green-600 cursor-pointer ml-1"
+                    onClick={() => setExpanded(true)}
+                  >
                     Ver mais
                   </span>
                 </>

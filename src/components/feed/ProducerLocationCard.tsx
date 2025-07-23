@@ -3,7 +3,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 
 export const ProducerLocationCard = () => {
   return (
-    <div className="bg-white rounded shadow p-3 mb-2 text-sm">
+    <div className="bg-white rounded-2xl shadow-sm shadow-gray-500 p-3 mb-2 text-sm">
       <div className="flex justify-between">
         <div>
           <strong>Queimadas, Bahia, Brasil</strong>

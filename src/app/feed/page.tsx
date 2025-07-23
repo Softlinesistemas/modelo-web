@@ -22,10 +22,11 @@ export default function FeedPage() {
   ];
 
   return (
-    <div className="bg-green-100 p-4 rounded shadow max-w-md mx-auto">
-      <div className='pb-2'>
+    <div className="bg-green-100 p-2 rounded shadow max-w-md mx-auto">
+      <div className='pb-0.5'>
         <MainBanner />
       </div>
+       <div className="mt-1">
       <ProducerCard 
         mainImage={'/avatar2.jpeg'} 
         galleryImages={[
@@ -35,16 +36,17 @@ export default function FeedPage() {
           '/avatar1.jpg'
         ]} 
       />
-      
-      <div className="mt-4">
-        <FeedPhotoGallery photos={photos} />
       </div>
 
-      <div className="mt-4">
+      <div className="mt-1">
         <ProducerLocationCard />
       </div>
 
-      <div className="mt-4">
+      <div className="mt-2">
+        <FeedPhotoGallery photos={photos} />
+      </div>
+
+      <div className="mt-2">
         <SocialIcons />
       </div>
 

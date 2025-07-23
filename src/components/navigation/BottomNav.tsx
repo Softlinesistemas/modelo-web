@@ -8,6 +8,7 @@ import { useUser } from '@/app/context/AuthContext'
 import { useAction } from '@/app/context/ActionContext'
 import { NavButton } from './NavButton'
 import { motion } from 'framer-motion'
+import { avatar2, avatar, avatar3 } from '../../../public';
 
 export const BottomNav: React.FC = () => {
   const router = useRouter()
@@ -46,7 +47,8 @@ export const BottomNav: React.FC = () => {
       <motion.button onClick={() => router.push('/')} className="flex flex-col items-center text-xs">
         <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-300">
           <Image
-            src={user?.avatarUrl}
+            src={avatar2}
+            // src={user?.avatarUrl}
             alt={user?.name}
             fill
             className="object-cover"
