@@ -9,16 +9,19 @@ import { ActionProvider } from './context/ActionContext'
 import { Header } from '../components/Header'
 import { BottomNav } from '../components/navigation/BottomNav'
 import { AjudaLinks } from '@/components/AjudaLinks'
+import { SplashScreen } from '@/components/SplashScreen' // ✅
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR" className="overflow-x-hidden">
-      <body className="bg-[#B6D2B7] min-h-screen w-full overflow-x-hidden flex flex-col  relative">
+      <body className="bg-[#B6D2B7] min-h-screen w-full overflow-x-hidden flex flex-col relative">
+        
+        <SplashScreen /> 
 
-        <AppProvider> {/* ✅ Seu provider original preservado */}
-          <AuthProvider> {/* ✅ Avatar do usuário */}
-            <NotificationProvider> {/* ✅ Badge dinâmica */}
-              <ActionProvider> {/* ✅ Ação global ativa */}
+        <AppProvider>
+          <AuthProvider>
+            <NotificationProvider>
+              <ActionProvider>
 
                 <Header />
 
