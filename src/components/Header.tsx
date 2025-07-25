@@ -1,9 +1,10 @@
 'use client'
 
 import React, { useState } from 'react';
-import { FiMenu, FiShare2 } from 'react-icons/fi';
+import { FiMenu } from 'react-icons/fi';
 import { HamburgerMenu } from './MenuHamburguer';
 import { ShareModal } from './ShareModal'; 
+import { IoShareSocialSharp } from "react-icons/io5";
 
 export const Header: React.FC = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -11,19 +12,19 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-white mb-1 border-b-2 p-1 flex items-center justify-between text-black">
+      <header className="bg-[#B6D2B7] flex items-center justify-between text-black">
         {/* Botão do menu hamburguer */}
         <button onClick={() => setShowMenu(true)}>
           <FiMenu size={24} />
         </button>
 
         {/* Título da aplicação */}
-        <h1 className="font-bold text-green-700 text-[clamp(8px, 5vw, 20px)] text-center whitespace-nowrap px-2 w-full">
+        <h1 className="font-bold text-[#2f5331] text-[clamp(8px, 5vw, 20px)] text-center text-xs w-full">
           GooAgro - Conectando Agricultores & Clientes.</h1>
 
         {/* Botão de compartilhar */}
         <button onClick={() => setShowShare(true)}>
-          <FiShare2 size={24} />
+          <IoShareSocialSharp size={24} />
         </button>
       </header>
 

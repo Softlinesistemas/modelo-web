@@ -6,6 +6,7 @@ import { FiShare2, FiCopy, FiUserPlus, FiUserCheck, FiMessageCircle, FiPhone, Fi
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/common/Card";
 import { Button } from "@/utils/ui/Button"; // Importando seu componente Button
+import { MdDeliveryDining } from "react-icons/md";
 
 interface ProducerCardProps {
   mainImage: string;
@@ -28,8 +29,8 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
     <>
       {/* Card 1: Informações básicas e galeria */}
      <Card className="border shadow-sm mb-1">
-  <CardHeader className="p-3 border-b">
-    <div className="flex items-center">
+  <CardHeader className="p-1 border-b">
+    <div className="flex items-satar">
       <Image
         src={mainImage}
         alt="Foto principal"
@@ -37,7 +38,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
         height={60}
         className="rounded-md object-cover"
       />
-      <div className="flex-1 ml-3">
+      <div className="flex-1 ml-3 items-start">
         <CardTitle className="text-sm font-semibold text-gray-800">
           Sitio Canaã - Alimentos Organicos
         </CardTitle>
@@ -48,7 +49,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
           Alimentação escolar
         </div>
       </div>
-      <FiShare2 className="text-gray-500 hover:text-gray-800 cursor-pointer" />
+      <FiShare2 size={24} className="text-gray-500 hover:text-gray-800 cursor-pointer" />
     </div>
   </CardHeader>
 
@@ -57,7 +58,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
     <div className="px-3 pb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
       {/* Ações de comunicação */}
-      <div className="flex gap-4 justify-start">
+      <div className="flex gap-14 justify-end">
         <button className="flex flex-col items-center text-gray-700 hover:text-orange-500">
           <FiMessageCircle size={24} />
           <span className="text-xs">Mensagem</span>
@@ -77,11 +78,11 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
         {/* Ícones extras: Delivery e Grupos */}
         <div className="flex gap-3 text-gray-600">
           <div className="flex items-center gap-1 text-xs">
-            <FiTruck size={16} className="text-orange-500" />
+            <MdDeliveryDining size={28} className="text-orange-500" />
             {/* <span>Faz Delivery</span> */}
           </div>
           <div className="flex items-center gap-1 text-xs">
-            <FiUsers size={16} className="text-blue-600" />
+            <FiUsers size={22} className="text-blue-600" />
             {/* <span>Participa de Grupos</span> */}
           </div>
         </div>

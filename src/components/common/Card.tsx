@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import clsx from 'clsx';
 
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={clsx('rounded-2xl shadow-md shadow-gray-500 bg-white p-2', className)}>{children}</div>;
+  return <div className={clsx('rounded-md shadow-md shadow-gray-500 bg-white p-2', className)}>{children}</div>;
 }
 
 export function CardHeader({ children, className }: { children: ReactNode; className?: string }) {

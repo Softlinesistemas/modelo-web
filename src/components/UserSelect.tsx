@@ -17,19 +17,19 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
 
   const [selectedUser, setSelectedUser] = useState({
     name: 'Maria da Silva',
-    role: '',
+    
   });
 
   const users = [
-    { name: 'Sítio Canaã', role: 'Alimentos Orgânicos' },
-    { name: 'Maria da Silva', role: '' },
+    { name: 'Sítio Canaã - Alimentos Orgânicos' },
+    { name: 'Maria da Silva'},
     // { name: 'Maria Souza', role: 'Operadora' },
     // { name: 'Carlos Lima', role: 'Supervisor' },
   ];
 
   const toggleDropdown = () => setShowDropdown(!showDropdown);
 
-  const selectUser = (user: { name: string; role: string }) => {
+  const selectUser = (user: { name: string;}) => {
     setSelectedUser(user);
     setShowDropdown(false);
   };
@@ -37,7 +37,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const handleCloseQrCode = () => setShowQrCode(false); // Fechar QR Code se quiser
 
   return (
-    <div className="bg-green-100 mt-1 p-1 w-full mx-auto rounded-md shadow-md">
+    <div className="bg-[#B6D2B7] p-2 w-full mx-auto">
       {/* Renderiza o QR Code ou a seleção de usuário */}
       {showQrCode ? (
         <QrCode 
@@ -61,10 +61,10 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
             <div className="relative">
               <button
                 onClick={toggleDropdown}
-                className="w-full text-left px-1 py-1 bg-green-200 rounded flex items-center justify-between"
+                className="w-full text-left px-1 py-1 bg-white rounded flex items-center justify-between"
               >
                 <span className="text-sm font-medium">
-                  {selectedUser.name}  {selectedUser.role}
+                  {selectedUser.name}  
                 </span>
                 <FiChevronDown />
               </button>
@@ -77,7 +77,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
                       onClick={() => selectUser(user)}
                       className="px-3 py-2 hover:bg-green-100 cursor-pointer text-sm"
                     >
-                      {user.name} - {user.role}
+                      {user.name}
                     </div>
                   ))}
                 </div>
@@ -85,7 +85,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
             </div>
 
             {/* Ícones de ação */}
-            <div className="mt-2 flex justify-around text-gray-700 text-xl gap-2 pb-3">
+            <div className="mt-2 flex justify-around text-gray-700 text-xl gap-1 pb-3">
               <Button
                 onClick={handleSearchClick}
                 className="hover:text-green-600 transition"

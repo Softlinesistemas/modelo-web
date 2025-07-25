@@ -45,6 +45,11 @@ export const AvatarMenu: React.FC<Props> = ({
 
         {/* Linha 1: Grid 2x2 com 4 botões */}
         <div className="grid grid-cols-3 gap-4 w-full mb-4">
+          <button className="flex flex-col items-center text-gray-700 hover:text-orange-500">
+            <FiMessageCircle size={20} />
+            <span className="text-xs">Mensagem</span>
+          </button>
+
           <button className="flex flex-col items-center text-gray-700 hover:text-blue-500">
             <FiPhone size={20} />
             <span className="text-xs">Ligar</span>
@@ -54,19 +59,15 @@ export const AvatarMenu: React.FC<Props> = ({
             <FiVideo size={20} />
             <span className="text-xs">Vídeo</span>
           </button>
-
-          <button className="flex flex-col items-center text-gray-700 hover:text-orange-500">
-            <FiMessageCircle size={20} />
-            <span className="text-xs">Mensagem</span>
-          </button>
         </div>
 
         {/* Linha 2: Grid 3 colunas com Bloquear, Favoritar e Excluir */}
         <div className="grid grid-cols-3 gap-4 w-full justify-center">
 
           <button className="flex flex-col items-center text-gray-700 hover:text-purple-500">
-            <FiInfo size={20} />
-            <span className="text-xs">Ver perfil</span>
+            {/* <FiInfo size={20} /> */}
+            <span className="text-xs">Tela-Publica</span>
+            <span className="text-xs">Site-Social</span>
           </button>
           
           <button className="flex flex-col items-center text-gray-700 hover:text-yellow-500">

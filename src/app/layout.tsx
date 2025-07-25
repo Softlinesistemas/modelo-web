@@ -13,7 +13,7 @@ import { AjudaLinks } from '@/components/AjudaLinks'
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR" className="overflow-x-hidden">
-      <body className="bg-[#32CD32] min-h-screen w-full max-w-screen overflow-x-hidden flex flex-col pb-16 relative">
+      <body className="bg-[#B6D2B7] min-h-screen w-full overflow-x-hidden flex flex-col  relative">
 
         <AppProvider> {/* ✅ Seu provider original preservado */}
           <AuthProvider> {/* ✅ Avatar do usuário */}

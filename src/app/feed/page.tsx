@@ -22,11 +22,11 @@ export default function FeedPage() {
   ];
 
   return (
-    <div className="bg-green-100 p-2 rounded shadow max-w-md mx-auto">
-      <div className="pb-0.5">
+    <div className="rounded max-w-md mx-auto">
+      <div>
         <MainBanner />
       </div>
-      <div className="mt-1">
+      <div>
         <ProducerCard
           mainImage={"/avatar2.jpeg"}
           galleryImages={[
@@ -38,15 +38,15 @@ export default function FeedPage() {
         />
       </div>
 
-      <div className="mt-1">
+      <div className='mt-1' >
         <ProducerLocationCard />
       </div>
 
-      <div className="mt-2">
+      <div >
         <FeedPhotoGallery photos={photos} />
       </div>
 
-      <div className="mt-2">
+      <div >
         <SocialIcons
           links={{
             gps: { lat: -23.55052, lng: -46.633308 },
