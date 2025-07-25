@@ -1,4 +1,4 @@
-// components/SplashScreen.tsx
+
 'use client'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -15,7 +15,7 @@ export const SplashScreen = () => {
 
       const timeout = setTimeout(() => {
         setShowSplash(false)
-      }, 2000) 
+      }, 1000) 
       return () => clearTimeout(timeout)
     }
   }, [])
@@ -24,7 +24,7 @@ export const SplashScreen = () => {
     <AnimatePresence>
       {showSplash && (
         <motion.div
-          className="fixed inset-0 bg-[#B6D2B7] z-[9999] flex items-start justify-start mt-4"
+          className="fixed inset-0 bg-[#B6D2B7] z-[9999] flex items-center justify-center mt-4"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
