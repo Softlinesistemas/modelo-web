@@ -8,6 +8,7 @@ import { PessoaCard } from '@/components/PessoaCard' // Card genérico para most
 import { useEffect, useState } from 'react'
 import { AvatarMenu } from '@/components/AvatarMenu' // Modal para mostrar avatar e nome
 import { AppModal } from '@/utils/ui/AppModal' // Modal genérico
+import { MainBanner } from '@/components/MainBanner'
 
 // Define as abas disponíveis na tela de grupos
 const tabs = ['Meus', 'Sugestões']
@@ -100,9 +101,10 @@ export default function Grupos() {
   }
 
   return (
-    <div className="min-h-screen px-4 py-6 bg-gray-50">
+    <div className="min-h-screen px-2 bg-gray-50">
       {/* Título da página */}
-      <h1 className="text-2xl font-bold mb-4 text-center">Área de Grupos</h1>
+      <MainBanner />
+      {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Grupos</h1> */}
 
       {/* Barra superior: seleção de aba e botão de criar grupo */}
       <div className="flex items-center justify-between mb-4">
@@ -110,42 +112,48 @@ export default function Grupos() {
           <TabSelector
             tabs={tabs}
             activeIndex={gruposTab}
-            onChange={(i) => setTab('gruposTab', i)}
+            onChange={(i) => setTab("gruposTab", i)}
           />
         </div>
-
-        <button
+      <button
           onClick={criarGrupo}
           className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
         >
           Criar Grupo
         </button>
-         <button
-          onClick={irParaBuscador}
-          className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
-        >
-          Procurar por Filtros
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-600"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+        </div>
+        <div className="flex justify-center items-center pb-3">
+        {/* Campo de busca */}
+        <input
+          type="text"
+          placeholder="Buscar por nome..."
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        </div>
+        <div className="flex justify-center items-center pb-3">
+          <button
+            onClick={irParaBuscador}
+            className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Campo de busca */}
-      <input
-        type="text"
-        placeholder="Buscar por nome..."
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-        className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+            Procurar por Filtros
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z"
+              />
+            </svg>
+          </button>
+        </div>
 
       {/* Conteúdo dos grupos ou sugestões com animação de transição */}
       <motion.div
@@ -166,7 +174,9 @@ export default function Grupos() {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">Nenhum grupo encontrado.</p>
+              <p className="text-center text-gray-500">
+                Nenhum grupo encontrado.
+              </p>
             )}
           </div>
         )}
@@ -183,7 +193,9 @@ export default function Grupos() {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">Nenhuma sugestão encontrada.</p>
+              <p className="text-center text-gray-500">
+                Nenhuma sugestão encontrada.
+              </p>
             )}
           </div>
         )}
@@ -213,9 +225,15 @@ export default function Grupos() {
               className="w-24 h-24 rounded-full object-cover border"
             />
             <div>
-              <p className="text-lg font-semibold">{sugestaoSelecionada.nome}</p>
-              <p className="text-sm text-gray-600">{sugestaoSelecionada.descricao}</p>
-              <p className="text-sm text-gray-700 font-semibold">{sugestaoSelecionada.atuacao}</p>
+              <p className="text-lg font-semibold">
+                {sugestaoSelecionada.nome}
+              </p>
+              <p className="text-sm text-gray-600">
+                {sugestaoSelecionada.descricao}
+              </p>
+              <p className="text-sm text-gray-700 font-semibold">
+                {sugestaoSelecionada.atuacao}
+              </p>
             </div>
           </div>
 
@@ -223,8 +241,8 @@ export default function Grupos() {
             <button
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition w-full"
               onClick={() => {
-                alert('Solicitação enviada!')
-                setIsSugestaoModalOpen(false)
+                alert("Solicitação enviada!");
+                setIsSugestaoModalOpen(false);
               }}
             >
               Entrar no grupo
@@ -240,5 +258,5 @@ export default function Grupos() {
         </AppModal>
       )}
     </div>
-  )
+  );
 }

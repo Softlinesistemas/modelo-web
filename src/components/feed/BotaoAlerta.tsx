@@ -11,7 +11,7 @@ export const BotaoAlerta = () => {
     <>
       <button
         onClick={() => setAberto(true)}
-        className="flex items-center gap-1 px-3 py-1.5 bg-red-600 text-white rounded-full shadow-md hover:bg-red-700 transition text-xs"
+        className="flex items-center gap-1 px-3 py-1.5 bg-red-600 text-white shadow-md hover:bg-red-700 transition text-md"
       >
         <MdErrorOutline size={16} />
         <span>Apoio de Comunicação</span>

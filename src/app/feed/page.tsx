@@ -19,10 +19,12 @@ export default function FeedPage() {
     { url: "/placeholder2.jpg", date: "16/03/24" },
     { url: "/placeholder3.jpg", date: "17/03/24" },
     { url: "/placeholder4.jpg", date: "18/03/24" },
+    { url: "/placeholder5.jpg", date: "17/04/24" },
+    { url: "/placeholder6.jpg", date: "18/08/24" },
   ];
 
   return (
-    <div className="rounded max-w-md mx-auto">
+    <div className="rounded max-w-lg mx-auto">
       <div>
         <MainBanner />
       </div>
@@ -38,15 +40,15 @@ export default function FeedPage() {
         />
       </div>
 
-      <div className='mt-1' >
+      <div className="mt-1">
         <ProducerLocationCard />
       </div>
 
-      <div >
+      <div>
         <FeedPhotoGallery photos={photos} />
       </div>
 
-      <div >
+      <div className="mt-2">
         <SocialIcons
           links={{
             gps: { lat: -23.55052, lng: -46.633308 },
@@ -67,32 +69,52 @@ export default function FeedPage() {
         />
       </div>
 
-      <div className="flex gap-2 my-4 items-center justify-center">
+      <div className="flex gap-2 my-2 items-center justify-center">
         <BotaoAgrupado />
         <BotaoAlerta />
       </div>
 
       <div className="mt-2">
-       <ProducerTableInfo />
+        <ProducerTableInfo />
       </div>
 
-      <div className="mt-2">
+      <div className="mt-3">
         <SocialLinksSection />
       </div>
 
-      <h2 className="bg-green-800 text-white rounded py-1 px-3 mt-4 text-center text-sm">
-        FEED
-      </h2>
+      <div className='mx-auto rounded-md bg-green-900'>
+      <div className="mt-2 mb-2">
+        <h2 className="bg-green-800 text-white rounded-md py-1 px-3 text-center text-md text-bold">
+          FEED / REGISTROS / MOMENTOS
+        </h2>
+      </div>
+      {/* Posts com múltiplas imagens */}
+      <FeedPostCard
+        images={[
+          "/images/feed/ft1.jpg",
+          "/images/feed/ft2.jpg",
+          "/images/feed/ft3.jpg",
+        ]}
+        date="2025-07-25"
+        text="Novas técnicas de cultivo sustentável estão revolucionando a agricultura familiar em nossa região."
+      />
 
-      {/* Adicione 3 posts idênticos */}
-      {[1, 2, 3].map((_, index) => (
-        <FeedPostCard
-          key={index}
-          imageUrl="/images/feed.jpg"
-          date="2025-07-11"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin auctor suscipit urna, eu iaculis risus iaculis vitae. Fusce molestie id arcu a pellentesque."
-        />
-      ))}
+      <FeedPostCard
+        images={["/images/feed/ft4.jpg", "/images/feed/ft5.jpg"]}
+        date="2025-07-20"
+        text="Implementamos drones para monitoramento de plantações, aumentando a produtividade em 30%."
+      />
+
+      <FeedPostCard
+        images={[
+          "/images/feed/ft3.jpg",
+          "/images/feed/ft4.jpg",
+          "/images/feed/ft3.jpg",
+        ]}
+        date="2025-07-15"
+        text="Projeto de energia solar em propriedades rurais reduz custos e impacto ambiental simultaneamente."
+      />
+    </div>
     </div>
   );
 }

@@ -110,19 +110,36 @@ export default function Empresas() {
   return (
     <div className="min-h-screen px-4 py-6 bg-gray-50">
       {/* Título da página */}
-      <h1 className="text-2xl font-bold mb-4 text-center">Área de Empresas</h1>
+      {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Empresas</h1> */}
 
       {/* Barra superior: seleção de aba e botão de criar grupo */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex-1">
-        <TabSelector
-          tabs={tabs}
-          activeIndex={empresasTab}
-          onChange={(i) => setTab('empresasTab', i)}
-        />
+          <TabSelector
+            tabs={tabs}
+            activeIndex={empresasTab}
+            onChange={(i) => setTab("empresasTab", i)}
+          />
         </div>
+        <button
+          onClick={criarEmpresa}
+          className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        >
+          Ser Empresa
+        </button>
+      </div>
+      <div className="flex justify-center items-center pb-3">
+        {/* Campo de busca */}
+        <input
+          type="text"
+          placeholder="Buscar empresa..."
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
-
+      <div className="flex justify-center items-center pb-3">
         <button
           onClick={irParaBuscador}
           className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
@@ -136,25 +153,14 @@ export default function Empresas() {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z"
+            />
           </svg>
         </button>
-        <button
-          onClick={criarEmpresa}
-          className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Ser Empresa
-        </button>
       </div>
-
-      {/* Campo de busca */}
-      <input
-        type="text"
-        placeholder="Buscar empresa..."
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-        className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
 
       {/* Lista com animação ao trocar de aba */}
       <motion.div
@@ -175,7 +181,9 @@ export default function Empresas() {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">Nenhuma empresa encontrada.</p>
+              <p className="text-center text-gray-500">
+                Nenhuma empresa encontrada.
+              </p>
             )}
           </div>
         )}
@@ -192,7 +200,9 @@ export default function Empresas() {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">Nenhuma sugestão encontrada.</p>
+              <p className="text-center text-gray-500">
+                Nenhuma sugestão encontrada.
+              </p>
             )}
           </div>
         )}
@@ -234,8 +244,8 @@ export default function Empresas() {
               <button
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition flex-1"
                 onClick={() => {
-                  alert('Contato enviado!')
-                  setModalAberto(false)
+                  alert("Contato enviado!");
+                  setModalAberto(false);
                 }}
               >
                 Entrar em contato
@@ -244,8 +254,8 @@ export default function Empresas() {
               <button
                 className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition flex-1"
                 onClick={() => {
-                  navegarParaEmpresa(empresaSelecionada.id)
-                  setModalAberto(false)
+                  navegarParaEmpresa(empresaSelecionada.id);
+                  setModalAberto(false);
                 }}
               >
                 Ver detalhes
@@ -255,5 +265,5 @@ export default function Empresas() {
         </AppModal>
       )}
     </div>
-  )
+  );
 }

@@ -7,7 +7,9 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {}, // vazio, nenhuma extensão do tema
+    extend: {},
   },
-  plugins: [], // nenhum plugin personalizado
+  plugins: [
+     require('tailwind-scrollbar'),
+  ], 
 };

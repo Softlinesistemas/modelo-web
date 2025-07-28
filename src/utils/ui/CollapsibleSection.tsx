@@ -92,7 +92,7 @@ export const CollapsibleSection = ({
         </motion.div>
       </div>
 
-      {open && <div className="bg-white text-black p-4">{children}</div>}
+      {open && <div className=" text-black p-4">{children}</div>}
     </div>
   );
 };

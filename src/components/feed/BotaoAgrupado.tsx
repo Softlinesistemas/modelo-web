@@ -21,10 +21,10 @@ export const BotaoAgrupado = () => {
   }
 
   return (
-    <div className="flex rounded-full overflow-hidden shadow-md">
+    <div className="flex rounded-full shadow-md">
       <button
         onClick={handleAmigosClick}
-        className={`flex items-center gap-2 px-3 py-1.5 transition text-xs ${
+        className={`flex items-center gap-2 px-3 py-1.5 mx-1 transition text-md ${
           ativo === "amigos"
             ? "bg-green-700 text-white"
             : "bg-green-100 text-green-800 hover:bg-green-200"
@@ -36,7 +36,7 @@ export const BotaoAgrupado = () => {
 
       <button
         onClick={handleGruposClick}
-        className={`flex items-center gap-2 px-3 py-1.5 transition text-xs ${
+        className={`flex items-center gap-2 px-3 py-1.5 mx-1 transition text-md ${
           ativo === "grupos"
             ? "bg-green-700 text-white"
             : "bg-green-100 text-green-800 hover:bg-green-200"

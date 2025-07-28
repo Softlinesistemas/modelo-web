@@ -12,10 +12,11 @@ interface FeedPhotoGalleryProps {
 export const FeedPhotoGallery: React.FC<FeedPhotoGalleryProps> = ({ photos }) => {
   return (
     <div className="flex gap-2 overflow-x-auto p-2 bg-green-100 rounded-md">
+
       {photos.map((photo, index) => (
         <div
           key={index}
-          className="relative min-w-[180px] h-[130px] rounded-md overflow-hidden border border-black shadow-sm"
+          className="relative min-w-[190px] h-[140px] rounded-md overflow-hidden border border-black shadow-sm"
         >
           <Image
             src={photo.url}

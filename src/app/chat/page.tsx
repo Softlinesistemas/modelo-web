@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Header } from '@/components/Header';
 import { BottomNav } from '@/components/BottomNav';
+import { MainBanner } from '@/components/MainBanner';
 
 const chats = [
   {
@@ -31,7 +31,7 @@ export default function ChatListPage() {
 
   return (
     <div className="h-screen bg-white flex flex-col">
-
+    <MainBanner />
       <h1 className="p-4 border-b text-lg font-bold text-green-700">Conversas</h1>
 
       {/* Lista de chats */}

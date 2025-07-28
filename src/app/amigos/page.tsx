@@ -1,78 +1,102 @@
-'use client'
+"use client";
 
-import { useTabStore } from '@/store/useTabStore'
-import { TabSelector } from '@/components/TabSelector'
-import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
-import { PessoaCard } from '@/components/PessoaCard'
-import { useEffect, useState } from 'react'
-import { AvatarMenu } from '@/components/AvatarMenu'
-import { AppModal } from '@/utils/ui/AppModal'
+import { useTabStore } from "@/store/useTabStore";
+import { TabSelector } from "@/components/TabSelector";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { PessoaCard } from "@/components/PessoaCard";
+import { useEffect, useState } from "react";
+import { AvatarMenu } from "@/components/AvatarMenu";
+import { AppModal } from "@/utils/ui/AppModal";
 
-const tabs = ['Meus', 'Sugestões']
+const tabs = ["Meus", "Sugestões"];
 
 const mockSugestoes = [
-  { id: 'u3', nome: 'Lucas Ribeiro', descricao: 'Fotógrafo Profissional', atuacao: 'Viagens e Cultura', foto: '/img/lucas.jpg' },
-  { id: 'u4', nome: 'Juliana Mendes', descricao: 'Cozinheira Vegana', atuacao: 'Receitas e Culinária', foto: '/img/juliana.jpg' },
-  { id: 'u5', nome: 'Ricardo Lima', descricao: 'Empreendedor Rural', atuacao: 'Comércio Local', foto: '/img/ricardo.jpg' },
-  { id: 'u6', nome: 'Fernanda Silva', descricao: 'Educadora Ambiental', atuacao: 'Sustentabilidade', foto: '/img/fernanda.jpg' },
-]
+  {
+    id: "u3",
+    nome: "Lucas Ribeiro",
+    descricao: "Fotógrafo Profissional",
+    atuacao: "Viagens e Cultura",
+    foto: "/img/lucas.jpg",
+  },
+  {
+    id: "u4",
+    nome: "Juliana Mendes",
+    descricao: "Cozinheira Vegana",
+    atuacao: "Receitas e Culinária",
+    foto: "/img/juliana.jpg",
+  },
+  {
+    id: "u5",
+    nome: "Ricardo Lima",
+    descricao: "Empreendedor Rural",
+    atuacao: "Comércio Local",
+    foto: "/img/ricardo.jpg",
+  },
+  {
+    id: "u6",
+    nome: "Fernanda Silva",
+    descricao: "Educadora Ambiental",
+    atuacao: "Sustentabilidade",
+    foto: "/img/fernanda.jpg",
+  },
+];
 
 const dados = [
   {
-    id: '1',
-    nome: 'Cicrano Santos Santos',
-    descricao: '31. Servidor Público',
-    atuacao: 'CADASTRADOR - CAF',
-    foto: '/img/cicrano.jpg',
+    id: "1",
+    nome: "Cicrano Santos Santos",
+    descricao: "31. Servidor Público",
+    atuacao: "CADASTRADOR - CAF",
+    foto: "/img/cicrano.jpg",
   },
   {
-    id: '2',
-    nome: 'Professor Agrônomo Beltrano Oli',
-    descricao: '12. PROFESSOR ENG. AGRÔNOMO',
-    atuacao: '17. GEO-REFERENCIAL COM DRONE',
-    foto: '/img/professor.jpg',
+    id: "2",
+    nome: "Professor Agrônomo Beltrano Oli",
+    descricao: "12. PROFESSOR ENG. AGRÔNOMO",
+    atuacao: "17. GEO-REFERENCIAL COM DRONE",
+    foto: "/img/professor.jpg",
   },
   {
-    id: '3',
-    nome: 'Maria dos Santos',
-    descricao: 'Engenheira Ambiental',
-    atuacao: 'Sustentabilidade Rural',
-    foto: '/img/maria.jpg',
+    id: "3",
+    nome: "Maria dos Santos",
+    descricao: "Engenheira Ambiental",
+    atuacao: "Sustentabilidade Rural",
+    foto: "/img/maria.jpg",
   },
   {
-    id: '4',
-    nome: 'José Oliveira',
-    descricao: 'Técnico em Agropecuária',
-    atuacao: 'Consultoria Técnica',
-    foto: '/img/jose.jpg',
+    id: "4",
+    nome: "José Oliveira",
+    descricao: "Técnico em Agropecuária",
+    atuacao: "Consultoria Técnica",
+    foto: "/img/jose.jpg",
   },
-]
+];
 
 export default function Amigos() {
-  const { amigosTab, setTab } = useTabStore()
-  const router = useRouter()
+  const { amigosTab, setTab } = useTabStore();
+  const router = useRouter();
 
-  const [busca, setBusca] = useState('')
-  const [amigosFiltrados, setAmigosFiltrados] = useState(dados)
-  const [sugestoesFiltradas, setSugestoesFiltradas] = useState(mockSugestoes)
+  const [busca, setBusca] = useState("");
+  const [amigosFiltrados, setAmigosFiltrados] = useState(dados);
+  const [sugestoesFiltradas, setSugestoesFiltradas] = useState(mockSugestoes);
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPessoa, setSelectedPessoa] = useState<{
-    name: string
-    avatarUrl: string
-  } | null>(null)
+    name: string;
+    avatarUrl: string;
+  } | null>(null);
 
-  const [isSugestaoModalOpen, setIsSugestaoModalOpen] = useState(false)
-  const [sugestaoSelecionada, setSugestaoSelecionada] = useState<typeof mockSugestoes[0] | null>(null)
+  const [isSugestaoModalOpen, setIsSugestaoModalOpen] = useState(false);
+  const [sugestaoSelecionada, setSugestaoSelecionada] = useState<
+    (typeof mockSugestoes)[0] | null
+  >(null);
 
   useEffect(() => {
     if (amigosTab === 0) {
       setAmigosFiltrados(
-        dados.filter((p) =>
-          p.nome.toLowerCase().includes(busca.toLowerCase())
-        )
-      )
+        dados.filter((p) => p.nome.toLowerCase().includes(busca.toLowerCase()))
+      );
     }
 
     if (amigosTab === 1) {
@@ -80,44 +104,56 @@ export default function Amigos() {
         mockSugestoes.filter((p) =>
           p.nome.toLowerCase().includes(busca.toLowerCase())
         )
-      )
+      );
     }
-  }, [busca, amigosTab])
+  }, [busca, amigosTab]);
 
   const entrarNoChat = (id: string) => {
-    router.push(`/chat?id=${id}`)
-  }
+    router.push(`/chat?id=${id}`);
+  };
 
   const irParaBuscador = () => {
-    router.push('/buscador?selecao=amigos')
-  }
+    router.push("/buscador?selecao=amigos");
+  };
 
   const abrirModalAmigo = (nome: string, foto: string) => {
-    setSelectedPessoa({ name: nome, avatarUrl: foto })
-    setIsModalOpen(true)
-  }
+    setSelectedPessoa({ name: nome, avatarUrl: foto });
+    setIsModalOpen(true);
+  };
 
-  const abrirModalSugestao = (pessoa: typeof mockSugestoes[0]) => {
-    setSugestaoSelecionada(pessoa)
-    setIsSugestaoModalOpen(true)
-  }
+  const abrirModalSugestao = (pessoa: (typeof mockSugestoes)[0]) => {
+    setSugestaoSelecionada(pessoa);
+    setIsSugestaoModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen px-4 py-6 bg-gray-50">
-      <h1 className="text-2xl font-bold mb-4 text-center">Área de Amigos</h1>
+      {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Amigos</h1> */}
 
       <div className="flex items-center justify-between mb-4">
         <div className="flex-1">
           <TabSelector
             tabs={tabs}
             activeIndex={amigosTab}
-            onChange={(i) => setTab('amigosTab', i)}
+            onChange={(i) => setTab("amigosTab", i)}
           />
         </div>
+      </div>
 
+      <div className="flex justify-center items-center pb-3">
+        {/* 🔍 Barra de busca */}
+        <input
+          type="text"
+          placeholder="Buscar por nome..."
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div className="flex justify-center items-center pb-3">
         <button
           onClick={irParaBuscador}
-          className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
+          className="ml-4 flex items-center border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
         >
           Procurar por Filtros
           <svg
@@ -128,19 +164,14 @@ export default function Amigos() {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z"
+            />
           </svg>
         </button>
       </div>
-
-      {/* 🔍 Barra de busca */}
-      <input
-        type="text"
-        placeholder="Buscar por nome..."
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-        className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
 
       <motion.div
         key={amigosTab}
@@ -160,7 +191,9 @@ export default function Amigos() {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">Nenhum amigo encontrado.</p>
+              <p className="text-center text-gray-500">
+                Nenhum amigo encontrado.
+              </p>
             )}
           </div>
         )}
@@ -177,7 +210,9 @@ export default function Amigos() {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">Nenhuma sugestão encontrada.</p>
+              <p className="text-center text-gray-500">
+                Nenhuma sugestão encontrada.
+              </p>
             )}
           </div>
         )}
@@ -207,9 +242,15 @@ export default function Amigos() {
               className="w-24 h-24 rounded-full object-cover border"
             />
             <div>
-              <p className="text-lg font-semibold">{sugestaoSelecionada.nome}</p>
-              <p className="text-sm text-gray-600">{sugestaoSelecionada.descricao}</p>
-              <p className="text-sm text-gray-700 font-semibold">{sugestaoSelecionada.atuacao}</p>
+              <p className="text-lg font-semibold">
+                {sugestaoSelecionada.nome}
+              </p>
+              <p className="text-sm text-gray-600">
+                {sugestaoSelecionada.descricao}
+              </p>
+              <p className="text-sm text-gray-700 font-semibold">
+                {sugestaoSelecionada.atuacao}
+              </p>
             </div>
           </div>
 
@@ -217,8 +258,8 @@ export default function Amigos() {
             <button
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition w-full"
               onClick={() => {
-                alert('Solicitação enviada!')
-                setIsSugestaoModalOpen(false)
+                alert("Solicitação enviada!");
+                setIsSugestaoModalOpen(false);
               }}
             >
               Adicionar amigo
@@ -226,7 +267,9 @@ export default function Amigos() {
 
             <button
               className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition w-full"
-              onClick={() => router.push(`/perfil?id=${sugestaoSelecionada.id}`)}
+              onClick={() =>
+                router.push(`/perfil?id=${sugestaoSelecionada.id}`)
+              }
             >
               Ver perfil
             </button>
@@ -234,5 +277,5 @@ export default function Amigos() {
         </AppModal>
       )}
     </div>
-  )
+  );
 }

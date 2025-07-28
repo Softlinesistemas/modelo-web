@@ -8,6 +8,7 @@ import { PessoaCard } from '@/components/PessoaCard' // Card genérico que pode 
 import { useEffect, useState } from 'react'
 import { AvatarMenu } from '@/components/AvatarMenu' // Modal para avatar e nome
 import { AppModal } from '@/utils/ui/AppModal' // Modal genérico
+import { MainBanner } from '@/components/MainBanner'
 
 // Define as abas para fornecedores
 const tabs = ['Meus', 'Sugestões']
@@ -113,8 +114,8 @@ export default function Fornecedores() {
 
   return (
     <div className="min-h-screen px-4 py-6 bg-gray-50">
-      <h1 className="text-2xl font-bold mb-4 text-center">Área de Fornecedores</h1>
-
+      {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Fornecedores</h1> */}
+    <MainBanner />
       {/* Tabs e botão criar fornecedor */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex-1">
@@ -123,14 +124,26 @@ export default function Fornecedores() {
             activeIndex={fornecedoresTab}
             onChange={(i) => setTab('fornecedoresTab', i)}
           />
-        </div>
-
+          </div>
         <button
           onClick={criarFornecedor}
           className="ml-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
         >
-          Adicionar Fornecedor
+          Ser Fornecedor
         </button>
+        </div>
+      <div className="flex justify-center items-center pb-3">
+      <input
+        type="text"
+        placeholder="Buscar fornecedor..."
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+        className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+      />
+      </div>
+
+      {/* Campo busca */}
+      <div className="flex justify-center items-center pb-3">
         <button
           onClick={irParaBuscador}
           className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
@@ -148,15 +161,8 @@ export default function Fornecedores() {
           </svg>
         </button>
       </div>
+      
 
-      {/* Campo busca */}
-      <input
-        type="text"
-        placeholder="Buscar fornecedor..."
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-        className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-      />
 
       {/* Conteúdo com animação de entrada */}
       <motion.div

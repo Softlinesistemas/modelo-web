@@ -130,20 +130,20 @@ export const SocialIcons = ({ links }: SocialIconsProps) => {
   const allIcons: IconItem[] = [...mainIcons, ...(adicionarBtn ? [adicionarBtn] : [])]
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 p-2 bg-green-100 rounded-xl max-w-md mx-auto shadow-gray-300">
+    <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 p-2 rounded-xl max-w-md mx-auto shadow-gray-300 ">
       {allIcons.map((item, index) => (
         <button
           key={index}
           title={item.label}
           onClick={item.action}
-          className={`flex flex-col items-center justify-center p-3 rounded-2xl transition shadow-md shadow-gray-400 text-sm font-medium 
-            ${item.highlight ? "bg-green-500 text-white hover:bg-green-600" : "bg-white text-gray-800 hover:scale-105"}
+          className={`flex flex-col items-center justify-center p-3 rounded-2xl transition shadow-md shadow-gray-400 text-sm font-medium border border-black
+            ${item.highlight ? "bg-green-500 text-white hover:bg-green-600" : "bg-white text-black hover:scale-105"}
             ${item.colSpan ? "col-span-3 sm:col-span-2" : ""}
           `}
         >
           {item.icon}
           <span
-            className={`mt-1 text-[11px] leading-tight text-center ${
+            className={`mt-1 text-[11px] leading-tight text-center  ${
               item.highlight ? "font-bold uppercase" : ""
             }`}
           >

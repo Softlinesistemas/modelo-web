@@ -33,7 +33,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
   // Exemplos de navegação para cada item
   const handleNavigate = (path: string) => {
     handleClose();
-    router.push(path);
+    router.replace(`${path}`);
   };
 
   return (
@@ -90,16 +90,16 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
 
               {showCriarPerfilSubmenu && (
                 <div className="px-6 mt-2 flex flex-col gap-2 items-start text-green-800 text-sm font-normal">
-                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/criar-perfil/fornecedor-pf')}>
+                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/cadastro/fornecedor-pf')}>
                     <MdOutlinePerson /> Fornecedor (Pessoa Física)
                   </button>
-                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/criar-perfil/fornecedor-cnpj-caf')}>
+                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/cadastro/fornecedor-pj')}>
                     <MdStore /> Fornecedor (CNPJ ou CAF)
                   </button>
-                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/criar-perfil/cnpj-instituicoes')}>
+                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/cadastro/autonomo')}>
                     <MdOutlineCorporateFare /> CNPJ Instituições
                   </button>
-                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/criar-perfil/cnpj-corporativo')}>
+                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/cadastro/corporativo')}>
                     <MdOutlineCorporateFare /> CNPJ Corporativo
                   </button>
                 </div>
