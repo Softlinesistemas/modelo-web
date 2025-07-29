@@ -130,27 +130,33 @@ export const SocialIcons = ({ links }: SocialIconsProps) => {
   const allIcons: IconItem[] = [...mainIcons, ...(adicionarBtn ? [adicionarBtn] : [])]
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 p-2 rounded-xl w-full shadow-gray-300 ">
-      {allIcons.map((item, index) => (
+  <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 p-2 rounded-xl w-full shadow-gray-300">
+    {allIcons.map((item, index) => {
+      const isGPS = item.colSpan;
+      const isLastMobile = !isGPS && allIcons.filter(i => !i.colSpan).indexOf(item) === 4;
+
+      return (
         <button
           key={index}
           title={item.label}
           onClick={item.action}
           className={`flex flex-col items-center justify-center p-3 rounded-2xl transition shadow-md shadow-gray-400 text-sm font-medium border border-black
             ${item.highlight ? "bg-green-500 text-white hover:bg-green-600" : "bg-white text-black hover:scale-105"}
-            ${item.colSpan ? "col-span-3 sm:col-span-2" : ""}
+            ${isGPS ? "col-span-2 sm:col-span-2" : ""}
+            ${isLastMobile ? "col-span-2 sm:col-span-1" : ""}
           `}
         >
           {item.icon}
           <span
-            className={`mt-1 text-[11px] leading-tight text-center  ${
+            className={`mt-1 text-[11px] leading-tight text-center ${
               item.highlight ? "font-bold uppercase" : ""
             }`}
           >
             {item.label}
           </span>
         </button>
-      ))}
-    </div>
-  )
+      );
+    })}
+  </div>
+);
 }

@@ -17,6 +17,7 @@ export interface FieldDef {
   fields?: FieldDef[];
   max?: number;
   prefix?: string;
+  mask?: string;
 }
 
 interface CadastroTipoFormProps {
