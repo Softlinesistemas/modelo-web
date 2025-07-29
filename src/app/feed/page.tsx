@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { BotaoAgrupado } from '@/components/feed/BotaoAgrupado';
-import { BotaoAlerta } from '@/components/feed/BotaoAlerta';
-import { FeedPhotoGallery } from '@/components/feed/FeedPhotoGallery';
-import { ProducerCard } from '@/components/feed/ProducerCard';
-import { SocialIcons } from '@/components/feed/SocialIcons';
-import { ProducerLocationCard } from '@/components/feed/ProducerLocationCard';
-import { ProducerTableInfo } from '@/components/feed/ProducerTableInfo';
-import { FeedPostCard } from '@/components/feed/FeedPostCard';
-import { MainBanner } from '@/components/MainBanner';
-import { SocialLinksSection } from '@/components/buscador/SocialLinksSection';
+import React from "react";
+import { BotaoAgrupado } from "@/components/feed/BotaoAgrupado";
+import { BotaoAlerta } from "@/components/feed/BotaoAlerta";
+import { FeedPhotoGallery } from "@/components/feed/FeedPhotoGallery";
+import { ProducerCard } from "@/components/feed/ProducerCard";
+import { SocialIcons } from "@/components/feed/SocialIcons";
+import { ProducerLocationCard } from "@/components/feed/ProducerLocationCard";
+import { ProducerTableInfo } from "@/components/feed/ProducerTableInfo";
+import { FeedPostCard } from "@/components/feed/FeedPostCard";
+import { MainBanner } from "@/components/MainBanner";
+import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
 
 export default function FeedPage() {
   // Dados simulados para as fotos
@@ -69,7 +69,7 @@ export default function FeedPage() {
         />
       </div>
 
-      <div className="flex gap-2 my-2 items-center justify-center">
+      <div className="flex gap-2 my-2 items-center justify-center w-full">
         <BotaoAgrupado />
         <BotaoAlerta />
       </div>
@@ -82,39 +82,40 @@ export default function FeedPage() {
         <SocialLinksSection />
       </div>
 
-      <div className='mx-auto rounded-md bg-green-900'>
-      <div className="mt-2 mb-2">
-        <h2 className="bg-green-800 text-white rounded-md py-1 px-3 text-center text-md text-bold">
-          FEED / REGISTROS / MOMENTOS
-        </h2>
+      <div className="w-full rounded-md bg-green-900 mb-4 p-1">
+        <div className="mt-1 mb-6">
+          <h2 className="bg-green-800 text-white rounded-md py-1 px-3 text-center text-md font-bold">
+            FEED / REGISTROS / MOMENTOS
+          </h2>
+        </div>
+
+        {/* Posts com múltiplas imagens */}
+        <FeedPostCard
+          images={[
+            "/images/feed/ft1.jpg",
+            "/images/feed/ft2.jpg",
+            "/images/feed/ft3.jpg",
+          ]}
+          date="2025-07-25"
+          text="Novas técnicas de cultivo sustentável estão revolucionando a agricultura familiar em nossa região."
+        />
+
+        <FeedPostCard
+          images={["/images/feed/ft4.jpg", "/images/feed/ft5.jpg"]}
+          date="2025-07-20"
+          text="Implementamos drones para monitoramento de plantações, aumentando a produtividade em 30%."
+        />
+
+        <FeedPostCard
+          images={[
+            "/images/feed/ft3.jpg",
+            "/images/feed/ft4.jpg",
+            "/images/feed/ft3.jpg",
+          ]}
+          date="2025-07-15"
+          text="Projeto de energia solar em propriedades rurais reduz custos e impacto ambiental simultaneamente."
+        />
       </div>
-      {/* Posts com múltiplas imagens */}
-      <FeedPostCard
-        images={[
-          "/images/feed/ft1.jpg",
-          "/images/feed/ft2.jpg",
-          "/images/feed/ft3.jpg",
-        ]}
-        date="2025-07-25"
-        text="Novas técnicas de cultivo sustentável estão revolucionando a agricultura familiar em nossa região."
-      />
-
-      <FeedPostCard
-        images={["/images/feed/ft4.jpg", "/images/feed/ft5.jpg"]}
-        date="2025-07-20"
-        text="Implementamos drones para monitoramento de plantações, aumentando a produtividade em 30%."
-      />
-
-      <FeedPostCard
-        images={[
-          "/images/feed/ft3.jpg",
-          "/images/feed/ft4.jpg",
-          "/images/feed/ft3.jpg",
-        ]}
-        date="2025-07-15"
-        text="Projeto de energia solar em propriedades rurais reduz custos e impacto ambiental simultaneamente."
-      />
-    </div>
     </div>
   );
 }

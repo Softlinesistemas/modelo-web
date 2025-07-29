@@ -130,7 +130,7 @@ export const SocialIcons = ({ links }: SocialIconsProps) => {
   const allIcons: IconItem[] = [...mainIcons, ...(adicionarBtn ? [adicionarBtn] : [])]
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 p-2 rounded-xl max-w-md mx-auto shadow-gray-300 ">
+    <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 p-2 rounded-xl w-full shadow-gray-300 ">
       {allIcons.map((item, index) => (
         <button
           key={index}

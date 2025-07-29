@@ -21,7 +21,7 @@ export const BotaoAgrupado = () => {
   }
 
   return (
-    <div className="flex rounded-full shadow-md">
+    <div className="flex shadow-md">
       <button
         onClick={handleAmigosClick}
         className={`flex items-center gap-2 px-3 py-1.5 mx-1 transition text-md ${

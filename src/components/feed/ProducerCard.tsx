@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/common/Card";
 import { Button } from "@/utils/ui/Button"; // Importando seu componente Button
 import { MdDeliveryDining } from "react-icons/md";
+import DescricaoCard from "./DescricaoFeed";
 
 interface ProducerCardProps {
   mainImage: string;
@@ -27,138 +28,94 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
 
   return (
     <>
-      {/* Card 1: Informações básicas e galeria */}
-     <Card className="border shadow-sm mb-1">
-  <CardHeader className="p-1 border-b">
-    <div className="flex items-satar">
-      <Image
-        src={mainImage}
-        alt="Foto principal"
-        width={60}
-        height={60}
-        className="rounded-md object-cover"
-      />
-      <div className="flex-1 ml-3 items-start">
-        <CardTitle className="text-sm font-semibold text-gray-800">
-          Sitio Canaã - Alimentos Organicos
-        </CardTitle>
-        <div className="text-xs text-gray-600">
-          Produtos: Alimentos + Bebidas
+  {/* Card 1: Identidade do produtor */}
+  <div className="shadow-sm mb-1 mt-1 rounded-b-md ">
+   
+       <div className="flex items-start "> {/*bg-[#9AB99B] */}
+        <Image
+          src={mainImage}
+          alt="Foto principal"
+          width={60}
+          height={60}
+          className="rounded-md object-cover"
+        />
+        <div className="flex-1 ml-3 items-start">
+          <div className="text-sm font-bold text-black">
+            Sitio Canaã - Alimentos Orgânicos
+          </div>
+          <div className="text-xs text-gray-900">
+            Produtos: Alimentos + Bebidas
+          </div>
+          <div className="text-xs text-green-600 font-bold">
+            Alimentação escolar
+          </div>
         </div>
-        <div className="text-xs text-green-600 font-medium">
-          Alimentação escolar
-        </div>
+        <FiShare2
+          size={24}
+          className="text-gray-900 hover:text-green-900 cursor-pointer mr-2 mt-1"
+        />
       </div>
-      <FiShare2 size={24} className="text-gray-500 hover:text-gray-800 cursor-pointer" />
     </div>
-  </CardHeader>
 
-  <CardContent className="p-0">
-    {/* Layout flexível: vertical no mobile, horizontal no desktop */}
-    <div className="px-3 pb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-      {/* Ações de comunicação */}
-      <div className="flex gap-14 justify-end">
-        <button className="flex flex-col items-center text-gray-700 hover:text-orange-500">
-          <FiMessageCircle size={24} />
-          <span className="text-xs">Mensagem</span>
-        </button>
-        <button className="flex flex-col items-center text-gray-700 hover:text-blue-500">
-          <FiPhone size={24} />
-          <span className="text-xs">Ligar</span>
-        </button>
-        <button className="flex flex-col items-center text-gray-700 hover:text-green-500">
-          <FiVideo size={24} />
-          <span className="text-xs">Vídeo</span>
-        </button>
+  {/* Card 2: Ações e relacionamento (compacto e responsivo) */}
+<Card className="border shadow-sm mb-1">
+  <CardContent className="p-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    
+    {/* Ações de comunicação */}
+    <div className="flex justify-between sm:justify-start gap-6 sm:gap-10 w-full sm:w-auto">
+      <button className="flex flex-col items-center text-gray-700 hover:text-orange-500 text-xs">
+        <FiMessageCircle size={20} />
+        <span>Mensagem</span>
+      </button>
+      <button className="flex flex-col items-center text-gray-700 hover:text-blue-500 text-xs">
+        <FiPhone size={20} />
+        <span>Ligar</span>
+      </button>
+      <button className="flex flex-col items-center text-gray-700 hover:text-green-500 text-xs">
+        <FiVideo size={20} />
+        <span>Vídeo</span>
+      </button>
+    </div>
+
+    {/* Relacionamento e status */}
+    <div className="flex items-center justify-between sm:justify-end sm:gap-4 w-full sm:w-auto mt-1 sm:mt-0">
+      
+      {/* Ícones extras */}
+      <div className="flex gap-3 text-gray-600 items-center">
+        <MdDeliveryDining size={22} className="text-orange-500" />
+        <FiUsers size={20} className="text-blue-600" />
       </div>
 
-      {/* Botões de relacionamento */}
-      <div className="flex flex-col items-end gap-2 sm:items-end">
-        {/* Ícones extras: Delivery e Grupos */}
-        <div className="flex gap-3 text-gray-600">
-          <div className="flex items-center gap-1 text-xs">
-            <MdDeliveryDining size={28} className="text-orange-500" />
-            {/* <span>Faz Delivery</span> */}
-          </div>
-          <div className="flex items-center gap-1 text-xs">
-            <FiUsers size={22} className="text-blue-600" />
-            {/* <span>Participa de Grupos</span> */}
-          </div>
-        </div>
-
-        {/* Botão Ser Amigo */}
-        <Button
-          onClick={toggleFriendship}
-          variant={isFriend ? "secondary" : "primary"}
-          size="sm"
-          className={`flex items-center gap-1 ${
-            isFriend
-              ? "border border-green-600 text-green-900"
-              : "text-white"
-          }`}
-        >
-          {isFriend ? (
-            <>
-              <FiUserCheck size={14} />
-              <span>Amigo</span>
-            </>
-          ) : (
-            <>
-              <FiUserPlus size={14} />
-              <span>Ser Amigo</span>
-            </>
-          )}
-        </Button>
-      </div>
+      {/* Botão Ser Amigo */}
+      <Button
+        onClick={toggleFriendship}
+        variant={isFriend ? "secondary" : "primary"}
+        size="sm"
+        className={`ml-2 flex items-center gap-1 px-2 py-1 text-2xl ${
+          isFriend
+            ? "border border-green-600 text-green-900"
+            : "text-white"
+        }`}
+      >
+        {isFriend ? (
+          <>
+            <FiUserCheck size={14} />
+            <span>Amigo</span>
+          </>
+        ) : (
+          <>
+            <FiUserPlus size={14} />
+            <span>Ser Amigo</span>
+          </>
+        )}
+      </Button>
     </div>
   </CardContent>
 </Card>
 
 
-      {/* Card 2: Descrição */}
-      <Card className="border shadow-sm">
-        <CardContent className="p-0.5">
-          <div className="px-3 py-2 text-sm bg-gray-50 text-gray-800 relative ">
-            <div>
-              {expanded ? (
-                <>
-                  Bem vindo ao Sitio Canaã Agricultura Orgânica!
-                  <br />
-                  Uma empresa de agricultura familiar em Imbituba - SC
-                  <br />
-                  Temos foco a produção orgânica agroecológica
-                  <br />
-                  Oferecemos Café da Manhã - Excursão, avise antes.
-                  <br />
-                  Temos Banana, Mandioca, Farinha...
-                  <br />
-                  De Setembro à Dezembro (Primavera) temos colheita...
-                </>
-              ) : (
-                <>
-                  Bem vindo ao Sitio Canaã Agricultura Orgânica!
-                  <br />
-                  Uma empresa de agricultura familiar em Imbituba - SC
-                  <br />
-                  Temos foco a produção orgânica agroecologica
-                  <br />
-                  Oferecemos Café da Manhã - Excursão, avise antes.
-                  <br />
-                  Temos Banana, Mandioca, Farinha...
-                  <span
-                    className="text-green-600 cursor-pointer ml-1"
-                    onClick={() => setExpanded(true)}
-                  >
-                    Ver mais
-                  </span>
-                </>
-              )}
-            </div>
-            <FiCopy className="absolute top-2 right-2 text-gray-500 cursor-pointer" />
-          </div>
-        </CardContent>
-      </Card>
+<DescricaoCard />
     </>
   );
 };
