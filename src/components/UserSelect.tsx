@@ -37,7 +37,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const handleCloseQrCode = () => setShowQrCode(false); // Fechar QR Code se quiser
 
   return (
-    <div className="bg-[#B6D2B7] p-2">
+    <div className="bg-[#B6D2B7] py-2">
       {/* Renderiza o QR Code ou a seleção de usuário */}
       {showQrCode ? (
         <QrCode 
@@ -45,7 +45,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
           onScanClick={handleCloseQrCode}
         />
       ) : (
-        <div className="flex h-24">
+        <div className="flex h-24 w-full gap-1">
           {/* Avatar */}
           <div className="h-full rounded overflow-hidden flex-shrink-0">
             <img
@@ -56,32 +56,34 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
           </div>
 
           {/* Conteúdo do lado direito */}
-          <div className="flex-1 flex flex-col justify-between ml-4">
-            {/* Select de usuário */}
-            <div className="relative">
-              <button
-                onClick={toggleDropdown}
-                className="w-full text-left px-1 py-1 bg-white rounded flex items-center justify-between"
-              >
-                <span className="text-sm font-medium">
-                  {selectedUser.name}  
-                </span>
-                <FiChevronDown />
-              </button>
+          <div className="flex-1 flex flex-col">
+            {/* Select de usuário */} 
+            <div className='w-full'>
+              <div className="relative w-[95%]">
+                <button
+                  onClick={toggleDropdown}
+                  className="w-full text-left px-1 py-1 bg-white rounded flex items-center justify-between"
+                >
+                  <span className="text-sm font-medium">
+                    {selectedUser.name}  
+                  </span>
+                  <FiChevronDown />
+                </button>
 
-              {showDropdown && (
-                <div className="absolute top-full mt-1 w-full bg-white rounded shadow z-10">
-                  {users.map((user, index) => (
-                    <div
-                      key={index}
-                      onClick={() => selectUser(user)}
-                      className="px-3 py-2 hover:bg-green-100 cursor-pointer text-sm"
-                    >
-                      {user.name}
-                    </div>
-                  ))}
-                </div>
-              )}
+                {showDropdown && (
+                  <div className="absolute top-full mt-1 w-full bg-white rounded shadow z-10">
+                    {users.map((user, index) => (
+                      <div
+                        key={index}
+                        onClick={() => selectUser(user)}
+                        className="px-3 py-2 hover:bg-green-100 cursor-pointer text-sm"
+                      >
+                        {user.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Ícones de ação */}
