@@ -48,7 +48,7 @@ export default function DescricaoCard() {
 
   // Gerar PDF / Imprimir com react-to-print
   const handlePrint = useReactToPrint({
-    content: () => contentRef.current as HTMLDivElement,
+    //content: () => contentRef.current as HTMLDivElement,
     documentTitle: "descricao",
   });
 
