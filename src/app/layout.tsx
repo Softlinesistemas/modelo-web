@@ -14,6 +14,11 @@ import { SplashScreen } from '@/components/SplashScreen' // ✅
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR" className="overflow-x-hidden">
+      <meta name="theme-color" content="#B6D2B7" />
+      <link rel="manifest" href="/manifest.json" />
+      <link rel="icon" href="/logo-128x128" />
+      <link rel="apple-touch-icon" href="/logo-128x128" />
+
       <body className="bg-[#B6D2B7] min-h-screen w-full overflow-x-hidden flex flex-col relative">
         
         <SplashScreen /> 
