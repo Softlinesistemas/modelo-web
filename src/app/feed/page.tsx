@@ -24,7 +24,7 @@ export default function FeedPage() {
   ];
 
   return (
-    <div className="rounded max-w-lg mx-auto">
+    <div className="rounded w-full mx-auto">
       <div>
         <MainBanner />
       </div>

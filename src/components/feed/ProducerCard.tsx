@@ -60,10 +60,10 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
 
   {/* Card 2: Ações e relacionamento (compacto e responsivo) */}
 <Card className="border shadow-sm mb-1">
-  <CardContent className="p-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+  <CardContent className="p-1 flex flex-row sm:items-center sm:justify-between">
     
     {/* Ações de comunicação */}
-    <div className="flex justify-between sm:justify-start gap-6 sm:gap-10 w-full sm:w-auto">
+    <div className="flex sm:justify-start w-full gap-4 sm:w-auto">
       <button className="flex flex-col items-center text-gray-700 hover:text-orange-500 text-xs">
         <FiMessageCircle size={20} />
         <span>Mensagem</span>
@@ -79,7 +79,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
     </div>
 
     {/* Relacionamento e status */}
-    <div className="flex items-center justify-between sm:justify-end sm:gap-4 w-full sm:w-auto mt-1 sm:mt-0">
+    <div className="flex justify-end sm:gap-4 w-full sm:w-auto mt-1 sm:mt-0">
       
       {/* Ícones extras */}
       <div className="flex gap-3 text-gray-600 items-center">
