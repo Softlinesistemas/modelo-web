@@ -1,4 +1,3 @@
-
 'use client'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -15,7 +14,7 @@ export const SplashScreen = () => {
 
       const timeout = setTimeout(() => {
         setShowSplash(false)
-      }, 1000) 
+      }, 3000)
       return () => clearTimeout(timeout)
     }
   }, [])
@@ -24,20 +23,32 @@ export const SplashScreen = () => {
     <AnimatePresence>
       {showSplash && (
         <motion.div
-          className="fixed inset-0 bg-[#B6D2B7] z-[9999] flex items-center justify-center mt-4"
+          className="fixed inset-0 bg-[#B6D2B7] z-[9999] flex items-center justify-center"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
         >
+          {/* Logo central */}
           <motion.img
             src="/gooagroLogo.png"
             alt="Logo GooAgro"
-            className="w-40 h-40 object-contain"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="w-48 h-48 object-contain"
           />
+
+          {/* Bandeiras no rodapé */}
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
+            <img
+              src="/bandeira-bahia.png"
+              alt="Bahia"
+              className="w-10 h-8 object-cover rounded shadow"
+            />
+            <img
+              src="/bandeira-brasil.png"
+              alt="Brasil"
+              className="w-10 h-8 object-cover rounded shadow"
+            />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
