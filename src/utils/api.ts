@@ -7,7 +7,7 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// Adiciona o token ao cabeçalho de autorização em todas as requisições
+// Adiciona o token ao cabeçalho de autorização em todas as requisições presentes
 api.interceptors.request.use(
   (config) => {
     const sessionToken = Cookies.get("next-auth.session-token");
