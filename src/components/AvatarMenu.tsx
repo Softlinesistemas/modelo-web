@@ -6,7 +6,7 @@ import {
   FiPhone,
   FiVideo,
   FiInfo,
-  FiMessageCircle,
+  FiMessageSquare,
   FiTrash2,
   FiStar,
   FiSlash,
@@ -81,7 +81,7 @@ export const AvatarMenu: React.FC<Props> = ({
             className="flex flex-col items-center text-gray-700 hover:text-orange-500"
             onClick={handleGoToMessages}
           >
-            <FiMessageCircle size={20} />
+            <FiMessageSquare size={20} />
             <span className="text-xs">Mensagem</span>
           </button>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { FiShare2, FiCopy, FiUserPlus, FiUserCheck, FiMessageCircle, FiPhone, FiVideo,  FiTruck,
+import { FiShare2, FiCopy, FiUserPlus, FiUserCheck, FiMessageSquare, FiPhone, FiVideo,  FiTruck,
   FiUsers } from "react-icons/fi";
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/common/Card";
@@ -65,7 +65,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
     {/* Ações de comunicação */}
     <div className="flex sm:justify-start w-full gap-4 sm:w-auto">
       <button className="flex flex-col items-center text-gray-700 hover:text-orange-500 text-xs">
-        <FiMessageCircle size={20} />
+        <FiMessageSquare size={20} />
         <span>Mensagem</span>
       </button>
       <button className="flex flex-col items-center text-gray-700 hover:text-blue-500 text-xs">

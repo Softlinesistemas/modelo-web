@@ -2,7 +2,7 @@ import { Buscador } from '@/components/buscador/Buscador';
 
 export default function SearchPage() {
   return (
-    <main className="w-full bg-[#f1fdf1] flex items-center justify-center p-4">
+    <main className="w-full flex items-center justify-center">
       <Buscador />
     </main>
   );

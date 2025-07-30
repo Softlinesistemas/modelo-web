@@ -1,3 +1,5 @@
+import { FiMessageSquare } from "react-icons/fi"
+
 type Pessoa = {
   id: string
   nome: string
@@ -24,14 +26,14 @@ export function PessoaCard({ pessoa, onMensagem, onFotoClick }: Props) {
       <div className="flex flex-col text-sm flex-1">
         <strong className="text-black leading-tight">{pessoa.nome}</strong>
         <span className="text-green-800 font-medium">{pessoa.descricao}</span>
-        <span className="text-green-800 font-semibold">{pessoa.atuacao}</span>
+        <span className="text-black font-semibold">{pessoa.atuacao}</span>
       </div>
 
       <button
         onClick={onMensagem}
-        className="ml-auto text-sm bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition"
+        className="ml-auto text-xl text-green-900 px-3 py-1 hover:text-green-500 transition"
       >
-        Mensagem
+        <FiMessageSquare />
       </button>
     </div>
   )
