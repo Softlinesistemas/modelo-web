@@ -30,7 +30,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
     }, 300);
   };
 
-  // Exemplos de navegação para cada item
+ 
   const handleNavigate = (path: string) => {
     handleClose();
     router.replace(`${path}`);

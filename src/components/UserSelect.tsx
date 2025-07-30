@@ -45,9 +45,9 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
           onScanClick={handleCloseQrCode}
         />
       ) : (
-        <div className="flex h-24 w-full gap-1">
+        <div className="flex h-28 w-full gap-1">
           {/* Avatar */}
-          <div className="h-full rounded overflow-hidden flex-shrink-0">
+          <div className="h-full rounded overflow-hidden flex-shrink-0 border-2 border-black ">
             <img
               src="/avatar2.jpeg"
               alt="Avatar"
@@ -59,12 +59,12 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
           <div className="flex-1 flex flex-col">
             {/* Select de usuário */} 
             <div className='w-full'>
-              <div className="relative w-[95%]">
+              <div className="relative w-[98.5%] ml-4">
                 <button
                   onClick={toggleDropdown}
-                  className="w-full text-left px-1 py-1 bg-white rounded flex items-center justify-between"
+                  className="w-full text-left px-1 py-1 bg-white rounded flex items-center justify-between border-2 border-black"
                 >
-                  <span className="text-sm font-medium">
+                  <span className="ml-2 text-md font-medium">
                     {selectedUser.name}  
                   </span>
                   <FiChevronDown />

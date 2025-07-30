@@ -44,7 +44,7 @@ const handleChatClick = (index: number) => {
 
   return (
     <>
-      <ul className="flex-1 overflow-auto p-2 space-y-2 bg-gray-50">
+      <ul className="flex-1 overflow-auto p-2 space-y-2">
         {items.map((item, i) => {
           const isFavorite = favorites.includes(i);
           const isUnread = unreadItems.includes(i);

@@ -65,7 +65,7 @@ export const ActionGrid: React.FC = () => {
 
   return (
     <>
-      <div className="grid grid-cols-3 mt-1 sm:grid-cols-3 gap-2 p-2 w-full rounded-sm">
+      <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 pb-3 w-full rounded-sm">
         {actionButtons.map((btn, idx) => (
           <button
             key={idx}

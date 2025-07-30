@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-[#B6D2B7] flex items-center justify-between text-black">
+      <header className="bg-[#B6D2B7] mx-1 p-1 flex items-center justify-between text-black">
         {/* Botão do menu hamburguer */}
         <button onClick={() => setShowMenu(true)}>
           <FiMenu size={24} />
