@@ -70,61 +70,61 @@ export const Buscador: React.FC = () => {
     <div className="w-full">
       <MainBanner />
       <div className="p-2 w-full">
-        <h1 className="text-2xl font-bold text-center mb-6">
+        <h1 className="text-2xl font-bold text-center mb-6 mt-4">
           <span className="text-gray-800">BUSCADOR</span>{" "}
           <span className="text-green-700">GooAgro</span>
         </h1>
 
         {/* Grid de filtros principais - responsivo */}
-        <div className="grid grid-cols-2 gap-3 md:gap-4 mb-6">
+        <div className="grid grid-cols-2 gap-3 text-center md:gap-4 mb-6 ">
           {/* Bloco Amigos */}
           <div
             onClick={() => setSelectedFilter("amigos")}
-            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all ${
+            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
               selectedFilter === "amigos"
                 ? "bg-white border-2 border-green-700 shadow-md text-green-700"
                 : "bg-amber-300 hover:bg-amber-200"
             }`}
           >
-            <h3 className="font-semibold text-base md:text-lg">Amigos</h3>
+            <h3 className="font-semibold text-base md:text-lg">AMIGOS</h3>
           </div>
 
           {/* Bloco Grupos */}
           <div
             onClick={() => setSelectedFilter("grupos")}
-            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all ${
+            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
               selectedFilter === "grupos"
                 ? "bg-white border-2 border-green-700 shadow-md text-green-700"
                 : "bg-green-500 hover:bg-green-400"
             }`}
           >
-            <h3 className="font-semibold text-base md:text-lg">Grupos</h3>
+            <h3 className="font-semibold text-base md:text-lg">GRUPOS</h3>
           </div>
 
           {/* Bloco Fornecedor */}
           <div
             onClick={() => setSelectedFilter("fornecedor")}
-            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all ${
+            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
               selectedFilter === "fornecedor"
                 ? "bg-white border-2 border-green-700 shadow-md text-green-700"
                 : "bg-lime-400 hover:bg-lime-300"
             }`}
           >
-            <h3 className="font-semibold text-base md:text-lg">Fornecedores</h3>
-            <p className="text-xs md:text-sm mt-1">Produtos & Serviços</p>
+            <h3 className="font-semibold text-base md:text-lg">FORNECEDORES</h3>
+            <p className="text-xs font-medium md:text-sm mt-1">Produtos & Serviços</p>
           </div>
 
           {/* Bloco Clientes */}
           <div
             onClick={() => setSelectedFilter("clientes")}
-            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all ${
+            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
               selectedFilter === "clientes"
                 ? "bg-white border-2 border-green-700 shadow-md text-green-700"
                 : "bg-amber-700 hover:bg-amber-600 text-white"
             }`}
           >
-            <h3 className="font-semibold text-base md:text-lg">Empresas</h3>
-            <p className="text-xs md:text-sm mt-1">Produtos & Serviços</p>
+            <h3 className="font-semibold text-black text-base md:text-lg">EMPRESAS</h3>
+            <p className="text-xs font-medium text-black md:text-sm mt-1">Produtos & Serviços</p>
           </div>
         </div>
 
