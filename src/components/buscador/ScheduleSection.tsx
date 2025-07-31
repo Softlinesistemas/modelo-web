@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { CollapsibleSection } from '@/utils/ui/CollapsibleSection';
 import { MultiSelectButtonGroup, Option } from '@/utils/ui/MultiSelectButtonGroup';
-import { Label } from '@/utils/ui/Label';
+
 
 export const ScheduleSection = () => {
   const [diasSelecionados, setDiasSelecionados] = useState<(string | number)[]>([]);
@@ -29,18 +29,18 @@ export const ScheduleSection = () => {
 
   return (
     <CollapsibleSection title="AGENDA / DIAS " subTitle=" HORÁRIOS PARA BUSCAR GRUPOS">
-      <div className="max-w-2xl mx-auto space-y-6 text-sm p-4">
+      <div className="w-full text-sm p-4 mb-2">
         {/* Dias da semana */}
         <MultiSelectButtonGroup
           options={diasDaSemana}
           selectedValues={diasSelecionados}
           onChange={setDiasSelecionados}
           title="DIAS DISPONÍVEIS"
-          columns={3}
+          columns={7}
         />
 
         {/* Qualquer dia */}
-        <div className="flex items-center gap-2 justify-center">
+        <div className="flex items-center gap-2 justify-center m-2">
           <input
             type="checkbox"
             id="qualquer_dia"
@@ -48,20 +48,19 @@ export const ScheduleSection = () => {
             onChange={() => setQualquerDia((prev) => !prev)}
             className="w-4 h-4"
           />
-          <Label
+          <label
             htmlFor="qualquer_dia"
             className="text-red-700 font-semibold select-none"
           >
             QUALQUER DIA – A CONFIRMAR
-          </Label>
-        </div>
-
+          </label>
+      </div>
         {/* Turno preferencial */}
         <div className='flex items-center gap-2 justify-center'>
           <label className="block font-semibold">Turno preferencial:</label>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex gap-4">
             {turnos.map((t) => (
-              <Label key={t.value} className="flex items-center gap-2">
+              <label key={t.value} className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   name="turno"
@@ -69,12 +68,13 @@ export const ScheduleSection = () => {
                   checked={turno === t.value}
                   onChange={() => setTurno(t.value)}
                   className="w-4 h-4"
-                />
+                  />
                 {t.label}
-              </Label>
+              </label>
             ))}
           </div>
         </div>
+      
 
         {/* Horários personalizados */}
         <div className="flex flex-col sm:flex-row gap-6">

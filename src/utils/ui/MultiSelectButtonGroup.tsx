@@ -2,7 +2,7 @@ import React from 'react';
 
 export type Option = {
   value: string | number;
-  label: React.ReactNode; // texto simples ou JSX
+  label: React.ReactNode;
 };
 
 export type MultiSelectButtonGroupProps = {
@@ -13,7 +13,7 @@ export type MultiSelectButtonGroupProps = {
   className?: string;
   columns?: number;
   disabled?: boolean;
-  singleSelect?: boolean; // nova prop para single select
+  singleSelect?: boolean;
 };
 
 export const MultiSelectButtonGroup: React.FC<MultiSelectButtonGroupProps> = ({
@@ -57,7 +57,7 @@ export const MultiSelectButtonGroup: React.FC<MultiSelectButtonGroupProps> = ({
 
       {/* Grid dinâmico conforme número de colunas */}
       <div
-        className={`grid grid-cols-1 sm:grid-cols-${columns} gap-3`}
+        className={`grid grid-cols-7 sm:grid-cols-${columns} gap-3 mb-2`}
         role="group"
         aria-label={typeof title === 'string' ? title : undefined}
       >

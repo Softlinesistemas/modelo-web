@@ -12,16 +12,16 @@ import {
   FaArrowRight,
 } from 'react-icons/fa';
 import Input from '../common/Input';
+import { FaixaEtaria } from './FaixaEtaria';
 
 export const IdDemografica = () => {
   return (
-    <div className="border-2 border-white bg-white p-6 rounded-lg space-y-6 shadow-md text-sm text-gray-800">
-
+    <div className="bg-white bg bg-opacity-20 p-6 rounded-lg mb-4 shadow-sm text-sm text-gray-800 ">
       {/* GÊNERO */}
-      <div>
+      <div className='mb-2'>
         <Label className="flex items-center gap-2 font-bold text-green-700 mb-2">
           <FaUser className="text-green-800" />
-          Gênero
+          GÊNERO
         </Label>
         <div className="flex gap-4 flex-wrap">
           <Label className="flex items-center gap-1">
@@ -37,10 +37,10 @@ export const IdDemografica = () => {
       </div>
 
       {/* RAÇA / COR */}
-      <div>
+      <div className='mb-2'>
         <Label className="flex items-center gap-2 font-bold text-green-700 mb-2">
           <FaUserFriends className="text-green-800" />
-          Raça / Cor
+          RAÇA / COR
         </Label>
         <div className="flex gap-4 flex-wrap">
           <Label className="flex items-center gap-1">
@@ -59,10 +59,10 @@ export const IdDemografica = () => {
       </div>
 
       {/* ESCOLARIDADE */}
-      <div>
+      <div className='mb-2'>
         <Label className="flex items-center gap-2 font-bold text-green-700 mb-2">
           <FaGraduationCap className="text-green-800" />
-          Escolaridade
+          ESCOLARIDADE
         </Label>
         <select className="w-full border borde-absolute border-green-300 text-green-700 font-bold py-2 px-3 rounded">
           <option value="">Selecione...</option>
@@ -80,10 +80,10 @@ export const IdDemografica = () => {
       </div>
 
       {/* FAIXA ETÁRIA */}
-      <div>
+      <div className='mb-2'>
         <Label className="flex items-center gap-2 font-bold text-green-700 mb-2">
           <FaChild className="text-green-800" />
-          Faixa Etária
+          FAIXA ETÁRIA
         </Label>
         <div className="flex gap-4 flex-wrap">
           <Label className="flex items-center gap-1">
@@ -102,34 +102,13 @@ export const IdDemografica = () => {
       </div>
 
       {/* IDADE */}
-      <div>
-        <Label className="flex items-center gap-2 font-bold text-green-700 mb-2">
-          <FaUserClock className="text-green-800" />
-          Faixa de Idade
-        </Label>
-        <div className="flex items-center gap-2 bg-gray-100 border rounded p-2 shadow-sm w-fit">
-          <FaArrowLeft className="text-gray-500" />
-          <Input
-            type="number"
-            className="w-16 border border-gray-300 rounded px-2 py-1 text-center"
-            placeholder="mín"
-          />
-          <span className="text-sm text-gray-700">até</span>
-          <Input
-            type="number"
-            className="w-16 border border-gray-300 rounded px-2 py-1 text-center"
-            placeholder="máx"
-          />
-          <FaArrowRight className="text-gray-500" />
-        </div>
-      </div>
-
+      <FaixaEtaria />
       {/* PARTICIPAÇÃO */}
-      <div>
+      <div className='mb-2'>
         <Label className="flex items-center gap-2 font-bold text-green-700">
           <Input type="checkbox" />
           <FaCalendarCheck className="text-green-700" />
-          Participante de Eventos, Encontros, Desafios etc.
+          {"Participante de Eventos, Encontros, Desafios etc.".toUpperCase()}
         </Label>
       </div>
     </div>

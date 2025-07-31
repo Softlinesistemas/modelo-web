@@ -218,7 +218,7 @@ export const Buscador: React.FC = () => {
 
         {/* Filtros avançados */}
         <FiltroExpandido isOpen={showAdvancedFilters}>
-          <div className="max-w-2xl mx-auto p-4 space-y-6">
+          <div className="w-full p-2">
             {/* Sessões adicionais */}
             <IdDemografica />
             <GeoReferenceSection />
