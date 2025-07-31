@@ -70,7 +70,7 @@ export const ActionGrid: React.FC = () => {
           <button
             key={idx}
             onClick={btn.onClick}
-            className={`flex flex-col items-center justify-center p-1 shadow-md rounded-lg transition ${btn.color}`}
+            className={`flex flex-col items-center justify-center border-2 border-black p-1 shadow-md rounded-lg transition ${btn.color}`}
             type="button"
           >
             <div className="text-2xl mb-2 text-gray-700">{btn.icon}</div>

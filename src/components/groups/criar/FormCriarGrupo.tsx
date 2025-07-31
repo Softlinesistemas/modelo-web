@@ -59,7 +59,7 @@ export default function FormCriarGrupo() {
   }
 
   return (
-  <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+  <form onSubmit={handleSubmit(onSubmit)} className="w-full gap-2">
       <GrupoInfoBasica 
         register={register} 
         control={control} 

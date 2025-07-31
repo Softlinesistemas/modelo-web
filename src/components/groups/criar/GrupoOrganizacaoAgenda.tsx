@@ -108,7 +108,7 @@ export default function GrupoOrganizacaoAgenda({ control, register, errors, setV
       {/* Horário */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Label>Horário de Início</Label>
+          <Label>HORÁRIO DE INICIO</Label>
           <Controller
             name="horarioInicio"
             control={control}
