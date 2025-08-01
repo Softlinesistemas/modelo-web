@@ -1,85 +1,104 @@
-'use client'
+"use client";
 
-import { useTabStore } from '@/store/useTabStore'
-import { TabSelector } from '@/components/TabSelector'
-import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
-import { PessoaCard } from '@/components/PessoaCard'
-import { useEffect, useState } from 'react'
-import { AvatarMenu } from '@/components/AvatarMenu'
-import { AppModal } from '@/utils/ui/AppModal'
-import { MainBanner } from '@/components/MainBanner'
+import { useTabStore } from "@/store/useTabStore";
+import { TabSelector } from "@/components/TabSelector";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { PessoaCard } from "@/components/PessoaCard";
+import { useEffect, useState } from "react";
+import { AvatarMenu } from "@/components/AvatarMenu";
+import { AppModal } from "@/utils/ui/AppModal";
+import { MainBanner } from "@/components/MainBanner";
 
-const tabs = ['Meus', 'Sugestões']
+const tabs = ["Meus", "Sugestões"];
 
 const mockSugestoes = [
-  { id: 'g3', nome: 'Grupo de Fotografia', descricao: 'Amantes da Imagem', atuacao: 'Arte e Cultura', foto: '/img/grupo-foto.jpg' },
-  { id: 'g4', nome: 'Gastronomia Vegana', descricao: 'Receitas Sustentáveis', atuacao: 'Culinária', foto: '/img/grupo-veg.jpg' },
-]
+  {
+    id: "g3",
+    nome: "Grupo de Fotografia",
+    descricao: "Amantes da Imagem",
+    atuacao: "Arte e Cultura",
+    foto: "/img/grupo-foto.jpg",
+  },
+  {
+    id: "g4",
+    nome: "Gastronomia Vegana",
+    descricao: "Receitas Sustentáveis",
+    atuacao: "Culinária",
+    foto: "/img/grupo-veg.jpg",
+  },
+];
 
 const dados = [
   {
-    id: '1',
-    nome: 'Sitio Canaã - Alimentos Orgânicos',
-    descricao: 'Alimentos e Bebidas',
-    atuacao: 'Alimentos',
-    foto: './avatarSitio.jpg',
+    id: "1",
+    nome: "Sitio Canaã - Alimentos Orgânicos",
+    descricao: "Alimentos e Bebidas",
+    atuacao: "Alimentos",
+    foto: "./avatarSitio.jpg",
   },
   {
-    id: '2',
-    nome: 'Drone e Georreferência',
-    descricao: 'Tecnologia no Campo',
-    atuacao: 'Inovação Agrícola',
-    foto: '/img/grupo-drone.jpg',
+    id: "2",
+    nome: "Drone e Georreferência",
+    descricao: "Tecnologia no Campo",
+    atuacao: "Inovação Agrícola",
+    foto: "/img/grupo-drone.jpg",
   },
-]
+];
 
 export default function Grupos() {
-  const { gruposTab, setTab } = useTabStore()
-  const router = useRouter()
-  const [busca, setBusca] = useState('')
-  const [gruposFiltrados, setGruposFiltrados] = useState(dados)
-  const [sugestoesFiltradas, setSugestoesFiltradas] = useState(mockSugestoes)
+  const { gruposTab, setTab } = useTabStore();
+  const router = useRouter();
+  const [busca, setBusca] = useState("");
+  const [gruposFiltrados, setGruposFiltrados] = useState(dados);
+  const [sugestoesFiltradas, setSugestoesFiltradas] = useState(mockSugestoes);
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [grupoSelecionado, setGrupoSelecionado] = useState<{ name: string; avatarUrl: string } | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [grupoSelecionado, setGrupoSelecionado] = useState<{
+    name: string;
+    avatarUrl: string;
+  } | null>(null);
 
-  const [isSugestaoModalOpen, setIsSugestaoModalOpen] = useState(false)
-  const [sugestaoSelecionada, setSugestaoSelecionada] = useState<typeof mockSugestoes[0] | null>(null)
+  const [isSugestaoModalOpen, setIsSugestaoModalOpen] = useState(false);
+  const [sugestaoSelecionada, setSugestaoSelecionada] = useState<
+    (typeof mockSugestoes)[0] | null
+  >(null);
 
   useEffect(() => {
     if (gruposTab === 0) {
       setGruposFiltrados(
         dados.filter((p) => p.nome.toLowerCase().includes(busca.toLowerCase()))
-      )
+      );
     } else if (gruposTab === 1) {
       setSugestoesFiltradas(
-        mockSugestoes.filter((p) => p.nome.toLowerCase().includes(busca.toLowerCase()))
-      )
+        mockSugestoes.filter((p) =>
+          p.nome.toLowerCase().includes(busca.toLowerCase())
+        )
+      );
     }
-  }, [busca, gruposTab])
+  }, [busca, gruposTab]);
 
   const entrarNoGrupo = (id: string) => {
-    router.push(`/feed/grupo?id=${id}`)
-  }
+    router.push(`/feed/grupo/${id}`);
+  };
 
   const abrirModalGrupo = (nome: string, foto: string) => {
-    setGrupoSelecionado({ name: nome, avatarUrl: foto })
-    setIsModalOpen(true)
-  }
+    setGrupoSelecionado({ name: nome, avatarUrl: foto });
+    setIsModalOpen(true);
+  };
 
-  const abrirModalSugestao = (grupo: typeof mockSugestoes[0]) => {
-    setSugestaoSelecionada(grupo)
-    setIsSugestaoModalOpen(true)
-  }
+  const abrirModalSugestao = (grupo: (typeof mockSugestoes)[0]) => {
+    setSugestaoSelecionada(grupo);
+    setIsSugestaoModalOpen(true);
+  };
 
   const criarGrupo = () => {
-    router.push('/grupos/criar')
-  }
+    router.push("/grupos/criar");
+  };
 
   const irParaBuscador = () => {
-    router.push('/buscador?selecao=grupos')
-  }
+    router.push("/buscador?selecao=grupos");
+  };
 
   return (
     <div className="min-h-screen px-2 bg-gray-50">
@@ -90,7 +109,7 @@ export default function Grupos() {
           <TabSelector
             tabs={tabs}
             activeIndex={gruposTab}
-            onChange={(i) => setTab('gruposTab', i)}
+            onChange={(i) => setTab("gruposTab", i)}
           />
         </div>
         <button
@@ -159,7 +178,9 @@ export default function Grupos() {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">Nenhum grupo encontrado.</p>
+              <p className="text-center text-gray-500">
+                Nenhum grupo encontrado.
+              </p>
             )}
           </div>
         )}
@@ -183,7 +204,9 @@ export default function Grupos() {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">Nenhuma sugestão encontrada.</p>
+              <p className="text-center text-gray-500">
+                Nenhuma sugestão encontrada.
+              </p>
             )}
           </div>
         )}
@@ -211,9 +234,15 @@ export default function Grupos() {
               className="w-24 h-24 rounded-full object-cover border"
             />
             <div>
-              <p className="text-lg font-semibold">{sugestaoSelecionada.nome}</p>
-              <p className="text-sm text-gray-600">{sugestaoSelecionada.descricao}</p>
-              <p className="text-sm text-gray-700 font-semibold">{sugestaoSelecionada.atuacao}</p>
+              <p className="text-lg font-semibold">
+                {sugestaoSelecionada.nome}
+              </p>
+              <p className="text-sm text-gray-600">
+                {sugestaoSelecionada.descricao}
+              </p>
+              <p className="text-sm text-gray-700 font-semibold">
+                {sugestaoSelecionada.atuacao}
+              </p>
             </div>
           </div>
 
@@ -221,7 +250,7 @@ export default function Grupos() {
             <button
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition w-full"
               onClick={() => {
-                alert('Solicitação enviada!');
+                alert("Solicitação enviada!");
                 setIsSugestaoModalOpen(false);
               }}
             >
