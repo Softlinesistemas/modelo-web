@@ -36,7 +36,7 @@ export default function DescricaoCard() {
       const el = previewRef.current;
       const lineHeight = parseFloat(getComputedStyle(el).lineHeight || "20");
       const lines = el.scrollHeight / lineHeight;
-      setShowVerMais(lines > 3);
+      setShowVerMais(lines > 5);
     }
   }, []);
 

@@ -47,7 +47,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
       ) : (
         <div className="flex h-28 w-full gap-1 pr-2">
           {/* Avatar */}
-          <div className="h-full rounded overflow-hidden flex-shrink-0 border-2 border-black">
+          <div className="h-full w-24 rounded overflow-hidden flex-shrink-0 border-2 border-black">
             <img
               src={selectedUser.avatar}
               alt={selectedUser.name}
