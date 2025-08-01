@@ -85,7 +85,7 @@
     "slate-history": "^0.100.0",
     "slate-react": "^0.106.0",
     "socket.io-client": "^4.7.5",
-    "swagger-ui-react": "^5.27.0",
+    "swagger-ui-react": "^3.29.0",
     "swiper": "^11.1.9",
     "tailwind-merge": "^2.4.0",
     "taxjar": "^4.1.0",

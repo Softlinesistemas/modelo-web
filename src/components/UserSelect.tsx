@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import { FiCalendar, FiClock, FiCloud, FiChevronDown } from 'react-icons/fi';
@@ -15,30 +15,30 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const [showDropdown, setShowDropdown] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
 
-  const [selectedUser, setSelectedUser] = useState({
-    name: 'Maria da Silva',
-    
-  });
-
   const users = [
-    { name: 'Sítio Canaã - Alimentos Orgânicos' },
-    { name: 'Maria da Silva'},
-    // { name: 'Maria Souza', role: 'Operadora' },
-    // { name: 'Carlos Lima', role: 'Supervisor' },
+    {
+      name: 'Sítio Canaã - Alimentos Orgânicos',
+      avatar: '/avatarSitio.jpg',
+    },
+    {
+      name: 'Maria da Silva',
+      avatar: '/avatar2.jpeg',
+    },
   ];
+
+  const [selectedUser, setSelectedUser] = useState(users[1]); // Maria como padrão
 
   const toggleDropdown = () => setShowDropdown(!showDropdown);
 
-  const selectUser = (user: { name: string;}) => {
+  const selectUser = (user: { name: string; avatar: string }) => {
     setSelectedUser(user);
     setShowDropdown(false);
   };
 
-  const handleCloseQrCode = () => setShowQrCode(false); // Fechar QR Code se quiser
+  const handleCloseQrCode = () => setShowQrCode(false);
 
   return (
-    <div className="bg-[#B6D2B7]  gap-2 pb-3 w-full mt-2">
-      {/* Renderiza o QR Code ou a seleção de usuário */}
+    <div className="bg-[#B6D2B7] gap-2 pb-3 w-full mt-2">
       {showQrCode ? (
         <QrCode 
           qrValue="https://seusite.com/usuario/123" 
@@ -47,25 +47,25 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
       ) : (
         <div className="flex h-28 w-full gap-1 pr-2">
           {/* Avatar */}
-          <div className="h-full rounded overflow-hidden flex-shrink-0 border-2 border-black ">
+          <div className="h-full rounded overflow-hidden flex-shrink-0 border-2 border-black">
             <img
-              src="/avatar2.jpeg"
-              alt="Avatar"
+              src={selectedUser.avatar}
+              alt={selectedUser.name}
               className="w-full h-full object-cover"
             />
           </div>
 
-          {/* Conteúdo do lado direito */}
+          {/* Conteúdo ao lado do avatar */}
           <div className="flex-1 flex flex-col">
-            {/* Select de usuário */} 
-            <div className='w-full'>
-              <div className="relative w-full ml-2 ">
+            {/* Select de usuário */}
+            <div className="w-full">
+              <div className="relative w-full ml-2">
                 <button
                   onClick={toggleDropdown}
                   className="w-full text-left px-1 py-1 bg-white rounded flex items-center justify-between border-2 border-black"
                 >
                   <span className="ml-2 text-md font-medium">
-                    {selectedUser.name}  
+                    {selectedUser.name}
                   </span>
                   <FiChevronDown />
                 </button>

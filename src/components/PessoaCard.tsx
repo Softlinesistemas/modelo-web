@@ -10,17 +10,24 @@ type Pessoa = {
 
 type Props = {
   pessoa: Pessoa
-  onMensagem: () => void
-  onFotoClick: () => void
+  onMensagem: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onFotoClick: (e: React.MouseEvent<HTMLImageElement>) => void
+  onClick?: () => void
 }
 
-export function PessoaCard({ pessoa, onMensagem, onFotoClick }: Props) {
+export function PessoaCard({ pessoa, onMensagem, onFotoClick, onClick }: Props) {
   return (
-    <div className="flex border-2 border-green-600 rounded p-2 gap-3 items-center bg-white shadow-sm">
+    <div
+      onClick={onClick}
+      className="flex border-2 border-green-600 rounded p-2 gap-3 items-center bg-white shadow-sm cursor-pointer"
+    >
       <img
         src={pessoa.foto}
         alt={pessoa.nome}
-        onClick={onFotoClick}
+        onClick={(e) => {
+          e.stopPropagation()
+          onFotoClick(e)
+        }}
         className="w-16 h-16 rounded object-cover border border-gray-300 cursor-pointer hover:scale-105 transition"
       />
       <div className="flex flex-col text-sm flex-1">
@@ -30,7 +37,10 @@ export function PessoaCard({ pessoa, onMensagem, onFotoClick }: Props) {
       </div>
 
       <button
-        onClick={onMensagem}
+        onClick={(e) => {
+          e.stopPropagation()
+          onMensagem(e)
+        }}
         className="ml-auto text-xl text-green-900 px-3 py-1 hover:text-green-500 transition"
       >
         <FiMessageSquare />

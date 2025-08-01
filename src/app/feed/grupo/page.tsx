@@ -7,12 +7,18 @@ import { FeedPhotoGallery } from "@/components/feed/FeedPhotoGallery";
 import { ProducerCard } from "@/components/feed/ProducerCard";
 import { SocialIcons } from "@/components/feed/SocialIcons";
 import { ProducerLocationCard } from "@/components/feed/ProducerLocationCard";
-import { ProducerTableInfo } from "@/components/feed/ProducerTableInfo";
+// import { ProducerTableInfo } from "@/components/feed/ProducerTableInfo";
 import { FeedPostCard } from "@/components/feed/FeedPostCard";
 import { MainBanner } from "@/components/MainBanner";
 import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
+import { GeographicReference } from "@/components/groups/GeographicReference";
 
-export default function FeedPage() {
+interface FeedPageProps {
+  grupoId?: string;
+}
+
+export default function FeedPage({ grupoId }: FeedPageProps) {
+  grupoId = "1";
   // Dados simulados para as fotos
   const photos = [
     { url: "/placeholder1.jpg", date: "15/03/24" },
@@ -30,19 +36,30 @@ export default function FeedPage() {
       </div>
       <div>
         <ProducerCard
-          tipo="pessoa"
-          mainImage={"/avatar2.jpeg"}
-          galleryImages={[
-            "/avatar3.jpeg",
-            "/avatar.jpg",
-            "/avatar2.jpeg",
-            "/avatar1.jpg",
-          ]}
+          tipo="grupo"
+          mainImage={"/avatarSitio.jpg"}
+          galleryImages={[]}
+          dataFundacao="05/06/2022"
         />
       </div>
 
       <div className="mt-1">
         <ProducerLocationCard />
+      </div>
+      <div className="mt-1">
+        <GeographicReference
+          bioma="2 - CAATINGA"
+          divisao="TI_04 - SISAL"
+          dia="Segunda"
+          inicio="08:00"
+          fim="10:00"
+          nivel="Intermediário"
+          idadeMin={10}
+          idadeMax={17}
+          genero="Misto"
+          mensalidade="R$ 10,00"
+          avulso="R$ 10,00"
+        />
       </div>
 
       <div>
@@ -75,9 +92,9 @@ export default function FeedPage() {
         <BotaoAlerta />
       </div>
 
-      <div className="mt-2">
+      {/* <div className="mt-2">
         <ProducerTableInfo />
-      </div>
+      </div> */}
 
       <div className="mt-3">
         <SocialLinksSection />

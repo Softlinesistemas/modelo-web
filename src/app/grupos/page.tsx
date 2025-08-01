@@ -1,25 +1,22 @@
 'use client'
 
-import { useTabStore } from '@/store/useTabStore' // Store para controle da tab ativa
-import { TabSelector } from '@/components/TabSelector' // Componente para seleção de abas
-import { motion } from 'framer-motion' // Animações suaves
-import { useRouter } from 'next/navigation' // Navegação programática Next.js
-import { PessoaCard } from '@/components/PessoaCard' // Card genérico para mostrar grupo ou pessoa
+import { useTabStore } from '@/store/useTabStore'
+import { TabSelector } from '@/components/TabSelector'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import { PessoaCard } from '@/components/PessoaCard'
 import { useEffect, useState } from 'react'
-import { AvatarMenu } from '@/components/AvatarMenu' // Modal para mostrar avatar e nome
-import { AppModal } from '@/utils/ui/AppModal' // Modal genérico
+import { AvatarMenu } from '@/components/AvatarMenu'
+import { AppModal } from '@/utils/ui/AppModal'
 import { MainBanner } from '@/components/MainBanner'
 
-// Define as abas disponíveis na tela de grupos
 const tabs = ['Meus', 'Sugestões']
 
-// Mock de sugestões de grupos para a tab 'Sugestões'
 const mockSugestoes = [
   { id: 'g3', nome: 'Grupo de Fotografia', descricao: 'Amantes da Imagem', atuacao: 'Arte e Cultura', foto: '/img/grupo-foto.jpg' },
   { id: 'g4', nome: 'Gastronomia Vegana', descricao: 'Receitas Sustentáveis', atuacao: 'Culinária', foto: '/img/grupo-veg.jpg' },
 ]
 
-// Dados mock para a tab 'Meus Grupos'
 const dados = [
   {
     id: '1',
@@ -38,30 +35,18 @@ const dados = [
 ]
 
 export default function Grupos() {
-  // Estado global para aba ativa usando Zustand
   const { gruposTab, setTab } = useTabStore()
-
-  // Hook de navegação do Next.js
   const router = useRouter()
-
-  // Estado para o filtro de busca
   const [busca, setBusca] = useState('')
-
-  // Estado para os grupos filtrados conforme busca
   const [gruposFiltrados, setGruposFiltrados] = useState(dados)
-
-  // Estado para sugestões filtradas conforme busca
   const [sugestoesFiltradas, setSugestoesFiltradas] = useState(mockSugestoes)
 
-  // Controle do modal do grupo selecionado (avatar menu)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [grupoSelecionado, setGrupoSelecionado] = useState<{ name: string; avatarUrl: string } | null>(null)
 
-  // Controle do modal para sugestão selecionada
   const [isSugestaoModalOpen, setIsSugestaoModalOpen] = useState(false)
   const [sugestaoSelecionada, setSugestaoSelecionada] = useState<typeof mockSugestoes[0] | null>(null)
 
-  // Atualiza a lista filtrada sempre que busca ou aba muda
   useEffect(() => {
     if (gruposTab === 0) {
       setGruposFiltrados(
@@ -74,56 +59,49 @@ export default function Grupos() {
     }
   }, [busca, gruposTab])
 
-  // Função para navegar para a página do grupo
   const entrarNoGrupo = (id: string) => {
-    router.push(`/grupo?id=${id}`)
+    router.push(`/feed/grupo?id=${id}`)
   }
 
-  // Abre modal com detalhes do grupo clicado (avatar)
   const abrirModalGrupo = (nome: string, foto: string) => {
     setGrupoSelecionado({ name: nome, avatarUrl: foto })
     setIsModalOpen(true)
   }
 
-  // Abre modal com detalhes da sugestão clicada
   const abrirModalSugestao = (grupo: typeof mockSugestoes[0]) => {
     setSugestaoSelecionada(grupo)
     setIsSugestaoModalOpen(true)
   }
 
-  // Navega para tela de criação de grupo
   const criarGrupo = () => {
     router.push('/grupos/criar')
   }
 
-    const irParaBuscador = () => {
+  const irParaBuscador = () => {
     router.push('/buscador?selecao=grupos')
   }
 
   return (
     <div className="min-h-screen px-2 bg-gray-50">
-      {/* Título da página */}
       <MainBanner />
-      {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Grupos</h1> */}
 
-      {/* Barra superior: seleção de aba e botão de criar grupo */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex-1">
           <TabSelector
             tabs={tabs}
             activeIndex={gruposTab}
-            onChange={(i) => setTab("gruposTab", i)}
+            onChange={(i) => setTab('gruposTab', i)}
           />
         </div>
-      <button
+        <button
           onClick={criarGrupo}
           className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
         >
           Criar Grupo
         </button>
-        </div>
-        <div className="flex justify-center items-center pb-3">
-        {/* Campo de busca */}
+      </div>
+
+      <div className="flex justify-center items-center pb-3">
         <input
           type="text"
           placeholder="Buscar por nome..."
@@ -131,31 +109,31 @@ export default function Grupos() {
           onChange={(e) => setBusca(e.target.value)}
           className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        </div>
-        <div className="flex justify-center items-center pb-3">
-          <button
-            onClick={irParaBuscador}
-            className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
-          >
-            Procurar por Filtros
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z"
-              />
-            </svg>
-          </button>
-        </div>
+      </div>
 
-      {/* Conteúdo dos grupos ou sugestões com animação de transição */}
+      <div className="flex justify-center items-center pb-3">
+        <button
+          onClick={irParaBuscador}
+          className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
+        >
+          Procurar por Filtros
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-gray-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z"
+            />
+          </svg>
+        </button>
+      </div>
+
       <motion.div
         key={gruposTab}
         initial={{ opacity: 0, y: 20 }}
@@ -169,14 +147,19 @@ export default function Grupos() {
                 <PessoaCard
                   key={p.id}
                   pessoa={p}
-                  onMensagem={() => entrarNoGrupo(p.id)}
-                  onFotoClick={() => abrirModalGrupo(p.nome, p.foto)}
+                  onClick={() => entrarNoGrupo(p.id)}
+                  onMensagem={(e) => {
+                    e.stopPropagation();
+                    entrarNoGrupo(p.id);
+                  }}
+                  onFotoClick={(e) => {
+                    e.stopPropagation();
+                    abrirModalGrupo(p.nome, p.foto);
+                  }}
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">
-                Nenhum grupo encontrado.
-              </p>
+              <p className="text-center text-gray-500">Nenhum grupo encontrado.</p>
             )}
           </div>
         )}
@@ -188,20 +171,24 @@ export default function Grupos() {
                 <PessoaCard
                   key={p.id}
                   pessoa={p}
-                  onMensagem={() => entrarNoGrupo(p.id)}
-                  onFotoClick={() => abrirModalSugestao(p)}
+                  onClick={() => entrarNoGrupo(p.id)}
+                  onMensagem={(e) => {
+                    e.stopPropagation();
+                    entrarNoGrupo(p.id);
+                  }}
+                  onFotoClick={(e) => {
+                    e.stopPropagation();
+                    abrirModalSugestao(p);
+                  }}
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">
-                Nenhuma sugestão encontrada.
-              </p>
+              <p className="text-center text-gray-500">Nenhuma sugestão encontrada.</p>
             )}
           </div>
         )}
       </motion.div>
 
-      {/* Modal AvatarMenu para grupo selecionado */}
       {grupoSelecionado && (
         <AvatarMenu
           isOpen={isModalOpen}
@@ -211,7 +198,6 @@ export default function Grupos() {
         />
       )}
 
-      {/* Modal com detalhes da sugestão selecionada */}
       {sugestaoSelecionada && (
         <AppModal
           isOpen={isSugestaoModalOpen}
@@ -225,15 +211,9 @@ export default function Grupos() {
               className="w-24 h-24 rounded-full object-cover border"
             />
             <div>
-              <p className="text-lg font-semibold">
-                {sugestaoSelecionada.nome}
-              </p>
-              <p className="text-sm text-gray-600">
-                {sugestaoSelecionada.descricao}
-              </p>
-              <p className="text-sm text-gray-700 font-semibold">
-                {sugestaoSelecionada.atuacao}
-              </p>
+              <p className="text-lg font-semibold">{sugestaoSelecionada.nome}</p>
+              <p className="text-sm text-gray-600">{sugestaoSelecionada.descricao}</p>
+              <p className="text-sm text-gray-700 font-semibold">{sugestaoSelecionada.atuacao}</p>
             </div>
           </div>
 
@@ -241,7 +221,7 @@ export default function Grupos() {
             <button
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition w-full"
               onClick={() => {
-                alert("Solicitação enviada!");
+                alert('Solicitação enviada!');
                 setIsSugestaoModalOpen(false);
               }}
             >
