@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import { BotaoAgrupado } from "@/components/feed/BotaoAgrupado";
 import { BotaoAlerta } from "@/components/feed/BotaoAlerta";
 import { FeedPhotoGallery } from "@/components/feed/FeedPhotoGallery";
