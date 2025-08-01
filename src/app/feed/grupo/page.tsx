@@ -13,12 +13,15 @@ import { MainBanner } from "@/components/MainBanner";
 import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
 import { GeographicReference } from "@/components/groups/GeographicReference";
 
-interface FeedPageProps {
-  grupoId?: string;
+interface PageProps {
+  params: {
+    grupoId: string;
+  };
 }
 
-export default function FeedPage({ grupoId }: FeedPageProps) {
-  grupoId = "1";
+export default function FeedPage({ params }: PageProps) {
+  const grupoId = params.grupoId;
+  
   // Dados simulados para as fotos
   const photos = [
     { url: "/placeholder1.jpg", date: "15/03/24" },
@@ -62,7 +65,7 @@ export default function FeedPage({ grupoId }: FeedPageProps) {
         />
       </div>
 
-      <div>
+      <div className="mt-1">
         <FeedPhotoGallery photos={photos} />
       </div>
 
