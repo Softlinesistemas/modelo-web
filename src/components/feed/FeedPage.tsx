@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { BotaoAgrupado } from "@/components/feed/BotaoAgrupado";
 import { BotaoAlerta } from "@/components/feed/BotaoAlerta";
@@ -14,14 +12,11 @@ import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
 import { GeographicReference } from "@/components/groups/GeographicReference";
 
 interface PageProps {
-  params: {
-    grupoId: string;
-  };
+  grupoId: any;
 }
 
-export default function FeedPage({ params }: PageProps) {
-  const grupoId = params.grupoId;
-  
+export default function FeedPage({ grupoId }: PageProps) {
+  grupoId = 1;
   // Dados simulados para as fotos
   const photos = [
     { url: "/placeholder1.jpg", date: "15/03/24" },

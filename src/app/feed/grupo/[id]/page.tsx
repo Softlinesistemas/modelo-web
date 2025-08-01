@@ -2,11 +2,11 @@
 
 import React from "react";
 import { useParams } from "next/navigation";
-import FeedPage from "../page";
+import FeedPage from "../../../../components/feed/FeedPage";
 
 export default function GrupoPage() {
   const params = useParams();
-  
+
   // params.id pode ser string | string[] | undefined
   // vamos garantir que é string ou undefined
   let grupoId: string | undefined;
