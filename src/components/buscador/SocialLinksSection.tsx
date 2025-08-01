@@ -73,13 +73,14 @@ export const SocialLinksSection = () => {
           </Label>
           <TagVisual value={projetoSocial} />
         </div>
-
-        {/* Cuidado Especial */}
-        <div className="md:col-span-2">
+</div>
+        <div className="w-full mb-2 mt-2 md:col-span-2">
           <div className="text-red-700 font-bold text-center py-2 border rounded bg-red-100">
             CUIDADO ESPECIAL OU DOENÇA CRÔNICA
           </div>
         </div>
+<div className="max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-2 gap-6 text-sm">
+        {/* Cuidado Especial */}
 
         {/* Tipo de Interesse */}
         <div>
@@ -106,9 +107,9 @@ export const SocialLinksSection = () => {
           </Label>
           <TagVisual value={ecologia} />
         </div>
-
+</div>
         {/* Povos Tradicionais (colapsável interno) */}
-        <div className="md:col-span-2">
+        <div className="w-full mt-2 mb-2 md:col-span-2">
           <CollapsibleSection title="POVOS E COMUNIDADES TRADICIONAIS">
             <div className="flex flex-wrap">
               {povosTradicionais.map((povo) => (
@@ -117,9 +118,9 @@ export const SocialLinksSection = () => {
             </div>
           </CollapsibleSection>
         </div>
-
+        <div className="max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-2 gap-6 text-sm">
         {/* Gênero */}
-        <div className="md:col-span-2">
+        <div >
           <Label className="font-semibold text-gray-700">Gênero</Label>
           {genero.map((genero) => (
             <TagVisual key={genero} value={genero} />
@@ -127,7 +128,7 @@ export const SocialLinksSection = () => {
         </div>
 
         {/* Raça / Cor */}
-        <div className="md:col-span-2">
+        <div >
           <Label className="font-semibold text-gray-700">Raça / Cor</Label>
           {raca.map((raca) => (
             <TagVisual key={raca} value={raca} />
@@ -135,8 +136,8 @@ export const SocialLinksSection = () => {
         </div>
 
         {/* Religião */}
-        <div className="md:col-span-2">
-          <Label className="font-semibold text-gray-700">Religião</Label>
+        <div >
+          <Label className="font-semibold text-gray-700 ">Religião</Label>
           {religiao.map((religiao) => (
             <TagVisual key={religiao} value={religiao} />
           ))}

@@ -44,9 +44,9 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
   };
 
   return (
-    <div className="max-w-md lg:max-w-[98%] mx-auto mb-2 cursor-pointer">
+    <div className="w-full lg:max-w-[98%] mx-auto mb-2 cursor-pointer gap-2">
       {/* Área verde (imagem + ações) */}
-      <div className="bg-green-100 rounded-t-xl border-2 shadow overflow-hidden">
+      <div className="bg-green-100 border-2 shadow overflow-hidden">
         {/* Carrossel de Imagens */}
         <div className="relative">
           <img

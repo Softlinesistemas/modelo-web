@@ -62,7 +62,7 @@ export default function FeedPage({ grupoId }: FeedPageProps) {
         />
       </div>
 
-      <div>
+      <div className="mt-1">
         <FeedPhotoGallery photos={photos} />
       </div>
 

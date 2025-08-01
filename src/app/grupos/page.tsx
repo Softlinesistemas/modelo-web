@@ -20,10 +20,10 @@ const mockSugestoes = [
 const dados = [
   {
     id: '1',
-    nome: 'Grupo Agroecologia',
-    descricao: 'Técnicos e Engenheiros',
-    atuacao: 'Consultoria Rural',
-    foto: '/img/grupo-agro.jpg',
+    nome: 'Sitio Canaã - Alimentos Orgânicos',
+    descricao: 'Alimentos e Bebidas',
+    atuacao: 'Alimentos',
+    foto: './avatarSitio.jpg',
   },
   {
     id: '2',
