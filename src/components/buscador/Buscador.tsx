@@ -81,7 +81,7 @@ export const Buscador: React.FC = () => {
 
         {/* Grid de filtros principais - responsivo */}
         <div className="grid grid-cols-2 gap-3 text-center md:gap-4 mb-6 ">
-          <div className="grid grid-cols-2 gap-3 text-center md:gap-4 mb-6 ">
+          
             {/* Bloco Amigos */}
             <div
               onClick={() => handleFilterClick("amigos")}
@@ -139,7 +139,7 @@ export const Buscador: React.FC = () => {
                 Produtos & Serviços
               </p>
             </div>
-          </div>
+          
         </div>
 
         {/* Campo de busca */}
