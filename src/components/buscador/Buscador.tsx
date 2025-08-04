@@ -66,6 +66,10 @@ export const Buscador: React.FC = () => {
     setDistancia(dist === distancia ? "" : dist);
   };
 
+  const handleFilterClick = (filter: string) => {
+    setSelectedFilter((prev) => (prev === filter ? "" : filter));
+  };
+
   return (
     <div className="w-full">
       <MainBanner />
@@ -77,54 +81,64 @@ export const Buscador: React.FC = () => {
 
         {/* Grid de filtros principais - responsivo */}
         <div className="grid grid-cols-2 gap-3 text-center md:gap-4 mb-6 ">
-          {/* Bloco Amigos */}
-          <div
-            onClick={() => setSelectedFilter("amigos")}
-            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
-              selectedFilter === "amigos"
-                ? "bg-white border-2 border-green-700 shadow-md text-green-700"
-                : "bg-amber-300 hover:bg-amber-200"
-            }`}
-          >
-            <h3 className="font-semibold text-base md:text-lg">AMIGOS</h3>
-          </div>
+          <div className="grid grid-cols-2 gap-3 text-center md:gap-4 mb-6 ">
+            {/* Bloco Amigos */}
+            <div
+              onClick={() => handleFilterClick("amigos")}
+              className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
+                selectedFilter === "amigos"
+                  ? "bg-white border-green-700 shadow-md text-green-700"
+                  : "bg-amber-300 hover:bg-amber-200"
+              }`}
+            >
+              <h3 className="font-semibold text-base md:text-lg">AMIGOS</h3>
+            </div>
 
-          {/* Bloco Grupos */}
-          <div
-            onClick={() => setSelectedFilter("grupos")}
-            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
-              selectedFilter === "grupos"
-                ? "bg-white border-2 border-green-700 shadow-md text-green-700"
-                : "bg-green-500 hover:bg-green-400"
-            }`}
-          >
-            <h3 className="font-semibold text-base md:text-lg">GRUPOS</h3>
-          </div>
+            {/* Bloco Grupos */}
+            <div
+              onClick={() => handleFilterClick("grupos")}
+              className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
+                selectedFilter === "grupos"
+                  ? "bg-white border-green-700 shadow-md text-green-700"
+                  : "bg-green-500 hover:bg-green-400"
+              }`}
+            >
+              <h3 className="font-semibold text-base md:text-lg">GRUPOS</h3>
+            </div>
 
-          {/* Bloco Fornecedor */}
-          <div
-            onClick={() => setSelectedFilter("fornecedor")}
-            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
-              selectedFilter === "fornecedor"
-                ? "bg-white border-2 border-green-700 shadow-md text-green-700"
-                : "bg-lime-400 hover:bg-lime-300"
-            }`}
-          >
-            <h3 className="font-semibold text-base md:text-lg">FORNECEDORES</h3>
-            <p className="text-xs font-medium md:text-sm mt-1">Produtos & Serviços</p>
-          </div>
+            {/* Bloco Fornecedor */}
+            <div
+              onClick={() => handleFilterClick("fornecedor")}
+              className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
+                selectedFilter === "fornecedor"
+                  ? "bg-white border-green-700 shadow-md text-green-700"
+                  : "bg-lime-400 hover:bg-lime-300"
+              }`}
+            >
+              <h3 className="font-semibold text-base md:text-lg">
+                FORNECEDORES
+              </h3>
+              <p className="text-xs font-medium md:text-sm mt-1">
+                Produtos & Serviços
+              </p>
+            </div>
 
-          {/* Bloco Clientes */}
-          <div
-            onClick={() => setSelectedFilter("clientes")}
-            className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
-              selectedFilter === "clientes"
-                ? "bg-white border-2 border-green-700 shadow-md text-green-700"
-                : "bg-amber-700 hover:bg-amber-600 text-white"
-            }`}
-          >
-            <h3 className="font-semibold text-black text-base md:text-lg">EMPRESAS</h3>
-            <p className="text-xs font-medium text-black md:text-sm mt-1">Produtos & Serviços</p>
+            {/* Bloco Clientes */}
+            <div
+              onClick={() => handleFilterClick("clientes")}
+              className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
+                selectedFilter === "clientes"
+                  ? "bg-white border-green-700 shadow-md text-green-700"
+                  : "bg-amber-700 hover:bg-amber-600 text-white"
+              }`}
+            >
+              <h3 className="font-semibold text-black text-base md:text-lg">
+                EMPRESAS
+              </h3>
+              <p className="text-xs font-medium text-black md:text-sm mt-1">
+                Produtos & Serviços
+              </p>
+            </div>
           </div>
         </div>
 

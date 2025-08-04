@@ -10,8 +10,9 @@ import { AppModal } from '@/utils/ui/AppModal'
 import { MainBanner } from '@/components/MainBanner'
 import { Button } from '@/utils/ui/Button'
 import { FiSearch } from 'react-icons/fi'
+import { Label } from '@/utils/ui/Label'
 
-const tabs = ['Minhas EMPRESAS', 'Sugestões']
+const tabs = ['EMPRESAS', 'Sugestões']
 
 // Interfaces e mocks ficam fora do componente (boa prática)
 interface Empresa {
@@ -26,13 +27,13 @@ const minhasEmpresasMock: Empresa[] = [
     id: 'e1',
     nome: 'AgroBrasil SA',
     descricao: 'Líder em soluções agrícolas no Brasil',
-    logo: '/img/empresa-agrobrasil.png',
+    logo: '/images/AgroBrasilSA.jpg',
   },
   {
     id: 'e2',
     nome: 'TechFarms Ltda',
     descricao: 'Tecnologia e inovação para o campo',
-    logo: '/img/empresa-techfarms.png',
+    logo: '/images/TechFarm.jpg',
   },
 ]
 
@@ -111,12 +112,12 @@ export default function Empresas() {
 
 
   return (
-    <div className="w-full p-1">
+    <div className="w-full p-1 mb-8">
       {/* Título da página */}
       {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Empresas</h1> */}
     <MainBanner />
       {/* Barra superior: seleção de aba e botão de criar grupo */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mt-2 mb-4">
         <div className="flex-1">
           <TabSelector
             tabs={tabs}
@@ -132,26 +133,29 @@ export default function Empresas() {
           Ser EMPRESA
         </Button>
       </div>
+      <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
+        <Label variant="secondary">Pesquise EMPRESAS</Label>
+      </div>
       <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
       <FiSearch className="text-gray-400" />
       <input
         type="text"
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
-        placeholder="Procurar por EMPRESAS"
+        placeholder="Procurar por EMPRESAS..."
         className="bg-transparent outline-none text-sm w-full"
       />
     </div>
 
-      <div className="flex justify-center items-center pb-3">
+      <div className="flex w-full justify-center items-center pb-7">
         <Button
           onClick={irParaBuscador}
-          className="ml-4 flex items-center gap-2 border bg-blue-600 text-black border-blue-200  rounded px-4 py-2 hover:bg-red-600 transition"
+          className="ml-4 flex items-center  gap-2 border bg-red-600 text-black border-red-200  rounded px-4 py-2 hover:bg-red-600 transition"
         >
-          Procurar por Filtros
+         Procurar por filtros
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-black"
+            className="h-5 w-5 text-white"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -246,7 +250,7 @@ export default function Empresas() {
 
             <div className="flex gap-4 mt-6 w-full">
               <button
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition flex-1"
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition flex-1"
                 onClick={() => {
                   alert("Contato enviado!");
                   setModalAberto(false);

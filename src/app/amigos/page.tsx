@@ -11,6 +11,7 @@ import { AppModal } from "@/utils/ui/AppModal";
 import { MainBanner } from "@/components/MainBanner";
 import { Button } from "@/utils/ui/Button";
 import { FiSearch } from "react-icons/fi";
+import { Label } from "@/utils/ui/Label";
 
 const tabs = ["Meus AMIGOS", "Sugestões"];
 
@@ -130,7 +131,7 @@ export default function Amigos() {
   };
 
   return (
-    <div className="w-full p-1">
+    <div className="w-full p-1 mb-8">
       {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Amigos</h1> */}
       <MainBanner />
       <div className="flex items-center justify-between mt-2 mb-4">
@@ -142,22 +143,24 @@ export default function Amigos() {
           />
         </div>
       </div>
-
+      <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
+        <Label variant="secondary">Pesquise pelo NOME ou USUARIO GOOAGRO</Label>
+      </div>
       <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
-      <FiSearch className="text-gray-400" />
-      <input
-        type="text"
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-        placeholder="Procurar por AMIGOS"
-        className="bg-transparent outline-none text-sm w-full"
-      />
-    </div>
-      <div className="flex justify-center items-center pb-3">
+        <FiSearch className="text-gray-400" />
+        <input
+          type="text"
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          placeholder="Escreva aqui..."
+          className="bg-transparent outline-none text-sm w-full"
+        />
+      </div>
+      <div className="flex justify-center items-center pb-7">
         <Button
           onClick={irParaBuscador}
           variant="buscarFiltros"
-          className="ml-4 flex items-center gap-2 border bg-blue-600 text-black border-blue-200 rounded px-4 py-2 hover:bg-gray-100 transition"
+          className="ml-4 flex items-center gap-2 border bg-red-600 text-white border-red-200 rounded px-4 py-2 hover:bg-gray-100 transition"
         >
           Procurar por Filtros
           <svg

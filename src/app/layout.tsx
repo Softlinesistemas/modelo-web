@@ -10,6 +10,7 @@ import { Header } from '../components/Header'
 import { BottomNav } from '../components/navigation/BottomNav'
 import { AjudaLinks } from '@/components/AjudaLinks'
 import { SplashScreen } from '@/components/SplashScreen' // ✅
+import WelcomeModal from '@/components/WelcomeModal'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -22,12 +23,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="bg-[#B6D2B7] min-h-screen w-full overflow-x-hidden flex flex-col relative">
         
         <SplashScreen /> 
+        
+              <WelcomeModal />
 
         <AppProvider>
           <AuthProvider>
             <NotificationProvider>
               <ActionProvider>
-
                 <Header />
 
                 <Suspense fallback={

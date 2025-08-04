@@ -11,6 +11,7 @@ import { AppModal } from "@/utils/ui/AppModal";
 import { MainBanner } from "@/components/MainBanner";
 import { Button } from "@/utils/ui/Button";
 import { FiSearch } from "react-icons/fi";
+import { Label } from "@/utils/ui/Label";
 
 const tabs = ["Meus GRUPOS", "Sugestões"];
 
@@ -34,10 +35,10 @@ const mockSugestoes = [
 const dados = [
   {
     id: "1",
-    nome: "Sitio Canaã - Alimentos Orgânicos",
-    descricao: "Alimentos e Bebidas",
-    atuacao: "Alimentos",
-    foto: "./avatar3.jpeg",
+    nome: "TRATOR-BA_T-4_SISAL_CAR-0113",
+    descricao: "@TRATOR-CAR-0013_cj&03r4#@%+03dr",
+    atuacao: "Veiculos",
+    foto: "./images/trator.jpg",
   },
   {
     id: "2",
@@ -45,6 +46,13 @@ const dados = [
     descricao: "Tecnologia no Campo",
     atuacao: "Inovação Agrícola",
     foto: "./grupo-drone.jpg",
+  },
+  {
+    id: "3",
+    nome: "Sitio Canaã - Alimentos Orgânicos",
+    descricao: "Alimentos e Bebidas",
+    atuacao: "Alimentos",
+    foto: "./avatar3.jpeg",
   },
 ];
 
@@ -103,10 +111,10 @@ export default function Grupos() {
   };
 
   return (
-    <div className="min-h-screen px-2 bg-gray-50">
+    <div className="w-full p-1 mb-8 --var:bgTotal">
       <MainBanner />
 
-      <div className="flex items-center justify-between mt-3 mb-4">
+      <div className="flex items-center justify-between mt-2 mb-4">
         <div className="flex-1">
           <TabSelector
             tabs={tabs}
@@ -122,28 +130,30 @@ export default function Grupos() {
           Criar GRUPO
         </Button>
       </div>
-
+      <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
+        <Label variant="secondary">Pesquise GRUPOS</Label>
+      </div>
       <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
       <FiSearch className="text-gray-400" />
       <input
         type="text"
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
-        placeholder="Procurar por GRUPOS"
+        placeholder="Escreva aqui..."
         className="bg-transparent outline-none text-sm w-full"
       />
     </div>
 
-      <div className="flex justify-center items-center pb-3">
+      <div className="flex justify-center items-center pb-7">
         <Button
           onClick={irParaBuscador}
           variant="buscarFiltros"
-          className="ml-4 flex items-center gap-2 border bg-blue-600 text-black border-blue-200 rounded px-4 py-2 hover:bg-gray-100 transition"
+          className="ml-4 flex items-center gap-2 border bg-red-600 text-white border-red-200 rounded px-4 py-2 hover:bg-gray-100 transition"
         >
           Procurar por Filtros
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-black"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

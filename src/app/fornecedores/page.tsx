@@ -11,6 +11,7 @@ import { AppModal } from '@/utils/ui/AppModal' // Modal genérico
 import { MainBanner } from '@/components/MainBanner'
 import { Button } from '@/utils/ui/Button'
 import { FiSearch } from 'react-icons/fi'
+import { Label } from '@/utils/ui/Label'
 
 // Define as abas para fornecedores
 const tabs = ['Meus FORNECEDORES', 'Sugestões']
@@ -22,14 +23,14 @@ const mockSugestoes = [
     nome: 'AgroTech Ltda',
     descricao: 'Tecnologia para agricultura de precisão',
     atuacao: 'Tecnologia Agrícola',
-    foto: '/img/fornecedor-agrotech.jpg',
+    foto: '/images/agro-tech.png',
   },
   {
     id: 'f4',
     nome: 'Sementes Verdes',
     descricao: 'Sementes orgânicas certificadas',
     atuacao: 'Sementes',
-    foto: '/img/fornecedor-sementes.jpg',
+    foto: '/images/sementes.jpg',
   },
 ]
 
@@ -40,14 +41,14 @@ const meusFornecedores = [
     nome: 'Fertilizantes Alfa',
     descricao: 'Fertilizantes para alta produtividade',
     atuacao: 'Fertilizantes',
-    foto: '/img/fornecedor-fertilizantes.jpg',
+    foto: '/images/agro-tech.png',
   },
   {
     id: 'f2',
     nome: 'Irrigação Beta',
     descricao: 'Soluções em irrigação inteligente',
     atuacao: 'Irrigação',
-    foto: '/img/fornecedor-irrigacao.jpg',
+    foto: '/images/sementes.jpg',
   },
 ]
 
@@ -115,11 +116,11 @@ export default function Fornecedores() {
   }
 
   return (
-    <div className="w-full p-1">
+    <div className="w-full p-1 mb-8">
       {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Fornecedores</h1> */}
     <MainBanner />
       {/* Tabs e botão criar fornecedor */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mt-2 mb-4">
         <div className="flex-1">
           <TabSelector
             tabs={tabs}
@@ -135,6 +136,9 @@ export default function Fornecedores() {
           Ser FORNECEDOR
         </Button>
         </div>
+        <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
+        <Label variant="secondary">Pesquise GRUPOS</Label>
+      </div>
         <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
       <FiSearch className="text-gray-400" />
       <input
@@ -145,27 +149,18 @@ export default function Fornecedores() {
         className="bg-transparent outline-none text-sm w-full"
       />
     </div>
-      {/* <div className="flex justify-center items-center pb-3">
-      <input
-        type="text"
-        placeholder="Buscar fornecedor..."
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-        className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-      />
-      </div> */}
-
+     
       {/* Campo busca */}
-      <div className="flex justify-center items-center pb-3">
+      <div className="flex justify-center items-center pb-7">
         <Button
           onClick={irParaBuscador}
           variant='buscarFiltros'
-          className="ml-4 flex items-center gap-2 bg-blue-600 text-black border-blue-200 border rounded px-4 py-2 hover:bg-gray-100 transition"
+          className="ml-4 flex items-center gap-2 bg-red-600 text-white border-red-200 border rounded px-4 py-2 hover:bg-gray-100 transition"
         >
           Procurar por Filtros
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-black"
+            className="h-5 w-5 "
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

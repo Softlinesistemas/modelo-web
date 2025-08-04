@@ -26,7 +26,7 @@ export const Label: React.FC<LabelProps> = ({
   return (
     <label
       {...props}
-      className={cn('block text-md mb-0', variantClasses[variant], className)}
+      className={cn('block text-md mb-0 w-full', variantClasses[variant], className)}
     >
       {children} {required && <span className="text-red-200">*</span>}
     </label>

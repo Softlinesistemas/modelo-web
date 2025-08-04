@@ -44,3 +44,7 @@ html {
 input, textarea, select {
   font-size: 1rem;
 }
+
+:root{
+  --bgTotal:'bg-[#B6D2B7]'
+}
