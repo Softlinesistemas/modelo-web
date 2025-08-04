@@ -49,31 +49,31 @@ const mockSugestoes = [
 const dados = [
   {
     id: "1",
-    nome: "Cicrano Santos Santos",
+    nome: "Cacilda Santos Santos",
     descricao: "31. Servidor Público",
     atuacao: "CADASTRADOR - CAF",
-    foto: "/img/cicrano.jpg",
+    foto: "/pessoa1.jpg",
   },
   {
     id: "2",
-    nome: "Professor Agrônomo Beltrano Oli",
+    nome: "Professora Agrônoma Rosilda Oli",
     descricao: "12. PROFESSOR ENG. AGRÔNOMO",
-    atuacao: "17. GEO-REFERENCIAL COM DRONE",
-    foto: "/img/professor.jpg",
+    atuacao: "17. GEO-REFERENCIAL",
+    foto: "/pessoa2.jpg",
   },
   {
     id: "3",
     nome: "Maria dos Santos",
     descricao: "Engenheira Ambiental",
     atuacao: "Sustentabilidade Rural",
-    foto: "/img/maria.jpg",
+    foto: "/pessoa4.jpg",
   },
   {
     id: "4",
     nome: "José Oliveira",
     descricao: "Técnico em Agropecuária",
     atuacao: "Consultoria Técnica",
-    foto: "/img/jose.jpg",
+    foto: "/pessoa3.jpg",
   },
 ];
 
