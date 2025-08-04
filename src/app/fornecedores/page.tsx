@@ -9,9 +9,11 @@ import { useEffect, useState } from 'react'
 import { AvatarMenu } from '@/components/AvatarMenu' // Modal para avatar e nome
 import { AppModal } from '@/utils/ui/AppModal' // Modal genérico
 import { MainBanner } from '@/components/MainBanner'
+import { Button } from '@/utils/ui/Button'
+import { FiSearch } from 'react-icons/fi'
 
 // Define as abas para fornecedores
-const tabs = ['Meus', 'Sugestões']
+const tabs = ['Meus FORNECEDORES', 'Sugestões']
 
 // Mock de fornecedores sugeridos
 const mockSugestoes = [
@@ -113,7 +115,7 @@ export default function Fornecedores() {
   }
 
   return (
-    <div className="min-h-screen px-4 py-6 bg-gray-50">
+    <div className="w-full p-1">
       {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Fornecedores</h1> */}
     <MainBanner />
       {/* Tabs e botão criar fornecedor */}
@@ -125,14 +127,25 @@ export default function Fornecedores() {
             onChange={(i) => setTab('fornecedoresTab', i)}
           />
           </div>
-        <button
+        <Button
           onClick={criarFornecedor}
-          className="ml-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+          className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          variant='buscarFiltros'
         >
-          Ser Fornecedor
-        </button>
+          Ser FORNECEDOR
+        </Button>
         </div>
-      <div className="flex justify-center items-center pb-3">
+        <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+      <FiSearch className="text-gray-400" />
+      <input
+        type="text"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+        placeholder="Procurar AMIGOS pelo Nome ou Usuario GOOAGRO"
+        className="bg-transparent outline-none text-sm w-full"
+      />
+    </div>
+      {/* <div className="flex justify-center items-center pb-3">
       <input
         type="text"
         placeholder="Buscar fornecedor..."
@@ -140,18 +153,19 @@ export default function Fornecedores() {
         onChange={(e) => setBusca(e.target.value)}
         className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
       />
-      </div>
+      </div> */}
 
       {/* Campo busca */}
       <div className="flex justify-center items-center pb-3">
-        <button
+        <Button
           onClick={irParaBuscador}
-          className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
+          variant='buscarFiltros'
+          className="ml-4 flex items-center gap-2 bg-blue-600 text-black border-blue-200 border rounded px-4 py-2 hover:bg-gray-100 transition"
         >
           Procurar por Filtros
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-600"
+            className="h-5 w-5 text-black"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -159,7 +173,7 @@ export default function Fornecedores() {
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z" />
           </svg>
-        </button>
+        </Button>
       </div>
       
 

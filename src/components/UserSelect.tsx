@@ -18,7 +18,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const users = [
     {
       name: 'Sítio Canaã - Alimentos Orgânicos',
-      avatar: '/avatarSitio.jpg',
+      avatar: '/avatar3.jpeg',
     },
     {
       name: 'Maria da Silva',

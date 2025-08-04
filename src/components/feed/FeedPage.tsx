@@ -35,7 +35,7 @@ export default function FeedPage({ grupoId }: PageProps) {
       <div>
         <ProducerCard
           tipo="grupo"
-          mainImage={"/avatarSitio.jpg"}
+          mainImage={"/avatar3.jpeg"}
           galleryImages={[]}
           dataFundacao="05/06/2022"
         />

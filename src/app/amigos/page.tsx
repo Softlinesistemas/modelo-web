@@ -8,8 +8,11 @@ import { PessoaCard } from "@/components/PessoaCard";
 import { useEffect, useState } from "react";
 import { AvatarMenu } from "@/components/AvatarMenu";
 import { AppModal } from "@/utils/ui/AppModal";
+import { MainBanner } from "@/components/MainBanner";
+import { Button } from "@/utils/ui/Button";
+import { FiSearch } from "react-icons/fi";
 
-const tabs = ["Meus", "Sugestões"];
+const tabs = ["Meus AMIGOS", "Sugestões"];
 
 const mockSugestoes = [
   {
@@ -127,11 +130,11 @@ export default function Amigos() {
   };
 
   return (
-    <div className="min-h-screen px-4 py-6 bg-gray-50">
+    <div className="w-full p-1">
       {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Amigos</h1> */}
-
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex-1">
+      <MainBanner />
+      <div className="flex items-center justify-between mt-2 mb-4">
+        <div className="flex w-full gap-2 items-center">
           <TabSelector
             tabs={tabs}
             activeIndex={amigosTab}
@@ -140,25 +143,26 @@ export default function Amigos() {
         </div>
       </div>
 
+      <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+      <FiSearch className="text-gray-400" />
+      <input
+        type="text"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+        placeholder="Procurar por AMIGOS"
+        className="bg-transparent outline-none text-sm w-full"
+      />
+    </div>
       <div className="flex justify-center items-center pb-3">
-        {/* 🔍 Barra de busca */}
-        <input
-          type="text"
-          placeholder="Buscar por nome..."
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-      <div className="flex justify-center items-center pb-3">
-        <button
+        <Button
           onClick={irParaBuscador}
-          className="ml-4 flex items-center border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
+          variant="buscarFiltros"
+          className="ml-4 flex items-center gap-2 border bg-blue-600 text-black border-blue-200 rounded px-4 py-2 hover:bg-gray-100 transition"
         >
           Procurar por Filtros
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-600"
+            className="h-5 w-5 text-white"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -170,7 +174,7 @@ export default function Amigos() {
               d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z"
             />
           </svg>
-        </button>
+        </Button>
       </div>
 
       <motion.div

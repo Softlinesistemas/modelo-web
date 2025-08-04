@@ -77,7 +77,7 @@ export const ProductsServicesSection = () => {
             DELIVERY / TIPOS DE ENTREGA
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
             {opcoesEntrega.map((opcao) => {
               const isSelected = entregaSelecionada.includes(opcao.value);
               return (

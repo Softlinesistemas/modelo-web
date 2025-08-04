@@ -15,6 +15,14 @@ const MessageFilter: React.FC<Props> = ({ activeFilter, onFilterChange }) => {
     <div className="flex justify-around mt-3 sticky top-0 z-10">
       <Button
         className={`px-4 py-1 rounded-full text-md font-semibold ${
+          activeFilter === 'favoritos' ? 'hover:bg-orange-500 text-white' : 'bg-gray-200 text-gray-800'
+        }`}
+        onClick={() => onFilterChange('favoritos')}
+      >
+        Favoritos
+      </Button>
+      <Button
+        className={`px-4 py-1 rounded-full text-md font-semibold ${
           activeFilter === 'todos' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-800'
         }`}
         onClick={() => onFilterChange('todos')}
@@ -22,14 +30,6 @@ const MessageFilter: React.FC<Props> = ({ activeFilter, onFilterChange }) => {
         Todos
       </Button>
 
-      <Button
-        className={`px-4 py-1 rounded-full text-md font-semibold ${
-          activeFilter === 'favoritos' ? 'hover:bg-orange-500 text-white' : 'bg-gray-200 text-gray-800'
-        }`}
-        onClick={() => onFilterChange('favoritos')}
-      >
-        Favoritos
-      </Button>
 
       <Button
         className={`px-4 py-1 rounded-full text-md font-semibold ${

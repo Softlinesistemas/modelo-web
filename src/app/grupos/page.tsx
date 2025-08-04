@@ -9,8 +9,10 @@ import { useEffect, useState } from "react";
 import { AvatarMenu } from "@/components/AvatarMenu";
 import { AppModal } from "@/utils/ui/AppModal";
 import { MainBanner } from "@/components/MainBanner";
+import { Button } from "@/utils/ui/Button";
+import { FiSearch } from "react-icons/fi";
 
-const tabs = ["Meus", "Sugestões"];
+const tabs = ["Meus GRUPOS", "Sugestões"];
 
 const mockSugestoes = [
   {
@@ -35,14 +37,14 @@ const dados = [
     nome: "Sitio Canaã - Alimentos Orgânicos",
     descricao: "Alimentos e Bebidas",
     atuacao: "Alimentos",
-    foto: "./avatarSitio.jpg",
+    foto: "./avatar3.jpeg",
   },
   {
     id: "2",
     nome: "Drone e Georreferência",
     descricao: "Tecnologia no Campo",
     atuacao: "Inovação Agrícola",
-    foto: "/img/grupo-drone.jpg",
+    foto: "./grupo-drone.jpg",
   },
 ];
 
@@ -104,7 +106,7 @@ export default function Grupos() {
     <div className="min-h-screen px-2 bg-gray-50">
       <MainBanner />
 
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mt-3 mb-4">
         <div className="flex-1">
           <TabSelector
             tabs={tabs}
@@ -112,33 +114,36 @@ export default function Grupos() {
             onChange={(i) => setTab("gruposTab", i)}
           />
         </div>
-        <button
+        <Button
           onClick={criarGrupo}
           className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          variant="buscarFiltros"
         >
-          Criar Grupo
-        </button>
+          Criar GRUPO
+        </Button>
       </div>
 
-      <div className="flex justify-center items-center pb-3">
-        <input
-          type="text"
-          placeholder="Buscar por nome..."
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+      <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+      <FiSearch className="text-gray-400" />
+      <input
+        type="text"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+        placeholder="Procurar por GRUPOS"
+        className="bg-transparent outline-none text-sm w-full"
+      />
+    </div>
 
       <div className="flex justify-center items-center pb-3">
-        <button
+        <Button
           onClick={irParaBuscador}
-          className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
+          variant="buscarFiltros"
+          className="ml-4 flex items-center gap-2 border bg-blue-600 text-black border-blue-200 rounded px-4 py-2 hover:bg-gray-100 transition"
         >
           Procurar por Filtros
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-600"
+            className="h-5 w-5 text-black"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -150,7 +155,7 @@ export default function Grupos() {
               d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z"
             />
           </svg>
-        </button>
+        </Button>
       </div>
 
       <motion.div

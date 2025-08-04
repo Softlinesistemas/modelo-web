@@ -195,7 +195,7 @@ export const Buscador: React.FC = () => {
         <div className="flex justify-center mb-6">
           <Button
             onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-            className="flex items-center justify-between bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow transition-colors"
+            className="flex items-center justify-between bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow transition-colors"
           >
             <span className="text-lg mr-2">+ Opções de Filtros</span>
             <svg

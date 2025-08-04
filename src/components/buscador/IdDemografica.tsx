@@ -87,16 +87,16 @@ export const IdDemografica = () => {
         </Label>
         <div className="flex gap-4 flex-wrap">
           <Label className="flex items-center gap-1">
-            <Input type="checkbox" /> 👶 Infantil
+            <Input type="checkbox" />Infantil
           </Label>
           <Label className="flex items-center gap-1">
-            <Input type="checkbox" /> 🧒 Juvenil
+            <Input type="checkbox" />Juvenil
           </Label>
           <Label className="flex items-center gap-1">
-            <Input type="checkbox" /> 🧑 Adulto
+            <Input type="checkbox" />Adulto
           </Label>
           <Label className="flex items-center gap-1">
-            <Input type="checkbox" /> 👴 Idoso
+            <Input type="checkbox" />Idoso
           </Label>
         </div>
       </div>

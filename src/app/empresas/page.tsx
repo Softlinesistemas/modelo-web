@@ -7,8 +7,11 @@ import { useTabStore } from '@/store/useTabStore'
 import { TabSelector } from '@/components/TabSelector'
 import { EmpresaCard } from '@/components/EmpresaCard' 
 import { AppModal } from '@/utils/ui/AppModal'
+import { MainBanner } from '@/components/MainBanner'
+import { Button } from '@/utils/ui/Button'
+import { FiSearch } from 'react-icons/fi'
 
-const tabs = ['Meus', 'Sugestões']
+const tabs = ['Minhas EMPRESAS', 'Sugestões']
 
 // Interfaces e mocks ficam fora do componente (boa prática)
 interface Empresa {
@@ -108,10 +111,10 @@ export default function Empresas() {
 
 
   return (
-    <div className="min-h-screen px-4 py-6 bg-gray-50">
+    <div className="w-full p-1">
       {/* Título da página */}
       {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Empresas</h1> */}
-
+    <MainBanner />
       {/* Barra superior: seleção de aba e botão de criar grupo */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex-1">
@@ -121,33 +124,34 @@ export default function Empresas() {
             onChange={(i) => setTab("empresasTab", i)}
           />
         </div>
-        <button
+        <Button
           onClick={criarEmpresa}
           className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          variant='buscarFiltros'
         >
-          Ser Empresa
-        </button>
+          Ser EMPRESA
+        </Button>
       </div>
-      <div className="flex justify-center items-center pb-3">
-        {/* Campo de busca */}
-        <input
-          type="text"
-          placeholder="Buscar empresa..."
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+      <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+      <FiSearch className="text-gray-400" />
+      <input
+        type="text"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+        placeholder="Procurar por EMPRESAS"
+        className="bg-transparent outline-none text-sm w-full"
+      />
+    </div>
 
       <div className="flex justify-center items-center pb-3">
-        <button
+        <Button
           onClick={irParaBuscador}
-          className="ml-4 flex items-center gap-2 border border-gray-400 rounded px-4 py-2 hover:bg-gray-100 transition"
+          className="ml-4 flex items-center gap-2 border bg-blue-600 text-black border-blue-200  rounded px-4 py-2 hover:bg-red-600 transition"
         >
           Procurar por Filtros
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-600"
+            className="h-5 w-5 text-black"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -159,7 +163,7 @@ export default function Empresas() {
               d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z"
             />
           </svg>
-        </button>
+        </Button>
       </div>
 
       {/* Lista com animação ao trocar de aba */}

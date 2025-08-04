@@ -18,7 +18,7 @@ export function EmpresaCard({ empresa, onClick }: EmpresaCardProps) {
     // Container clicável com sombra e efeito hover
     <div
       onClick={onClick}
-      className="cursor-pointer flex items-center gap-4 bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow"
+      className="flex border-2 border-green-600 rounded p-2 gap-3 items-center bg-white shadow-sm cursor-pointer"
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {

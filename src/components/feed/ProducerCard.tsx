@@ -55,7 +55,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
               Sitio Canaã - Alimentos Orgânicos
             </div>
             <div className="text-xs text-gray-900">
-              Produtos: Alimentos + Bebidas
+              Produtos: Alimentos e Bebidas
             </div>
             <div className="text-xs font-bold text-black">
               Alimentação escolar
