@@ -55,12 +55,12 @@ export const ActionGrid: React.FC = () => {
   };
 
   const actionButtons: Button[] = [
-    { label: 'Editar Feed', icon: <FiLayers />, color: 'bg-[#8F7E76] hover:bg-[#dfcdb5]', onClick: handleEditarFeed },
-    { label: 'Editar Perfil', icon: <FiUserPlus />, color: 'bg-[#BEB780] hover:bg-[#dfcdb5]', onClick: handleEditarPerfil },
-    { label: 'Editar Álbum', icon: <FiCamera />, color: 'bg-[#DFCDB5] hover:bg-[#dfcdb5]', onClick: handleEditarAlbum },
-    { label: 'Criar Grupo', icon: <FiUsers />, color: 'bg-[#A1A864] hover:bg-[#dfcdb5]', onClick: handleCriarGrupo },
-    { label: 'Buscador', icon: <FiSearch />, color: 'bg-[#BCC5A8] hover:bg-[#dfcdb5]', onClick: handleProcurar },
-    { label: 'Mensageiro', icon: <MessageIconWithBadge count={9} />, color: 'bg-[#BACE77] hover:bg-[#dfcdb5]', onClick: handleMensagem },
+    { label: 'Editar FEED', icon: <FiLayers />, color: 'bg-[#8F7E76] hover:bg-[#dfcdb5]', onClick: handleEditarFeed },
+    { label: 'Editar PERFIL', icon: <FiUserPlus />, color: 'bg-[#BEB780] hover:bg-[#dfcdb5]', onClick: handleEditarPerfil },
+    { label: 'Editar ÁLBUM', icon: <FiCamera />, color: 'bg-[#DFCDB5] hover:bg-[#dfcdb5]', onClick: handleEditarAlbum },
+    { label: 'Criar GRUPO', icon: <FiUsers />, color: 'bg-[#A1A864] hover:bg-[#dfcdb5]', onClick: handleCriarGrupo },
+    { label: 'BUSCADOR', icon: <FiSearch />, color: 'bg-[#BCC5A8] hover:bg-[#dfcdb5]', onClick: handleProcurar },
+    { label: 'MENSAGEIRO', icon: <MessageIconWithBadge count={9} />, color: 'bg-[#BACE77] hover:bg-[#dfcdb5]', onClick: handleMensagem },
   ];
 
   return (

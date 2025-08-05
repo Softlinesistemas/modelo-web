@@ -116,7 +116,7 @@ export default function Fornecedores() {
   }
 
   return (
-    <div className="w-full p-1 mb-8">
+    <div className="w-full mb-8">
       {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Fornecedores</h1> */}
     <MainBanner />
       {/* Tabs e botão criar fornecedor */}
@@ -139,7 +139,7 @@ export default function Fornecedores() {
         <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
         <Label variant="secondary">Pesquise GRUPOS</Label>
       </div>
-        <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+        <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
       <FiSearch className="text-gray-400" />
       <input
         type="text"
@@ -181,7 +181,7 @@ export default function Fornecedores() {
         transition={{ duration: 0.4 }}
       >
         {fornecedoresTab === 0 && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {fornecedoresFiltrados.length > 0 ? (
               fornecedoresFiltrados.map((f) => (
                 <PessoaCard
@@ -198,7 +198,7 @@ export default function Fornecedores() {
         )}
 
         {fornecedoresTab === 1 && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {sugestoesFiltradas.length > 0 ? (
               sugestoesFiltradas.map((f) => (
                 <PessoaCard

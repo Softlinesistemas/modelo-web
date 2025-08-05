@@ -131,7 +131,7 @@ export default function Amigos() {
   };
 
   return (
-    <div className="w-full p-1 mb-8">
+    <div className="w-full mb-8">
       {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Amigos</h1> */}
       <MainBanner />
       <div className="flex items-center justify-between mt-2 mb-4">
@@ -146,7 +146,7 @@ export default function Amigos() {
       <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
         <Label variant="secondary">Pesquise pelo NOME ou USUARIO GOOAGRO</Label>
       </div>
-      <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+      <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
         <FiSearch className="text-gray-400" />
         <input
           type="text"
@@ -187,7 +187,7 @@ export default function Amigos() {
         transition={{ duration: 0.4 }}
       >
         {amigosTab === 0 && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {amigosFiltrados.length > 0 ? (
               amigosFiltrados.map((p) => (
                 <PessoaCard
@@ -206,7 +206,7 @@ export default function Amigos() {
         )}
 
         {amigosTab === 1 && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {sugestoesFiltradas.length > 0 ? (
               sugestoesFiltradas.map((p) => (
                 <PessoaCard
@@ -242,7 +242,7 @@ export default function Amigos() {
           onClose={() => setIsSugestaoModalOpen(false)}
           title={`Sobre ${sugestaoSelecionada.nome}`}
         >
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-2 items-center">
             <img
               src={sugestaoSelecionada.foto}
               alt={sugestaoSelecionada.nome}
@@ -261,7 +261,7 @@ export default function Amigos() {
             </div>
           </div>
 
-          <div className="flex gap-4 mt-6">
+          <div className="flex gap-2 mt-6">
             <button
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition w-full"
               onClick={() => {

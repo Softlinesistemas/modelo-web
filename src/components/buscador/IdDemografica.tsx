@@ -131,11 +131,11 @@ const Section = ({
 
 // COMPONENTE DE GRUPO DE CHECKBOXES PADRONIZADOS
 const CheckboxGroup = ({ options }: { options: string[] }) => (
-  <div className="flex flex-wrap gap-2">
+  <div className="flex">
     {options.map((opt) => (
       <label
         key={opt}
-        className="flex items-center bg-white border border-green-700 text-green-800 px-3 py-1 rounded-full cursor-pointer text-xs sm:text-sm whitespace-nowrap"
+        className="flex items-center text-green-800 px-3 py-1 cursor-pointer text-sm sm:text-sm"
       >
         <input type="checkbox" className="mr-2 accent-green-600" />
         {opt}

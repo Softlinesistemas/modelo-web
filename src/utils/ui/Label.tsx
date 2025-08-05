@@ -19,7 +19,7 @@ export const Label: React.FC<LabelProps> = ({
   const variantClasses = {
     default: 'text-gray-700 font-medium rounded-md',
     primary: 'text-blue-600 font-semibol rounded-md',
-    secondary: 'bg-green-700 text-white font-medium text-center text-md p-2 rounded-md',
+    secondary: 'text-green-700 font-medium text-center text-md p-2 rounded-md',
     error: 'text-red-600 font-semibol rounded-md',
   };
 

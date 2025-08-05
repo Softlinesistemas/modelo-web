@@ -111,7 +111,7 @@ export default function Grupos() {
   };
 
   return (
-    <div className="w-full p-1 mb-8 --var:bgTotal">
+    <div className="w-full mb-8 --var:bgTotal">
       <MainBanner />
 
       <div className="flex items-center justify-between mt-2 mb-4">
@@ -133,7 +133,7 @@ export default function Grupos() {
       <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
         <Label variant="secondary">Pesquise GRUPOS</Label>
       </div>
-      <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+      <div className="flex items-center gap-2 bg-gray-100 border-2 border-green-700 rounded-md px-3 py-2 mx-4 my-2">
       <FiSearch className="text-gray-400" />
       <input
         type="text"
@@ -175,7 +175,7 @@ export default function Grupos() {
         transition={{ duration: 0.4 }}
       >
         {gruposTab === 0 && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {gruposFiltrados.length > 0 ? (
               gruposFiltrados.map((p) => (
                 <PessoaCard
@@ -201,7 +201,7 @@ export default function Grupos() {
         )}
 
         {gruposTab === 1 && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {sugestoesFiltradas.length > 0 ? (
               sugestoesFiltradas.map((p) => (
                 <PessoaCard

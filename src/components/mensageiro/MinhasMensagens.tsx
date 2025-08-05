@@ -38,8 +38,8 @@ export const MinhasMensagens = () => {
   const fecharModal = () => setMensagemSelecionada(null);
 
   return (
-    <div className="bg-gray-50 border rounded-lg shadow-md p-4 mb-8">
-      <h2 className="text-xl font-bold text-green-700 mb-4">📬 Minhas Mensagens</h2>
+    <div className="bg-gray-50 border shadow-md p-4 mb-8">
+      <h2 className="text-xl font-bold text-green-700 mb-4">📬 Mensagens Recebidas</h2>
 
       {mensagensMock.length === 0 ? (
         <p className="text-gray-500 italic">Nenhuma mensagem recebida ainda.</p>

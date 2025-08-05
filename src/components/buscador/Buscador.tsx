@@ -143,13 +143,13 @@ export const Buscador: React.FC = () => {
         </div>
 
         {/* Campo de busca */}
-        <div className="text-center mb-4">
+        <div className="text-center mb-2">
           <Label className="font-semibold text-gray-800">
             Pesquise pelo Nome ou Usuário{" "}
             <span className="text-green-600 font-bold">GooAgro</span>
           </Label>
         </div>
-        <div className="w-full mt-2 m-1 mb-2 ml-1 rounded-xl  ">
+        <div className="w-full m-1 mb-2 ml-1 rounded-xl  ">
           {/* Campo de busca */}
           <div className="flex items-center bg-white rounded-lg shadow-sm px-4 py-3 border-2 border-green-700">
             <FiSearch className="text-balck shadow-md mr-2" />
@@ -162,18 +162,18 @@ export const Buscador: React.FC = () => {
         </div>
 
         {/* Filtros básicos */}
-        <div className="mb-6">
+        <div className="mb-6 mt-8">
           <Label className="block text-center font-medium mb-3">
             Quer usar Filtros Básicos?
           </Label>
           <div className="space-y-3">
-            <select className="w-full p-2 border border-green-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+            <select className="w-full p-2 border-2 border-green-700 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
               <option>Tipo de Interesse</option>
             </select>
-            <select className="w-full p-2 border border-green-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+            <select className="w-full p-2 border-2 border-green-700 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
               <option>Categoria</option>
             </select>
-            <select className="w-full p-2 border border-green-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+            <select className="w-full p-2 border-2 border-green-700 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
               <option>Modalidade</option>
             </select>
           </div>

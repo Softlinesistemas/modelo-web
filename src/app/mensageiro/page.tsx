@@ -19,7 +19,7 @@ import { MinhasMensagens } from "@/components/mensageiro/MinhasMensagens";
 
 export default function MensageiroPage() {
   const [search, setSearch] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState<string>("amigos");
+  const [selectedFilter, setSelectedFilter] = useState<string>("");
   const [results, setResults] = useState<any[]>([]);
   const [faixaEtariaMin, setFaixaEtariaMin] = useState("");
   const [faixaEtariaMax, setFaixaEtariaMax] = useState("");
@@ -81,31 +81,37 @@ export default function MensageiroPage() {
     <div className="w-full">
       <MainBanner />
       <div className="p-2 w-full">
-      <div className="flex items-center justify-between mb-6 px-4">
-    {/* Espaço vazio à esquerda para centralizar o título */}
-    <div className="w-6"></div>
+        <div className="flex items-center justify-between mb-6 px-4">
+          {/* Espaço vazio à esquerda para centralizar o título */}
+          <div className="w-6"></div>
 
-    {/* Título centralizado */}
-    <h1 className="text-2xl font-bold text-center flex-1">
-      <span className="text-gray-800">MENSAGEIRO</span>{" "}
-      <span className="text-green-700">GooAgro</span>
-    </h1>
+          {/* Título centralizado */}
+          <h1 className="text-2xl font-bold text-center flex-1 mt-4">
+            <span className="text-gray-800">MENSAGEIRO</span>{" "}
+            <span className="text-green-700">GooAgro</span>
+          </h1>
 
-    {/* Ícone da carta com badge */}
-    <div
-      onClick={() => setAbaAtiva("minhas-mensagens")}
-      className="relative cursor-pointer p-2 rounded-full bg-green-100 hover:bg-green-200 shadow-md flex items-center"
-    >
-      <FaRegEnvelope className="text-green-700 w-6 h-6" />
+          <div
+            onClick={() => setAbaAtiva("minhas-mensagens")}
+            className="relative cursor-pointer p-2 mt-2 bg-green-100 hover:bg-green-200 shadow-md flex flex-col items-center justify-center w-20 h-20 rounded"
+          >
+            {/* Ícone */}
+            <FaRegEnvelope className="text-green-700 w-6 h-6 mb-1" />
 
-      {/* Badge com quantidade dinâmica */}
-      {quantidadeMensagens > 0 && (
-        <span className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 bg-red-600 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
-          {quantidadeMensagens}
-        </span>
-      )}
-    </div>
-  </div>
+            {/* Badge com quantidade dinâmica */}
+            {quantidadeMensagens > 0 && (
+              <span className="absolute top-1 right-1 bg-red-600 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
+                {quantidadeMensagens}
+              </span>
+            )}
+
+            {/* Texto abaixo do ícone */}
+            <div className="text-center text-[10px] leading-tight">
+              <p>Mensagens</p>
+              <p>Recebidas</p>
+            </div>
+          </div>
+        </div>
         {abaAtiva === "buscador" ? (
           <>
             {/* Grid de filtros principais - responsivo */}
@@ -170,7 +176,7 @@ export default function MensageiroPage() {
             </div>
 
             {/* Campo de busca */}
-            <div className="text-center mb-4">
+            <div className="text-center mb-1">
               <Label className="font-semibold text-gray-800">
                 Pesquise pelo Nome ou Usuário{" "}
                 <span className="text-green-600 font-bold">GooAgro</span>
@@ -189,18 +195,18 @@ export default function MensageiroPage() {
             </div>
 
             {/* Filtros básicos */}
-            <div className="mb-6">
+            <div className="mb-6 mt-8">
               <Label className="block text-center font-medium mb-3">
                 Quer usar Filtros Básicos?
               </Label>
               <div className="space-y-3">
-                <select className="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+                <select className="w-full p-2 border-2 border-green-700 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
                   <option>Interesse</option>
                 </select>
-                <select className="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+                <select className="w-full p-2 border-2 border-green-700 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
                   <option>Categoria</option>
                 </select>
-                <select className="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
+                <select className="w-full p-2 border-2 border-green-700 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500">
                   <option>Modalidade</option>
                 </select>
               </div>
