@@ -137,7 +137,7 @@ export default function Fornecedores() {
         </Button>
         </div>
         <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
-        <Label variant="secondary">Pesquise GRUPOS</Label>
+        <Label variant="secondary">Buscar FORNECEDORE por Nome ou Usuário</Label>
       </div>
         <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
       <FiSearch className="text-gray-400" />
@@ -145,7 +145,7 @@ export default function Fornecedores() {
         type="text"
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
-        placeholder="Procurar AMIGOS pelo Nome ou Usuario GOOAGRO"
+        placeholder="Escreva aqui..."
         className="bg-transparent outline-none text-sm w-full"
       />
     </div>

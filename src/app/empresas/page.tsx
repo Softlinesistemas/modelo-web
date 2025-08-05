@@ -134,7 +134,7 @@ export default function Empresas() {
         </Button>
       </div>
       <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
-        <Label variant="secondary">Pesquise EMPRESAS</Label>
+        <Label variant="secondary">Buscar EMPRESA por Nome ou Usuário</Label>
       </div>
       <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
       <FiSearch className="text-gray-400" />
@@ -142,7 +142,7 @@ export default function Empresas() {
         type="text"
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
-        placeholder="Procurar por EMPRESAS..."
+        placeholder="Escreva aqui..."
         className="bg-transparent outline-none text-sm w-full"
       />
     </div>

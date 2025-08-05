@@ -131,7 +131,7 @@ export default function Grupos() {
         </Button>
       </div>
       <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
-        <Label variant="secondary">Pesquise GRUPOS</Label>
+        <Label variant="secondary">Buscar GRUPO por Nome ou Usuário</Label>
       </div>
       <div className="flex items-center gap-2 bg-gray-100 border-2 border-green-700 rounded-md px-3 py-2 mx-4 my-2">
       <FiSearch className="text-gray-400" />
