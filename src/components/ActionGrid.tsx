@@ -9,7 +9,7 @@ import {
   FiCamera,
   FiUserPlus,
 } from 'react-icons/fi';
-
+import { Badge, MessageIconWithBadge } from '@/components/common/Badge';
 import { useRouter } from 'next/navigation';
 import { CreateGroupModal } from './modals/CreateGroupModal';
 type Button = {
@@ -60,7 +60,7 @@ export const ActionGrid: React.FC = () => {
     { label: 'Editar Álbum', icon: <FiCamera />, color: 'bg-[#DFCDB5] hover:bg-[#dfcdb5]', onClick: handleEditarAlbum },
     { label: 'Criar Grupo', icon: <FiUsers />, color: 'bg-[#A1A864] hover:bg-[#dfcdb5]', onClick: handleCriarGrupo },
     { label: 'Buscador', icon: <FiSearch />, color: 'bg-[#BCC5A8] hover:bg-[#dfcdb5]', onClick: handleProcurar },
-    { label: 'Mensageiro', icon: <FiMessageSquare />, color: 'bg-[#BACE77] hover:bg-[#dfcdb5]', onClick: handleMensagem },
+    { label: 'Mensageiro', icon: <MessageIconWithBadge count={9} />, color: 'bg-[#BACE77] hover:bg-[#dfcdb5]', onClick: handleMensagem },
   ];
 
   return (

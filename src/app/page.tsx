@@ -44,9 +44,11 @@ export default function HomePage() {
       default:
         return (
           <>
+          <div className='px-1'>
             <ActionGrid />
             <SecondaryBanner />
             <SearchFilter />
+            </div>
           </>
         );
     }

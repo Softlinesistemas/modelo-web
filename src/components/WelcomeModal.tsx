@@ -37,10 +37,11 @@ const WelcomeModal = () => {
             <FaTimes className="w-5 h-5" />
           </button>
 
-          <div className="flex flex-col justify-center items-center text-center text-sm font-semibold gap-1 px-4 pt-6">
+          <div className="flex flex-col justify-center items-center text-center text-md font-semibold gap-1 px-4 pt-6">
             <p>Prezada(o)</p>
             <p>Agricultora(o) Familiar</p>
-            <p className="text-yellow-300 uppercase">REGISTRE OS PREÇOS DOS SEUS PRODUTOS.</p>
+            <p className="text-yellow-300 uppercase">REGISTRE OS PREÇOS </p>
+            <p className="text-yellow-300 uppercase">DOS SEUS PRODUTOS.</p>
             <p>É fácil e ajuda a</p>
             <p>Agricultura Familiar a</p>
             <p>Crescer ainda mais.</p>

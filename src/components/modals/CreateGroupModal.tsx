@@ -268,3 +268,5 @@ export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({ isOpen, onCl
     </>
   );
 };
+
+export { AppModal };

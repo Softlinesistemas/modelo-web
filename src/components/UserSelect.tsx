@@ -38,7 +38,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
   const handleCloseQrCode = () => setShowQrCode(false);
 
   return (
-    <div className="bg-[#B6D2B7] gap-2 pb-3 w-full mt-2">
+    <div className=" w-full bg-[#B6D2B7] gap-2 pb-3 mt-2">
       {showQrCode ? (
         <QrCode 
           qrValue="https://seusite.com/usuario/123" 
