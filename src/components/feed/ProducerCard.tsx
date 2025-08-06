@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  FiShare2,
   FiUserPlus,
   FiUserCheck,
   FiMessageSquare,
@@ -12,18 +11,16 @@ import {
 } from "react-icons/fi";
 import Image from "next/image";
 import { MdDeliveryDining } from "react-icons/md";
-import {
-  Card,
-  CardContent,
-} from "@/components/common/Card";
+import { Card, CardContent } from "@/components/common/Card";
 import { Button } from "@/utils/ui/Button";
 import DescricaoCard from "./DescricaoFeed";
+import { IoShareSocialSharp } from "react-icons/io5";
 
 interface ProducerCardProps {
   mainImage: string;
   galleryImages: string[];
-  tipo?: "pessoa" | "grupo";        // <<< Define se é pessoa ou grupo
-  dataFundacao?: string;            // <<< Usado se for grupo
+  tipo?: "pessoa" | "grupo" | "fornecedor"; // Novo tipo
+  dataFundacao?: string;
 }
 
 export const ProducerCard: React.FC<ProducerCardProps> = ({
@@ -38,6 +35,8 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
     setIsFriend(!isFriend);
   };
 
+  const isfornecedor = tipo === "fornecedor";
+
   return (
     <>
       {/* Card 1: Cabeçalho */}
@@ -51,23 +50,42 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
             className="rounded-sm object-cover border-2 border-black"
           />
           <div className="flex-1 ml-3 items-start">
-            <div className="text-sm font-bold text-black">
-              Sitio Canaã - Alimentos Orgânicos
-            </div>
-            <div className="text-xs text-gray-900">
-              Produtos: Alimentos e Bebidas
-            </div>
-            <div className="text-xs font-bold text-black">
-              Alimentação escolar
-            </div>
+            {isfornecedor ? (
+              <>
+                <div className="text-md font-bold text-black">
+                  Fornecedor Simples Ltda
+                </div>
+                <div className="text-md text-gray-900">
+                  Apenas serviços essenciais
+                </div>
+                <div className="text-md font-bold text-black">
+                  Contato direto
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-md font-bold text-black">
+                  Sitio Canaã - Alimentos Orgânicos
+                </div>
+                <div className="text-md text-gray-900">
+                  Produtos: Alimentos e Bebidas
+                </div>
+                <div className="text-md font-bold text-black">
+                  Alimentação escolar
+                </div>
+              </>
+            )}
           </div>
-          <div className="flex flex-col justify-between items-center ml-3 h-[90px]">
-            <FiShare2
-              size={24}
-              className="text-gray-900 hover:text-green-900 cursor-pointer"
-            />
-            <MdDeliveryDining size={22} className="text-orange-500" />
-            <FiUsers size={20} className="text-blue-600" />
+
+          {/* Ícones à direita */}
+          <div className="flex flex-col justify-between items-center mr-2 h-[90px]">
+                 <IoShareSocialSharp
+                  size={24}
+                  className="text-gray-900 hover:text-green-900 cursor-pointer"
+                />
+                <MdDeliveryDining size={22} className="text-orange-500" />
+                <FiUsers size={20} className="text-blue-600" />
+            
           </div>
         </div>
       </div>
@@ -75,14 +93,16 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
       {/* Card 2: Ações */}
       <Card className="border shadow-sm mb-1">
         <CardContent className="p-1 flex flex-row sm:items-center sm:justify-between">
-          {/* Ações (Mensagem sempre aparece) */}
+          {/* Ações à esquerda */}
           <div className="flex sm:justify-start w-full gap-8 sm:w-auto">
+            {/* Mensagem sempre aparece */}
             <button className="flex flex-col items-center text-gray-700 hover:text-orange-500 text-xs">
               <FiMessageSquare size={20} />
               <span>Mensagem</span>
             </button>
 
-            {tipo === "pessoa" && (
+            {/* Apenas para tipo pessoa */}
+            {tipo === "pessoa" || isfornecedor && (
               <>
                 <button className="flex flex-col items-center text-gray-700 hover:text-blue-500 text-xs">
                   <FiPhone size={20} />
@@ -96,12 +116,12 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
             )}
           </div>
 
-          {/* Direita: ou botão amigo (pessoa) ou fundação (grupo) */}
+          {/* Ações à direita */}
           <div className="flex justify-end sm:gap-4 w-full sm:w-auto mt-1 sm:mt-0">
-            {tipo === "pessoa" ? (
+            {(tipo === "pessoa" || isfornecedor) ? (
               <Button
                 onClick={toggleFriendship}
-                variant={isFriend ? "secondary" : "friend"}
+                variant={isFriend ? "friend" : "primary"}
                 size="sm"
                 className={`ml-2 flex items-center gap-1 px-2 py-1 text-2xl ${
                   isFriend
@@ -111,12 +131,12 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
               >
                 {isFriend ? (
                   <>
-                    <FiUserCheck size={14} />
+                    {/* <FiUserCheck size={14} /> */}
                     <span>Amigo</span>
                   </>
                 ) : (
                   <>
-                    <FiUserPlus size={14} />
+                    {/* <FiUserPlus size={14} /> */}
                     <span>Ser Amigo</span>
                   </>
                 )}
