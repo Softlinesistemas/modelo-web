@@ -179,7 +179,7 @@ export default function Empresas() {
       >
         {/* Aba Meus */}
         {empresasTab === 0 && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {empresasFiltradas.length > 0 ? (
               empresasFiltradas.map((empresa) => (
                 <EmpresaCard
@@ -198,7 +198,7 @@ export default function Empresas() {
 
         {/* Aba Sugestões */}
         {empresasTab === 1 && (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {sugestoesFiltradas.length > 0 ? (
               sugestoesFiltradas.map((empresa) => (
                 <EmpresaCard
