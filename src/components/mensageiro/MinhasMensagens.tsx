@@ -1,4 +1,3 @@
-// components/mensageiro/MinhasMensagens.tsx
 "use client";
 
 import { useState } from "react";

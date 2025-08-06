@@ -101,7 +101,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
             {tipo === "pessoa" ? (
               <Button
                 onClick={toggleFriendship}
-                variant={isFriend ? "secondary" : "primary"}
+                variant={isFriend ? "secondary" : "friend"}
                 size="sm"
                 className={`ml-2 flex items-center gap-1 px-2 py-1 text-2xl ${
                   isFriend

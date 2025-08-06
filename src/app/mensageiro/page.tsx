@@ -75,7 +75,8 @@ export default function MensageiroPage() {
     "buscador"
   );
 
-  const quantidadeMensagens = 2;
+  const quantidadeMensagens = 9;
+  const texto = quantidadeMensagens.toString().padStart(2, '0');
 
   return (
     <div className="w-full">
@@ -101,7 +102,7 @@ export default function MensageiroPage() {
             {/* Badge com quantidade dinâmica */}
             {quantidadeMensagens > 0 && (
               <span className="absolute top-1 right-1 bg-red-600 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
-                {quantidadeMensagens}
+               {quantidadeMensagens.toString().padStart(2, '0')}
               </span>
             )}
 
@@ -284,7 +285,7 @@ export default function MensageiroPage() {
               onClick={() => setAbaAtiva("buscador")}
               className="text-sm text-green-700 font-semibold hover:underline mb-4 flex items-center gap-1"
             >
-              ← Voltar para o Buscador
+              ← Voltar para o MENSAGEIRO
             </button>
             <MinhasMensagens />
           </div>

@@ -133,10 +133,10 @@ export default function Empresas() {
           Ser EMPRESA
         </Button>
       </div>
-      <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
+      <div className="flex items-center justify-center">
         <Label variant="secondary">Buscar EMPRESA por Nome ou Usuário</Label>
       </div>
-      <div className="flex items-center gap-2 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+      <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2 pb-2">
       <FiSearch className="text-gray-400" />
       <input
         type="text"
@@ -147,7 +147,7 @@ export default function Empresas() {
       />
     </div>
 
-      <div className="flex w-full justify-center items-center pb-7">
+    <div className="flex justify-center items-center pb-7 p-4">
         <Button
           onClick={irParaBuscador}
           className="ml-4 flex items-center  gap-2 border bg-red-600 text-black border-red-200  rounded px-4 py-2 hover:bg-red-600 transition"

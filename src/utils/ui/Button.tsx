@@ -4,7 +4,7 @@ import React from 'react';
 import cn from '@/utils/cn';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'userSelect' | 'outline' | 'filter' | 'distance' | 'buscarFiltros';
+  variant?: 'primary' | 'secondary' | 'danger' | 'userSelect' | 'outline' | 'filter' | 'distance' | 'buscarFiltros' | 'friend';
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -31,7 +31,8 @@ export const Button: React.FC<ButtonProps> = ({
     outline: 'border border-green-800 text-green-800 bg-transparent hover:bg-green-100 focus:ring-green-500',
     filter: 'bg-amber-300 text-gray-800 hover:bg-amber-200 focus:ring-amber-500',
     distance: 'bg-yellow-100 text-gray-800 border border-yellow-300 hover:bg-yellow-200 focus:ring-yellow-500',
-    buscarFiltros: 'bg-blue-600 text-black border-blue-200 rounded px-4 py-2 hover:bg-red-100 transition'
+    buscarFiltros: 'bg-blue-600 text-black border-blue-200 rounded px-4 py-2 hover:bg-red-100 transition',
+    friend: 'bg-orange-200 text-orange-800 hover:bg-orange-300 focus:ring-orange-500'
   };
 
   return (

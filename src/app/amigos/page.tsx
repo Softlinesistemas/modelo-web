@@ -143,7 +143,7 @@ export default function Amigos() {
           />
         </div>
       </div>
-      <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
+      <div className="flex items-center justify-center">
         <Label variant="secondary">Buscar AMIGO por Nome ou Usuário</Label>
       </div>
       <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
@@ -156,7 +156,7 @@ export default function Amigos() {
           className="bg-transparent outline-none text-sm w-full"
         />
       </div>
-      <div className="flex justify-center items-center pb-7">
+      <div className="flex justify-center items-center p-4 pb-7">
         <Button
           onClick={irParaBuscador}
           variant="buscarFiltros"

@@ -130,10 +130,10 @@ export default function Grupos() {
           Criar GRUPO
         </Button>
       </div>
-      <div className="flex items-center justify-center gap-2 px-3 py-2 mx-4 my-2">
+      <div className="flex items-center justify-center">
         <Label variant="secondary">Buscar GRUPO por Nome ou Usuário</Label>
       </div>
-      <div className="flex items-center gap-2 bg-gray-100 border-2 border-green-700 rounded-md px-3 py-2 mx-4 my-2">
+      <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2 pb-2">
       <FiSearch className="text-gray-400" />
       <input
         type="text"
@@ -144,7 +144,7 @@ export default function Grupos() {
       />
     </div>
 
-      <div className="flex justify-center items-center pb-7">
+      <div className="flex justify-center items-center pb-7 p-4">
         <Button
           onClick={irParaBuscador}
           variant="buscarFiltros"
