@@ -254,7 +254,7 @@ export const AuthScreen = () => {
                 <Label>Data de nascimento *</Label>
                 <p className="text-xs text-green-700">Sua idade ficará sempre oculta.</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 mb-2">
                 <Input placeholder="Dia" type="number" {...register('DiaNascimento')} />
                 <Input placeholder="Mês" type="number" {...register('MesNascimento')} />
                 <Input placeholder="Ano" type="number" {...register('AnoNascimento')} />
@@ -263,9 +263,9 @@ export const AuthScreen = () => {
 
 
               {/* Contatos Apoio */}
-              <div className="space-y-3 mt-4">
+              <div className="w-full mt-4">
                 <Label>Adicione mais contatos de comunicação (Até 3 - OPCIONAL)</Label>
-                <div className="border rounded-lg p-3 bg-gray-50 text-sm text-gray-600">
+                <div className="border rounded-lg p-3 mb-1 text-sm text-gray-600">
                   (Pais/Responsáveis, Cônjuge, Familiar, Parceria, etc.)
                 </div>
 
@@ -313,7 +313,7 @@ export const AuthScreen = () => {
                   };
 
                   return (
-                    <div key={index} className="bg-gray-100 rounded-lg p-3 space-y-3">
+                    <div key={index} className="rounded-lg p-3 space-y-3">
                       <div className="flex justify-between items-center bg-green-100 p-2 rounded-full">
                         <span className="text-sm font-medium text-gray-800 px-3">
                           {nome || `Contato ${index + 1}`}
@@ -341,11 +341,11 @@ export const AuthScreen = () => {
 
                       {contato.open && (
                         <div className="space-y-3">
-                          <Input placeholder="Usuário *" {...register(usuarioField)} className="w-full rounded-xl text-md" />
-                          <Input placeholder="Nome *" {...register(nomeField)} className="w-full rounded-xl text-md" />
-                          <Input placeholder="Telefone *" {...register(telefoneField)} className="w-full rounded-xl text-md" />
-                          <Input placeholder="Relação *" {...register(relacaoField)} className="w-full rounded-xl text-md" />
-                          <Input placeholder="E-mail" {...register(emailField)} className="w-full rounded-xl text-md" />
+                          <Input placeholder="Usuário *" {...register(usuarioField)} className="w-full rounded-xl text-md border-green-700" />
+                          <Input placeholder="Nome *" {...register(nomeField)} className="w-full rounded-xl text-md border-green-700" />
+                          <Input placeholder="Telefone *" {...register(telefoneField)} className="w-full rounded-xl text-md border-green-700" />
+                          <Input placeholder="Relação *" {...register(relacaoField)} className="w-full rounded-xl text-md border-green-700" />
+                          <Input placeholder="E-mail" {...register(emailField)} className="w-full rounded-xl text-md border-green-700" />
 
                           <div className="flex justify-center gap-3 pt-2">
                             <button
@@ -353,14 +353,14 @@ export const AuthScreen = () => {
                               onClick={handleCancelar}
                               className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-1.5 rounded-md shadow"
                             >
-                              ❌ Cancelar
+                              Cancelar
                             </button>
                             <button
                               type="button"
                               onClick={handleSalvar}
                               className="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-1.5 rounded-md shadow h-12"
                             >
-                              ✅ Salvar
+                              Salvar
                             </button>
                           </div>
                         </div>
@@ -409,11 +409,11 @@ export const AuthScreen = () => {
 
               {/* Senha e repetr senha */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex flex-col space-y-1">
+                <div className="flex flex-col gap-2">
                   <Label>Senha *</Label>
                   <Input type="senha" {...register('Senha')} error={errors.Senha?.message} />
                 </div>
-                <div className="flex flex-col space-y-1">
+                <div className="flex flex-col gap-2">
                   <Label>Repetir Senha</Label>
                   <Input type="senha" {...register('Senha')} />
                 </div>
