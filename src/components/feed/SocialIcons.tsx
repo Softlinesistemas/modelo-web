@@ -140,7 +140,7 @@ export const SocialIcons = ({ links }: SocialIconsProps) => {
           title={item.label}
           onClick={item.action}
           className={`flex flex-col items-center justify-center p-3 rounded-2xl transition shadow-md shadow-gray-400 text-sm font-medium border border-black
-            ${item.highlight ? "bg-green-500 text-white hover:bg-green-600" : "bg-white text-black hover:scale-105"}
+            ${item.highlight ? "bg-[#05c8f7] text-black hover:bg-green-300" : "bg-white text-black hover:scale-105"}
             ${isGPS ? "col-span-2" : ""}        
           `}
         >

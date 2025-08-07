@@ -117,7 +117,7 @@ export default function DescricaoCard() {
         </div>
 
         {/* Botões flutuantes */}
-        <div className="absolute top-2 right-2 flex flex-col gap-2 text-gray-600">
+        <div className="absolute top-2 right-2 flex flex-col gap-2  text-green-700 hover:text-orange-500 transition">
           <FiCopy
             title="Copiar"
             className="cursor-pointer hover:text-green-600"

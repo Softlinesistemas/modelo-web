@@ -11,7 +11,7 @@ interface FeedPhotoGalleryProps {
 
 export const FeedPhotoGallery: React.FC<FeedPhotoGalleryProps> = ({ photos }) => {
   return (
-    <div className="flex gap-2 overflow-x-auto p-2 bg-green-100 rounded-md">
+    <div className="flex gap-2 overflow-x-auto p-2 bg-green-900 rounded-md scrollbar-thin scrollbar-thumb-orange-500 scrollbar-track-orange-200">
 
       {photos.map((photo, index) => (
         <div

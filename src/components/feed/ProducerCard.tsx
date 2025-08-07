@@ -45,9 +45,9 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
           <Image
             src={mainImage}
             alt="Foto principal"
-            width={90}
-            height={90}
-            className="rounded-sm object-cover border-2 border-black"
+            width={96}
+            height={96}
+            className="h-full w-24 rounded overflow-hidden flex-shrink-0 border-2 border-black cursor-pointer"
           />
           <div className="flex-1 ml-3 items-start">
             {isfornecedor ? (
@@ -96,7 +96,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
           {/* Ações à esquerda */}
           <div className="flex sm:justify-start w-full gap-8 sm:w-auto">
             {/* Mensagem sempre aparece */}
-            <button className="flex flex-col items-center text-gray-700 hover:text-orange-500 text-xs">
+            <button className="flex flex-col items-center text-green-700 hover:text-orange-500 text-xs">
               <FiMessageSquare size={20} />
               <span>Mensagem</span>
             </button>
@@ -104,11 +104,11 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
             {/* Apenas para tipo pessoa */}
             {tipo === "pessoa" || isfornecedor && (
               <>
-                <button className="flex flex-col items-center text-gray-700 hover:text-blue-500 text-xs">
+                <button className="flex flex-col items-center text-green-700 hover:text-orange-500 text-xs">
                   <FiPhone size={20} />
                   <span>Ligar</span>
                 </button>
-                <button className="flex flex-col items-center text-gray-700 hover:text-green-500 text-xs">
+                <button className="flex flex-col items-center text-green-700 hover:text-orange-500 text-xs">
                   <FiVideo size={20} />
                   <span>Vídeo</span>
                 </button>

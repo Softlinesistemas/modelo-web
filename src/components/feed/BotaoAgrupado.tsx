@@ -1,50 +1,54 @@
-
 "use client"
 
 import { useState } from "react"
 import { FaUserFriends } from "react-icons/fa"
 import { RiStackLine } from "react-icons/ri"
-import { useRouter } from "next/navigation" // Adicionando navegação
+import { useRouter } from "next/navigation"
+import { BotaoAlerta } from "./BotaoAlerta"
 
 export const BotaoAgrupado = () => {
-  const router = useRouter();
+  const router = useRouter()
   const [ativo, setAtivo] = useState<"amigos" | "grupos">("amigos")
 
   const handleAmigosClick = () => {
-    setAtivo("amigos");
-    router.push("/amigos"); // Navega para a página de amigos
+    setAtivo("amigos")
+    router.push("/amigos")
   }
 
   const handleGruposClick = () => {
-    setAtivo("grupos");
-    router.push("/grupos"); // Navega para a página de grupos
+    setAtivo("grupos")
+    router.push("/grupos")
   }
 
+  const botaoClasseBase = "flex items-center justify-center gap-1 min-w-[115px] h-[42px] px-3 py-2 text-xs font-semibold transition"
+
   return (
-    <div className="flex shadow-md">
+    <div className="flex flex-nowrap gap-2 w-full justify-center">
       <button
         onClick={handleAmigosClick}
-        className={`flex items-center gap-2 px-3 py-1.5 mx-1 transition text-md ${
+        className={`${botaoClasseBase} ${
           ativo === "amigos"
             ? "bg-green-700 text-white"
             : "bg-green-100 text-green-800 hover:bg-green-200"
         }`}
       >
-        <FaUserFriends />
-        Amigos
+        {/* <FaUserFriends size={10} /> */}
+        <span>Meus Amigos</span>
       </button>
 
       <button
         onClick={handleGruposClick}
-        className={`flex items-center gap-2 px-3 py-1.5 mx-1 transition text-md ${
+        className={`${botaoClasseBase} ${
           ativo === "grupos"
             ? "bg-green-700 text-white"
             : "bg-green-100 text-green-800 hover:bg-green-200"
         }`}
       >
-        <RiStackLine />
-        Grupos
+        {/* <RiStackLine size={10} /> */}
+        <span>Meus Grupos</span>
       </button>
+
+      <BotaoAlerta />
     </div>
   )
 }

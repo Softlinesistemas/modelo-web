@@ -2,7 +2,7 @@
 
 import React from "react";
 import { BotaoAgrupado } from "@/components/feed/BotaoAgrupado";
-import { BotaoAlerta } from "@/components/feed/BotaoAlerta";
+// import { BotaoAlerta } from "@/components/feed/BotaoAlerta";
 import { FeedPhotoGallery } from "@/components/feed/FeedPhotoGallery";
 import { ProducerCard } from "@/components/feed/ProducerCard";
 import { SocialIcons } from "@/components/feed/SocialIcons";
@@ -24,17 +24,17 @@ export default function FeedPage() {
   ];
 
   return (
-    <div className="rounded w-full mx-auto">
+    <div className="w-full mb-4">
       <div>
         <MainBanner />
       </div>
       <div>
-      <ProducerCard
-        mainImage="/images/default-fornecedor.jpg"
-        galleryImages={[]}
-        tipo="fornecedor" // ← MARCA que esse fornecedor é do tipo simples
-      />
-    </div>
+        <ProducerCard
+          mainImage="/images/AgroBrasilSA.jpg"
+          galleryImages={[]}
+          tipo="fornecedor" // ← MARCA que esse fornecedor é do tipo simples
+        />
+      </div>
 
       <div className="mt-1">
         <ProducerLocationCard />
@@ -65,9 +65,8 @@ export default function FeedPage() {
         />
       </div>
 
-      <div className="flex gap-2 my-2 items-center justify-center w-full">
+      <div className="flex justify-center w-full my-2">
         <BotaoAgrupado />
-        <BotaoAlerta />
       </div>
 
       <div className="mt-2">
@@ -80,8 +79,8 @@ export default function FeedPage() {
 
       <div className="w-full rounded-md bg-green-900 mb-4 p-1">
         <div className="mt-1 mb-6">
-          <h2 className="bg-green-800 text-white rounded-md py-1 px-3 text-center text-md font-bold">
-            FEED / REGISTROS / MOMENTOS
+          <h2 className="text-white rounded-md py-1 px-3 text-center text-md font-bold">
+            FEED DE REGISTROS
           </h2>
         </div>
 
