@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/common/Card";
 import { FiCopy, FiPrinter, FiDownload, FiGlobe } from "react-icons/fi";
-import { useSafeReactToPrint } from "@/hooks/useSafeReactToPrint";
+import { useReactToPrint } from "react-to-print";
+import html2pdf from "html2pdf.js";
 
-// Texto fixo para simulação
+// Texto fixo simulado
 const rawText = `
 Bem-vindo ao Sítio Canaã Agricultura Orgânica!
-Uma empresa de agricultura familiar em Imbituba - SC.
+Uma empresa de agricultura familiar em Imbituba-SC.
 Temos foco na produção orgânica agroecológica.
 Oferecemos Café da Manhã - Excursão, avise antes.
 Temos Banana, Mandioca, Farinha...
@@ -16,78 +17,71 @@ De Setembro à Dezembro (Primavera) temos colheita...
 Visitas escolares, oficinas, turismo rural e muito mais!
 `.trim();
 
-// Limites
 const MAX_CHARACTERS = 3000;
-const MOBILE_LIMIT = 250;
+const PREVIEW_CHARACTERS = 250;
 
 export default function DescricaoCard() {
   const [expanded, setExpanded] = useState(false);
-  const [showVerMais, setShowVerMais] = useState(false);
   const [displayText, setDisplayText] = useState("");
-  const [isMobile, setIsMobile] = useState(false);
+  const [showVerMais, setShowVerMais] = useState(false);
 
-  // Referências
-  const contentRef = useRef<HTMLDivElement>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
   const printRef = useRef<HTMLDivElement>(null);
 
   const fullText = rawText.slice(0, MAX_CHARACTERS);
 
-  // Detectar se é mobile
-  useEffect(() => {
-    const isMobileDevice = window.innerWidth < 640;
-    setIsMobile(isMobileDevice);
-  }, []);
-
-  // Lógica de ver mais
+  // Define preview e ver mais
   useEffect(() => {
     if (expanded) {
       setDisplayText(fullText);
-      return;
-    }
-
-    if (isMobile) {
-      // Se for mobile, usar base em caracteres
-      const shouldShow = fullText.length > MOBILE_LIMIT;
-      setShowVerMais(shouldShow);
-      setDisplayText(shouldShow ? fullText.slice(0, MOBILE_LIMIT) : fullText);
+      setShowVerMais(false);
     } else {
-      // Se for desktop, base em linhas
-      if (previewRef.current) {
-        const el = previewRef.current;
-        const lineHeight = parseFloat(getComputedStyle(el).lineHeight || "20");
-        const lines = el.scrollHeight / lineHeight;
-        const shouldShow = lines > 5;
-        setShowVerMais(shouldShow);
-        setDisplayText(fullText);
-      }
+      const shouldTruncate = fullText.length > PREVIEW_CHARACTERS;
+      setDisplayText(shouldTruncate ? fullText.slice(0, PREVIEW_CHARACTERS) : fullText);
+      setShowVerMais(shouldTruncate);
     }
-  }, [expanded, isMobile]);
+  }, [expanded]);
 
-  // Copiar
+  // Copiar texto para área de transferência
   const handleCopy = () => {
     navigator.clipboard.writeText(fullText);
     alert("Texto copiado!");
   };
 
-  // Imprimir / PDF
+  // Função de impressão
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
     documentTitle: "descricao",
   });
 
-  // Tradução usando DeepL API Free //fazer o cadastro no site free
+  // Baixar PDF com html2pdf
+  const handleDownloadPdf = () => {
+    const element = printRef.current;
+    if (!element) return;
+
+    html2pdf()
+      .from(element)
+      .set({
+        margin: 1,
+        filename: "descricao.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      })
+      .save();
+  };
+
+  // Traduzir usando DeepL API
   const handleTranslate = async () => {
     try {
       const response = await fetch("https://api-free.deepl.com/v2/translate", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `DeepL-Auth-Key SUA_CHAVE_AQUI`, // 🔁 Troque pela sua chave real da DeepL
+          Authorization: `DeepL-Auth-Key SUA_CHAVE_AQUI`, // Troque por sua chave real da DeepL
         },
         body: new URLSearchParams({
           text: fullText,
-          target_lang: "EN", // Pode ser EN, ES, FR, IT, DE
+          target_lang: "EN",
         }),
       });
 
@@ -106,28 +100,19 @@ export default function DescricaoCard() {
   return (
     <Card className="relative border shadow-sm">
       <CardContent className="p-0">
-        {/* Conteúdo a ser impresso */}
-        <div ref={printRef} className="px-3 py-2 text-sm text-gray-800 bg-white">
-          {!expanded ? (
-            <>
-              <div
-                className="overflow-hidden text-gray-700 whitespace-pre-line"
-                style={{ lineClamp: 5 }}
-                ref={previewRef}
-              >
-                {displayText}
-              </div>
-              {showVerMais && (
-                <span
-                  onClick={() => setExpanded(true)}
-                  className="text-green-600 text-sm cursor-pointer ml-1"
-                >
-                  Ver mais
-                </span>
-              )}
-            </>
-          ) : (
-            <div className="whitespace-pre-line text-gray-700">{fullText}</div>
+        {/* Conteúdo a ser impresso e baixado */}
+        <div
+          ref={printRef}
+          className="px-3 py-2 text-sm text-gray-800 bg-white whitespace-pre-line"
+        >
+          {displayText}
+          {showVerMais && (
+            <span
+              onClick={() => setExpanded(true)}
+              className="text-green-600 text-sm cursor-pointer ml-1"
+            >
+              ...ver mais
+            </span>
           )}
         </div>
 
@@ -144,8 +129,9 @@ export default function DescricaoCard() {
             onClick={handlePrint}
           />
           <FiDownload
-            title="PDF (use imprimir)"
-            className="cursor-not-allowed opacity-30"
+            title="Baixar PDF"
+            className="cursor-pointer hover:text-green-600"
+            onClick={handleDownloadPdf}
           />
           <FiGlobe
             title="Traduzir (DeepL)"
