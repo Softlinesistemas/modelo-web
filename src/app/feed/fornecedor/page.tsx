@@ -1,9 +1,9 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import React from "react";
 import { BotaoAgrupado } from "@/components/feed/BotaoAgrupado";
-// import { BotaoAlerta } from "@/components/feed/BotaoAlerta";
 import { SocialIcons } from "@/components/feed/SocialIcons";
 import { ProducerLocationCard } from "@/components/feed/ProducerLocationCard";
 import { ProducerTableInfo } from "@/components/feed/ProducerTableInfo";
@@ -25,8 +25,12 @@ const ProducerCard = dynamic(
   { ssr: false }
 );
 
-export default function FeedPage() {
-  // Dados simulados para as fotos
+export default function FornecedorPage() {
+  const { id } = useParams(); // Pega o ID da URL
+
+  // Aqui você poderia buscar dados reais usando o ID
+  console.log("Fornecedor ID:", id);
+
   const photos = [
     { url: "/placeholder1.jpg", date: "15/03/24" },
     { url: "/placeholder2.jpg", date: "16/03/24" },
@@ -43,9 +47,9 @@ export default function FeedPage() {
       </div>
       <div>
         <ProducerCard
-          mainImage="/images/AgroBrasilSA.jpg"
+          mainImage="/avatar3.jpeg"
           galleryImages={[]}
-          tipo="fornecedor" // ← MARCA que esse fornecedor é do tipo simples
+          tipo="fornecedor"
         />
       </div>
 
@@ -97,7 +101,6 @@ export default function FeedPage() {
           </h2>
         </div>
 
-        {/* Posts com múltiplas imagens */}
         <FeedPostCard
           images={[
             "/images/feed/ft1.jpg",

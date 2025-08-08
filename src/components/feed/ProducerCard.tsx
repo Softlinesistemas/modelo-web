@@ -47,22 +47,10 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
             alt="Foto principal"
             width={96}
             height={96}
-            className="h-full w-24 rounded overflow-hidden flex-shrink-0 border-2 border-black cursor-pointer"
+            className="h-24 w-24 rounded overflow-hidden flex-fit border-2 border-black cursor-pointer"
           />
           <div className="flex-1 ml-3 items-start">
             {isfornecedor ? (
-              <>
-                <div className="text-md font-bold text-black">
-                  Fornecedor Simples Ltda
-                </div>
-                <div className="text-md text-gray-900">
-                  Apenas serviços essenciais
-                </div>
-                <div className="text-md font-bold text-black">
-                  Contato direto
-                </div>
-              </>
-            ) : (
               <>
                 <div className="text-md font-bold text-black">
                   Sitio Canaã - Alimentos Orgânicos
@@ -74,6 +62,18 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
                   Alimentação escolar
                 </div>
               </>
+            ) : (
+              <>
+                <div className="text-md font-bold text-black">
+                  Maria Da Silva
+                </div>
+                <div className="text-md text-gray-900">
+                  Agrilcultora
+                </div>
+                <div className="text-md font-bold text-black">
+                  Familia Canaa
+                </div>
+              </>
             )}
           </div>
 
@@ -83,8 +83,8 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
                   size={24}
                   className="text-gray-900 hover:text-green-900 cursor-pointer"
                 />
-                <MdDeliveryDining size={22} className="text-orange-500" />
                 <FiUsers size={20} className="text-blue-600" />
+                <MdDeliveryDining size={22} className="text-orange-500" />
             
           </div>
         </div>

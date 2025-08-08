@@ -30,10 +30,10 @@ export const ProducerTableInfo = () => {
   ]
 
   return (
-    <div className="space-y-4 text-sm mt-2">
+    <div className="space-y-4 text-sm mt-2 mx-2 rounded-md">
       {/* Produtos & Serviços */}
       <div>
-        <h3 className="bg-green-200 px-3 py-1 rounded-t text-gray-700 font-semibold text-center">
+        <h3 className="bg-green-200 px-3 py-1 rounded text-gray-700 font-semibold text-center">
           Produtos & Serviços
         </h3>
         <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-gray-100">

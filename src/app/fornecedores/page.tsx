@@ -36,15 +36,23 @@ const mockSugestoes = [
 
 // Mock dos meus fornecedores
 const meusFornecedores = [
+
   {
     id: 'f1',
+    nome: 'Sitio Canaã - Alimentos Orgânicos',
+    descricao: 'Produtos: Alimentos e Bebidas',
+    atuacao: 'Alimentação escolar',
+    foto: '/avatar3.jpeg',
+  },
+  {
+    id: 'f2',
     nome: 'Fertilizantes Alfa',
     descricao: 'Fertilizantes para alta produtividade',
     atuacao: 'Fertilizantes',
     foto: '/images/agro-tech.png',
   },
   {
-    id: 'f2',
+    id: 'f3',
     nome: 'Irrigação Beta',
     descricao: 'Soluções em irrigação inteligente',
     atuacao: 'Irrigação',
@@ -91,8 +99,12 @@ export default function Fornecedores() {
 
   // Navega para detalhes do fornecedor
   const abrirFornecedor = (id: string) => {
-    router.push(`/fornecedor?id=${id}`)
-  }
+    if (id === 'f1') {
+      router.push('/feed/fornecedor') // Abre página específica
+    } else {
+      router.push(`/feed/fornecedor?id=${id}`) // Ou outra rota se precisar
+    }
+  };
 
   // Abre modal com avatar do fornecedor clicado
   const abrirModalFornecedor = (nome: string, foto: string) => {
@@ -181,21 +193,24 @@ export default function Fornecedores() {
         transition={{ duration: 0.4 }}
       >
         {fornecedoresTab === 0 && (
-          <div className="space-y-2">
-            {fornecedoresFiltrados.length > 0 ? (
-              fornecedoresFiltrados.map((f) => (
-                <PessoaCard
-                  key={f.id}
-                  pessoa={f}
-                  onMensagem={() => abrirFornecedor(f.id)}
-                  onFotoClick={() => abrirModalFornecedor(f.nome, f.foto)}
-                />
-              ))
-            ) : (
-              <p className="text-center text-gray-500">Nenhum fornecedor encontrado.</p>
-            )}
-          </div>
-        )}
+  <div className="space-y-2">
+    {fornecedoresFiltrados.length > 0 ? (
+      fornecedoresFiltrados.map((f) => (
+        <PessoaCard
+          key={f.id}
+          pessoa={f}
+          // Clique no card inteiro vai para o fornecedor
+          onClick={() => abrirFornecedor(f.id)}
+          // Mantive o clique na foto para abrir o modal
+          onFotoClick={() => abrirModalFornecedor(f.nome, f.foto)} onMensagem={function (e: React.MouseEvent<HTMLButtonElement>): void {
+            throw new Error('Function not implemented.')
+          } }        />
+      ))
+    ) : (
+      <p className="text-center text-gray-500">Nenhum fornecedor encontrado.</p>
+    )}
+  </div>
+)}
 
         {fornecedoresTab === 1 && (
           <div className="space-y-2">

@@ -6,7 +6,7 @@ import React from 'react';
 
 export const MainBanner: React.FC = () => {
   return (
-    <main className="pt-8">
+    <main className="pt-[33px]">
     <div className="bg-[#ffffff] text-center text-sm h-16 border-2 border-gray-900">
       {/* Imagem de fundo opcional — descomente e ajuste o path quando for utilizar */}
               <a

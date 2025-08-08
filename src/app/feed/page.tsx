@@ -7,10 +7,7 @@ const BotaoAgrupado = dynamic(
     import("@/components/feed/BotaoAgrupado").then((mod) => mod.BotaoAgrupado),
   { ssr: false }
 );
-const BotaoAlerta = dynamic(
-  () => import("@/components/feed/BotaoAlerta").then((mod) => mod.BotaoAlerta),
-  { ssr: false }
-);
+
 const FeedPhotoGallery = dynamic(
   () =>
     import("@/components/feed/FeedPhotoGallery").then(
@@ -118,7 +115,6 @@ export default function FeedPage() {
 
       <div className="flex gap-2 my-2 items-center justify-center w-full">
         <BotaoAgrupado />
-        <BotaoAlerta />
       </div>
 
       <div className="mt-2">
@@ -131,8 +127,8 @@ export default function FeedPage() {
 
       <div className="w-full rounded-md bg-green-900 mb-4 p-1">
         <div className="mt-1 mb-6">
-          <h2 className="bg-green-800 text-white rounded-md py-1 px-3 text-center text-md font-bold">
-            FEED / REGISTROS / MOMENTOS
+          <h2 className="text-white rounded-md py-1 px-3 text-center text-md font-bold">
+            FEED DE REGISTROS
           </h2>
         </div>
 
