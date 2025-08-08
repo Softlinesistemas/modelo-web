@@ -6,7 +6,6 @@ import { FiCopy, FiPrinter, FiDownload, FiGlobe } from "react-icons/fi";
 import { useReactToPrint } from "react-to-print";
 import html2pdf from "html2pdf.js";
 
-// Texto fixo simulado
 const rawText = `
 Bem-vindo ao Sítio Canaã Agricultura Orgânica!
 Uma empresa de agricultura familiar em Imbituba-SC.
