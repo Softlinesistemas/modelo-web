@@ -1,16 +1,62 @@
 "use client";
 
 import React from "react";
-import { BotaoAgrupado } from "@/components/feed/BotaoAgrupado";
-import { BotaoAlerta } from "@/components/feed/BotaoAlerta";
-import { FeedPhotoGallery } from "@/components/feed/FeedPhotoGallery";
-import { ProducerCard } from "@/components/feed/ProducerCard";
-import { SocialIcons } from "@/components/feed/SocialIcons";
-import { ProducerLocationCard } from "@/components/feed/ProducerLocationCard";
-import { ProducerTableInfo } from "@/components/feed/ProducerTableInfo";
-import { FeedPostCard } from "@/components/feed/FeedPostCard";
-import { MainBanner } from "@/components/MainBanner";
-import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
+import dynamic from "next/dynamic";
+const BotaoAgrupado = dynamic(
+  () =>
+    import("@/components/feed/BotaoAgrupado").then((mod) => mod.BotaoAgrupado),
+  { ssr: false }
+);
+const BotaoAlerta = dynamic(
+  () => import("@/components/feed/BotaoAlerta").then((mod) => mod.BotaoAlerta),
+  { ssr: false }
+);
+const FeedPhotoGallery = dynamic(
+  () =>
+    import("@/components/feed/FeedPhotoGallery").then(
+      (mod) => mod.FeedPhotoGallery
+    ),
+  { ssr: false }
+);
+const ProducerCard = dynamic(
+  () =>
+    import("@/components/feed/ProducerCard").then((mod) => mod.ProducerCard),
+  { ssr: false }
+);
+const SocialIcons = dynamic(
+  () => import("@/components/feed/SocialIcons").then((mod) => mod.SocialIcons),
+  { ssr: false }
+);
+const ProducerLocationCard = dynamic(
+  () =>
+    import("@/components/feed/ProducerLocationCard").then(
+      (mod) => mod.ProducerLocationCard
+    ),
+  { ssr: false }
+);
+const ProducerTableInfo = dynamic(
+  () =>
+    import("@/components/feed/ProducerTableInfo").then(
+      (mod) => mod.ProducerTableInfo
+    ),
+  { ssr: false }
+);
+const FeedPostCard = dynamic(
+  () =>
+    import("@/components/feed/FeedPostCard").then((mod) => mod.FeedPostCard),
+  { ssr: false }
+);
+const MainBanner = dynamic(
+  () => import("@/components/MainBanner").then((mod) => mod.MainBanner),
+  { ssr: false }
+);
+const SocialLinksSection = dynamic(
+  () =>
+    import("@/components/buscador/SocialLinksSection").then(
+      (mod) => mod.SocialLinksSection
+    ),
+  { ssr: false }
+);
 
 export default function FeedPage() {
   // Dados simulados para as fotos
