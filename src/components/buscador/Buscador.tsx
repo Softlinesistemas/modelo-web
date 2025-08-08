@@ -91,7 +91,12 @@ export const Buscador: React.FC = () => {
                   : "bg-amber-300 hover:bg-amber-200"
               }`}
             >
-              <h3 className="font-semibold text-base md:text-lg">AMIGOS</h3>
+             <h3 className="font-semibold text-base md:text-lg">
+               PESSOAS
+              </h3>
+              <p className="text-xs font-medium md:text-sm mt-1">
+                Amigos e Usuários
+              </p>
             </div>
 
             {/* Bloco Grupos */}
