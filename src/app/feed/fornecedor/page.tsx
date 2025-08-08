@@ -1,16 +1,29 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import React from "react";
 import { BotaoAgrupado } from "@/components/feed/BotaoAgrupado";
 // import { BotaoAlerta } from "@/components/feed/BotaoAlerta";
-import { FeedPhotoGallery } from "@/components/feed/FeedPhotoGallery";
-import { ProducerCard } from "@/components/feed/ProducerCard";
 import { SocialIcons } from "@/components/feed/SocialIcons";
 import { ProducerLocationCard } from "@/components/feed/ProducerLocationCard";
 import { ProducerTableInfo } from "@/components/feed/ProducerTableInfo";
 import { FeedPostCard } from "@/components/feed/FeedPostCard";
 import { MainBanner } from "@/components/MainBanner";
 import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
+
+const FeedPhotoGallery = dynamic(
+  () =>
+    import("@/components/feed/FeedPhotoGallery").then(
+      (mod) => mod.FeedPhotoGallery
+    ),
+  { ssr: false }
+);
+
+const ProducerCard = dynamic(
+  () =>
+    import("@/components/feed/ProducerCard").then((mod) => mod.ProducerCard),
+  { ssr: false }
+);
 
 export default function FeedPage() {
   // Dados simulados para as fotos
