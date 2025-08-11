@@ -16,5 +16,5 @@ const FeedPage = dynamic(() => import("@/components/feed/FeedPage").then((m) => 
  */
 export default function PersonalFeedPage() {
   // ID 'maria' bate com o mock dentro do FeedPage.tsx
-  return <FeedPage tipo="pessoal" id="maria" />;
+  return <FeedPage tipo="pessoal" id="Maria" />;
 }

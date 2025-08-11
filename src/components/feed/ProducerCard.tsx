@@ -19,9 +19,35 @@ import { IoShareSocialSharp } from "react-icons/io5";
 interface ProducerCardProps {
   mainImage: string;
   galleryImages: string[];
-  tipo?: "pessoa" | "grupo" | "fornecedor"; // Novo tipo
+  tipo?: "pessoa" | "grupo" | "fornecedor" | "empresa";
   dataFundacao?: string;
 }
+
+const tipoConfig: Record<
+  string,
+  { nome: string; descricao: string; extraInfo?: string }
+> = {
+  pessoa: {
+    nome: "Maria Da Silva",
+    descricao: "Agricultora",
+    extraInfo: "Familia Canaa",
+  },
+  fornecedor: {
+    nome: "Sitio Canaã - Alimentos Orgânicos",
+    descricao: "Produtos: Alimentos e Bebidas",
+    extraInfo: "Alimentação escolar",
+  },
+  empresa: {
+    nome: "AgroTech Brasil LTDA",
+    descricao: "Tecnologia para o campo",
+    extraInfo: "Inovação agrícola",
+  },
+  grupo: {
+    nome: "TRATOR-CAR-0013_T-4_SISAL",
+    descricao: "3. VEÍCULO COLETIVO - CONVENIADO",
+    extraInfo: "2. LEVE",
+  },
+};
 
 export const ProducerCard: React.FC<ProducerCardProps> = ({
   mainImage,
@@ -35,57 +61,43 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
     setIsFriend(!isFriend);
   };
 
-  const isfornecedor = tipo === "fornecedor";
+  const isFornecedor = tipo === "fornecedor" || tipo === "empresa";
+  const isGrupo = tipo === "grupo";
+
+  const { nome, descricao, extraInfo } =
+    tipoConfig[tipo] || tipoConfig["pessoa"];
 
   return (
     <>
-      {/* Card 1: Cabeçalho */}
+      {/* Card 1: Cabeçalho com foto e dados */}
       <div className="shadow-sm mb-1 mt-1 rounded-b-md">
         <div className="flex items-start">
+          {/* Foto principal */}
           <Image
             src={mainImage}
-            alt="Foto principal"
+            alt={`Foto de ${nome}`}
             width={96}
             height={96}
             className="h-24 w-24 rounded overflow-hidden flex-fit border-2 border-black cursor-pointer"
           />
+
+          {/* Dados principais */}
           <div className="flex-1 ml-3 items-start">
-            {isfornecedor ? (
-              <>
-                <div className="text-md font-bold text-black">
-                  Sitio Canaã - Alimentos Orgânicos
-                </div>
-                <div className="text-md text-gray-900">
-                  Produtos: Alimentos e Bebidas
-                </div>
-                <div className="text-md font-bold text-black">
-                  Alimentação escolar
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="text-md font-bold text-black">
-                  Maria Da Silva
-                </div>
-                <div className="text-md text-gray-900">
-                  Agrilcultora
-                </div>
-                <div className="text-md font-bold text-black">
-                  Familia Canaa
-                </div>
-              </>
+            <div className="text-md font-bold text-black">{nome}</div>
+            <div className="text-md text-gray-900">{descricao}</div>
+            {extraInfo && (
+              <div className="text-md font-bold text-black">{extraInfo}</div>
             )}
           </div>
 
           {/* Ícones à direita */}
           <div className="flex flex-col justify-between items-center mr-2 h-[90px]">
-                 <IoShareSocialSharp
-                  size={24}
-                  className="text-gray-900 hover:text-green-900 cursor-pointer"
-                />
-                <FiUsers size={20} className="text-blue-600" />
-                <MdDeliveryDining size={22} className="text-orange-500" />
-            
+            <IoShareSocialSharp
+              size={24}
+              className="text-gray-900 hover:text-green-900 cursor-pointer"
+            />
+            <FiUsers size={20} className="text-blue-600" />
+            <MdDeliveryDining size={22} className="text-orange-500" />
           </div>
         </div>
       </div>
@@ -101,8 +113,8 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
               <span>Mensagem</span>
             </button>
 
-            {/* Apenas para tipo pessoa */}
-            {tipo === "pessoa" || isfornecedor && (
+            {/* Mostrar ligar e vídeo só para pessoa, fornecedor e empresa */}
+            {(tipo === "pessoa" || isFornecedor) && (
               <>
                 <button className="flex flex-col items-center text-green-700 hover:text-orange-500 text-xs">
                   <FiPhone size={20} />
@@ -117,8 +129,9 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
           </div>
 
           {/* Ações à direita */}
-          <div className="flex justify-end sm:gap-4 w-full sm:w-auto mt-1 sm:mt-0">
-            {(tipo === "pessoa" || isfornecedor) ? (
+          <div className="flex justify-end sm:gap-4 w-full sm:w-auto mt-1 sm:mt-0 items-center">
+            {/* Se for pessoa, fornecedor ou empresa, botão Amigo */}
+            {(tipo === "pessoa" || isFornecedor) && (
               <Button
                 onClick={toggleFriendship}
                 variant={isFriend ? "friend" : "primary"}
@@ -131,22 +144,49 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
               >
                 {isFriend ? (
                   <>
-                    {/* <FiUserCheck size={14} /> */}
+                    <FiUserCheck size={14} />
                     <span>Amigo</span>
                   </>
                 ) : (
                   <>
-                    {/* <FiUserPlus size={14} /> */}
+                    <FiUserPlus size={14} />
                     <span>Ser Amigo</span>
                   </>
                 )}
               </Button>
-            ) : (
-              <div className="text-sm text-gray-700 font-medium w-full text-center sm:text-right">
+            )}
+
+            {/* Se for grupo, botão Participar do Grupo */}
+            {isGrupo && (
+              <Button
+                onClick={toggleFriendship}
+                variant={isFriend ? "friend" : "primary"}
+                size="sm"
+                className={`ml-2 flex items-center gap-1 px-2 py-1 text-2xl ${
+                  isFriend
+                    ? "border border-green-600 text-green-900"
+                    : "text-white"
+                }`}
+              >
+                {isFriend ? (
+                  <>
+                    <FiUserCheck size={14} />
+                    <span>Participando</span>
+                  </>
+                ) : (
+                  <>
+                    <FiUserPlus size={14} />
+                    <span>Participar do Grupo</span>
+                  </>
+                )}
+              </Button>
+            )}
+
+            {/* Mostrar fundação sempre que dataFundacao existir */}
+            {dataFundacao && (
+              <div className="ml-4 text-sm text-gray-700 font-medium whitespace-nowrap">
                 Fundação:{" "}
-                <span className="text-green-800 font-bold">
-                  {dataFundacao || "01/01/2020"}
-                </span>
+                <span className="text-green-800 font-bold">{dataFundacao}</span>
               </div>
             )}
           </div>
