@@ -5,8 +5,6 @@ export const ProducerTableInfo = () => {
   const products = [
     { TIPO: 'Fruta', CATEGORIA: 'Banana', MODALIDADE: 'Prata' },
     { TIPO: 'Café da Manhã', CATEGORIA: 'Alimenento', MODALIDADE: 'Café' },
-    { TIPO: ' ', CATEGORIA: ' ', MODALIDADE: ' ' },
-    { TIPO: ' ', CATEGORIA: ' ', MODALIDADE: ' ' },
     { TIPO: 'Verdura', CATEGORIA: 'Alface', MODALIDADE: 'Americana' },
     { TIPO: 'Grão', CATEGORIA: 'Arroz', MODALIDADE: 'Integral' },
     { TIPO: 'Legume', CATEGORIA: 'Cenoura', MODALIDADE: 'Orgânica' },
@@ -30,7 +28,7 @@ export const ProducerTableInfo = () => {
   ]
 
   return (
-    <div className="space-y-4 text-sm mt-2 mx-2 rounded-md">
+    <div className="space-y-4 text-sm mt-2 mx-4 rounded-md">
       {/* Produtos & Serviços */}
       <div>
         <h3 className="bg-green-200 px-3 py-1 rounded text-gray-700 font-semibold text-center">

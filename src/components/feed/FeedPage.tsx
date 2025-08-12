@@ -160,22 +160,41 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
     },
   };
 
-  // --- Parte para substituir por fetch/API ---
-  /*
-  // Exemplo de fetch para buscar dados reais, substituir o mock
-  React.useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(`/api/feed?tipo=${tipo}&id=${id}`);
-        const data = await response.json();
-        setEntidade(data);
-      } catch (error) {
-        console.error("Erro ao buscar feed:", error);
-      }
-    }
-    fetchData();
-  }, [tipo, id]);
-  */
+ /**
+   * --- BACKEND: TROCA DO MOCK POR FETCH/API ---
+   * Para integrar ao backend, siga este padrão:
+   * 
+   * 1. Criar um estado para guardar os dados:
+   *    const [entidade, setEntidade] = React.useState(null);
+   * 
+   * 2. Buscar dados no carregamento:
+   *    React.useEffect(() => {
+   *      async function fetchData() {
+   *        try {
+   *          // Exemplo: rota API REST
+   *          const res = await fetch(`/api/feed?tipo=${tipo}&id=${id}`);
+   *          const data = await res.json();
+   *          setEntidade(data);
+   *        } catch (error) {
+   *          console.error("Erro ao carregar feed:", error);
+   *        }
+   *      }
+   *      fetchData();
+   *    }, [tipo, id]);
+   * 
+   * 3. Garantir que o backend retorne:
+   *    {
+   *      nome: string;
+   *      mainImage: string;
+   *      dataFundacao?: string;
+   *      bioma?: string;
+   *      divisao?: string;
+   *      posts: { images: string[]; date: string; text: string }[];
+   *    }
+   * 
+   * Assim, o restante do componente continuará funcionando sem mudanças.
+   */
+
 
   // --- Seleção dinâmica do dataset baseado em tipo + id ---
   let entidade:
@@ -245,7 +264,7 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
         <ProducerLocationCard />
       </div>
 
-      <div className="mt-1">
+      <div className="">
         <GeographicReference
           bioma={entidade.bioma || "—"}
           divisao={entidade.divisao || "—"}

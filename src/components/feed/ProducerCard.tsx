@@ -11,7 +11,7 @@ import {
 } from "react-icons/fi";
 import Image from "next/image";
 import { MdDeliveryDining } from "react-icons/md";
-import { Card, CardContent } from "@/components/common/Card";
+import { Card, CardAlter, CardContent } from "@/components/common/Card";
 import { Button } from "@/utils/ui/Button";
 import DescricaoCard from "./DescricaoFeed";
 import { IoShareSocialSharp } from "react-icons/io5";
@@ -103,7 +103,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
       </div>
 
       {/* Card 2: Ações */}
-      <Card className="border shadow-sm mb-1">
+      <CardAlter className=" shadow-sm mb-1">
         <CardContent className="p-1 flex flex-row sm:items-center sm:justify-between">
           {/* Ações à esquerda */}
           <div className="flex sm:justify-start w-full gap-8 sm:w-auto">
@@ -151,13 +151,13 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
               >
                 {isFriend ? (
                   <>
-                    <FiUserCheck size={14} />
-                    <span>Amigo</span>
+                    {/* <FiUserCheck size={14} /> */}
+                    <span>AMIGO</span>
                   </>
                 ) : (
                   <>
-                    <FiUserPlus size={14} />
-                    <span>Ser Amigo</span>
+                    {/* <FiUserPlus size={14} /> */}
+                    <span>Ser AMIGO</span>
                   </>
                 )}
               </Button>
@@ -192,7 +192,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
 
           </div>
         </CardContent>
-      </Card>
+      </CardAlter>
 
       {/* Card 3: Descrição adicional */}
       <DescricaoCard tipo={tipo} />

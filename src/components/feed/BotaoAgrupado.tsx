@@ -8,11 +8,11 @@ import { BotaoAlerta } from "./BotaoAlerta"
 
 export const BotaoAgrupado = () => {
   const router = useRouter()
-  const [ativo, setAtivo] = useState<"AMIGOS" | "grupos">("AMIGOS")
+  const [ativo, setAtivo] = useState<"amigos" | "grupos">("amigos")
 
-  const handleAMIGOSClick = () => {
-    setAtivo("AMIGOS")
-    router.push("/AMIGOS")
+  const handleamigosClick = () => {
+    setAtivo("amigos")
+    router.push("/amigos")
   }
 
   const handleGruposClick = () => {
@@ -25,9 +25,9 @@ export const BotaoAgrupado = () => {
   return (
     <div className="flex flex-nowrap gap-2 w-full justify-center">
       <button
-        onClick={handleAMIGOSClick}
+        onClick={handleamigosClick}
         className={`${botaoClasseBase} ${
-          ativo === "AMIGOS"
+          ativo === "amigos"
             ? "bg-green-700 text-white"
             : "bg-green-100 text-green-800 hover:bg-green-200"
         }`}
@@ -45,7 +45,7 @@ export const BotaoAgrupado = () => {
         }`}
       >
         {/* <RiStackLine size={10} /> */}
-        <span>Meus Grupos</span>
+        <span>Meus GRUPOS</span>
       </button>
 
       <BotaoAlerta />

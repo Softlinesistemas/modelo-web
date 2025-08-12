@@ -78,7 +78,7 @@ const dados = [
 ];
 
 export default function AMIGOS() {
-  const { AMIGOSTab, setTab } = useTabStore();
+  const {amigosTab, setTab } = useTabStore();
   const router = useRouter();
 
   const [busca, setBusca] = useState("");
@@ -97,20 +97,20 @@ export default function AMIGOS() {
   >(null);
 
   useEffect(() => {
-    if (AMIGOSTab === 0) {
+    if (amigosTab === 0) {
       setAMIGOSFiltrados(
         dados.filter((p) => p.nome.toLowerCase().includes(busca.toLowerCase()))
       );
     }
 
-    if (AMIGOSTab === 1) {
+    if (amigosTab === 1) {
       setSugestoesFiltradas(
         mockSugestoes.filter((p) =>
           p.nome.toLowerCase().includes(busca.toLowerCase())
         )
       );
     }
-  }, [busca, AMIGOSTab]);
+  }, [busca, amigosTab]);
 
   const entrarNoChat = (id: string) => {
     router.push(`/chat?id=${id}`);
@@ -138,8 +138,8 @@ export default function AMIGOS() {
         <div className="flex w-full gap-2 items-center">
           <TabSelector
             tabs={tabs}
-            activeIndex={AMIGOSTab}
-            onChange={(i) => setTab("AMIGOSTab", i)}
+            activeIndex={amigosTab}
+            onChange={(i) => setTab("amigosTab", i)}
           />
         </div>
       </div>
@@ -181,12 +181,12 @@ export default function AMIGOS() {
       </div>
 
       <motion.div
-        key={AMIGOSTab}
+        key={amigosTab}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        {AMIGOSTab === 0 && (
+        {amigosTab === 0 && (
           <div className="space-y-2">
             {AMIGOSFiltrados.length > 0 ? (
               AMIGOSFiltrados.map((p) => (
@@ -205,7 +205,7 @@ export default function AMIGOS() {
           </div>
         )}
 
-        {AMIGOSTab === 1 && (
+        {amigosTab === 1 && (
           <div className="space-y-2">
             {sugestoesFiltradas.length > 0 ? (
               sugestoesFiltradas.map((p) => (

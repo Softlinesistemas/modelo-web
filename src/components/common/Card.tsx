@@ -7,6 +7,10 @@ export function Card({ children, className }: { children: ReactNode; className?:
   return <div className={clsx('rounded-md shadow-md shadow-gray-500 bg-white p-2', className)}>{children}</div>;
 }
 
+export function CardAlter({ children, className }: { children: ReactNode; className?: string }) {
+  return <div className={clsx('rounded-md shadow-md shadow-gray-500 p-2', className)}>{children}</div>;
+}
+
 export function CardHeader({ children, className }: { children: ReactNode; className?: string }) {
   return <div className={clsx('border-b pb-2 mb-2', className)}>{children}</div>;
 }
