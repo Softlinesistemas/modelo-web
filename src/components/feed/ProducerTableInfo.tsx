@@ -30,12 +30,12 @@ export const ProducerTableInfo = () => {
   return (
     <div className="space-y-4 text-sm mt-2 mx-4 rounded-md">
       {/* Produtos & Serviços */}
-      <div>
-        <h3 className="bg-green-200 px-3 py-1 rounded text-gray-700 font-semibold text-center">
+      <div className="bg-[#a4c3a4] rounded-md overflow-hidden">
+      <h3 className="text-center font-semibold text-gray-800 py-1">
           Produtos & Serviços
         </h3>
-        <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-gray-100">
-          <table className="w-full text-left border border-gray-300">
+        <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-green-100">
+          <table className="w-full text-center border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-center">
                 <th className="p-2 border border-gray-300">TIPO</th>
@@ -46,7 +46,7 @@ export const ProducerTableInfo = () => {
             <tbody>
               {products.map(({ TIPO, CATEGORIA, MODALIDADE }, i) => (
                 <tr key={i} className="bg-green-100 text-gray-700">
-                  <td className="p-2 border border-gray-300">{TIPO}</td>
+                  <td className="p-2 border border-white bg-gray-300 m-2">{TIPO}</td>
                   <td className="p-2 border border-gray-300">{CATEGORIA}</td>
                   <td className="p-2 border border-gray-300">{MODALIDADE}</td>
                 </tr>
@@ -57,12 +57,12 @@ export const ProducerTableInfo = () => {
       </div>
 
       {/* Assuntos que temos interesse */}
-      <div>
-        <h3 className="bg-green-200 px-3 py-1 rounded-t text-gray-700 font-semibold text-center">
+      <div className="bg-[#a4c3a4] rounded-md overflow-hidden">
+      <h3 className="text-center font-semibold text-gray-800 py-1">
           Assuntos que temos interesse
         </h3>
-        <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-gray-100">
-          <table className="w-full text-left border border-gray-300">
+        <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-green-100">
+          <table className="w-full text-center border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-center">
                 <th className="p-2 border border-gray-300">TIPO</th>
@@ -73,7 +73,7 @@ export const ProducerTableInfo = () => {
             <tbody>
               {interests.map(({ TIPO, CATEGORIA, MODALIDADE }, i) => (
                 <tr key={i} className="bg-green-100 text-gray-700">
-                  <td className="p-2 border border-gray-300">{TIPO}</td>
+                  <td className="p-2 border border-white bg-gray-300 m-2">{TIPO}</td>
                   <td className="p-2 border border-gray-300">{CATEGORIA}</td>
                   <td className="p-2 border border-gray-300">{MODALIDADE}</td>
                 </tr>
