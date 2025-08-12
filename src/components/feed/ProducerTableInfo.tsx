@@ -59,7 +59,7 @@ export const ProducerTableInfo = () => {
       {/* Assuntos que temos interesse */}
       <div className="bg-[#a4c3a4] rounded-md overflow-hidden">
       <h3 className="text-center font-semibold text-gray-800 py-1">
-          Assuntos que temos interesse
+          Assuntos com INTERESSE
         </h3>
         <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-green-100">
           <table className="w-full text-center border-collapse">
