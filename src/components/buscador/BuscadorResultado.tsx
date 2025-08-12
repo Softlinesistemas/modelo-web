@@ -10,7 +10,7 @@ export type BuscadorResultado = {
   nome: string;
   descricao: string;
   localizacao: string;
-  tipo: 'amigos' | 'grupos' | 'fornecedores' | 'clientes'; // tipos esperados
+  tipo: 'AMIGOS' | 'grupos' | 'fornecedores' | 'clientes'; // tipos esperados
   categoria?: string;
   fotoUrl?: string; // opcional
 };
@@ -24,13 +24,13 @@ export const BuscadorResultado: React.FC<Props> = ({ results, filterType }) => {
   const router = useRouter();
 
   const handleClick = (item: BuscadorResultado) => {
-    const basePath = item.tipo === 'amigos' ? '/perfil'
+    const basePath = item.tipo === 'AMIGOS' ? '/perfil'
                    : item.tipo === 'grupos' ? '/grupo'
                    : '/entidade'; // genérico para fornecedores, clientes etc.
     router.push(`${basePath}/${item.id}`);
   };
 
-  const filterName = filterType === 'amigos' ? 'Amigos' :
+  const filterName = filterType === 'AMIGOS' ? 'AMIGOS' :
                      filterType === 'grupos' ? 'Grupos' :
                      filterType.charAt(0).toUpperCase() + filterType.slice(1);
 

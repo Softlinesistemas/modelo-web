@@ -12,7 +12,7 @@ import Image from 'next/image'
 
 // Simulando mensagens não lidas (depois você integra com backend ou contexto)
 const unreadMessages: any = {
-  '/amigos': false,
+  '/AMIGOS': false,
   '/grupos': true,
   '/fornecedores': false,
   '/empresa': true,
@@ -35,7 +35,7 @@ export const BottomNav: React.FC = () => {
       icon: <FiUsers />,
       label: 'AMIGOS',
       color: 'text-[#8F7E76]',
-      route: '/amigos',
+      route: '/AMIGOS',
     },
     {
       icon: <FiLayers />,

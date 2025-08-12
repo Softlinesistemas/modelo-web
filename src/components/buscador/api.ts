@@ -8,7 +8,7 @@ export const fetchMockResults = async (filters: any): Promise<BuscadorResultado[
           nome: 'João da Feira',
           descricao: 'Agricultor familiar que vende produtos orgânicos',
           localizacao: 'São Paulo',
-          tipo: filters.tipo || 'amigos',
+          tipo: filters.tipo || 'AMIGOS',
           id: ''
         },
         {

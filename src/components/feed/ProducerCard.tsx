@@ -96,8 +96,8 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
               size={24}
               className="text-gray-900 hover:text-green-900 cursor-pointer"
             />
-            <FiUsers size={20} className="text-blue-600" />
-            <MdDeliveryDining size={22} className="text-orange-500" />
+            {/* <FiUsers size={20} className="text-blue-600" />
+            <MdDeliveryDining size={22} className="text-orange-500" /> */}
           </div>
         </div>
       </div>
@@ -125,6 +125,13 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
                   <span>Vídeo</span>
                 </button>
               </>
+            )}
+                        {/* Mostrar fundação sempre que dataFundacao existir */}
+                        {dataFundacao && (
+              <div className="ml-4 text-sm text-gray-700 font-medium whitespace-nowrap">
+                Fundação:{" "}
+                <span className="text-green-800 font-bold">{dataFundacao}</span>
+              </div>
             )}
           </div>
 
@@ -170,31 +177,25 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
               >
                 {isFriend ? (
                   <>
-                    <FiUserCheck size={14} />
+                    {/* <FiUserCheck size={14} /> */}
                     <span>Participando</span>
                   </>
                 ) : (
                   <>
-                    <FiUserPlus size={14} />
-                    <span>Participar do Grupo</span>
+                    {/* <FiUserPlus size={14} /> */}
+                    <span>Participar</span>
                   </>
                 )}
               </Button>
             )}
 
-            {/* Mostrar fundação sempre que dataFundacao existir */}
-            {dataFundacao && (
-              <div className="ml-4 text-sm text-gray-700 font-medium whitespace-nowrap">
-                Fundação:{" "}
-                <span className="text-green-800 font-bold">{dataFundacao}</span>
-              </div>
-            )}
+
           </div>
         </CardContent>
       </Card>
 
       {/* Card 3: Descrição adicional */}
-      <DescricaoCard />
+      <DescricaoCard tipo={tipo} />
     </>
   );
 };

@@ -390,7 +390,7 @@ export const AuthScreen = () => {
                 </label>
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" {...register('Privacidade')} value="AMIGOS" />
-                  Somente meus amigos do <span className="text-green-500 font-semibold">GooAgro</span>
+                  Somente meus AMIGOS do <span className="text-green-500 font-semibold">GooAgro</span>
                 </label>
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" {...register('Privacidade')} value="PRIVADO" />
@@ -440,3 +440,51 @@ export const AuthScreen = () => {
     </div>
   );
 };
+
+
+// const onSubmitRegister = async (data: RegisterData) => {
+//   try {
+//     const response = await fetch('/api/register', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(data) // nome, email, senha, etc.
+//     });
+
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       toast.error('Erro ao registrar: ' + errorData.message);
+//       return;
+//     }
+
+//     toast.success('Registro realizado com sucesso!');
+//     // Aqui você pode redirecionar o usuário ou limpar o formulário
+//   } catch (error) {
+//     toast.error('Erro de comunicação com o servidor.');
+//   }
+// };
+
+
+// const onSubmitLogin = async (data: LoginData) => {
+//   try {
+//     const response = await fetch('/api/login', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(data) // email e senha
+//     });
+
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       toast.error('Login falhou: ' + errorData.message);
+//       return;
+//     }
+
+//     const result = await response.json();
+//     // Exemplo: salvar token no localStorage para manter sessão
+//     localStorage.setItem('token', result.token);
+
+//     toast.success('Login realizado com sucesso!');
+//     // Redirecionar para dashboard, página protegida, etc.
+//   } catch (error) {
+//     toast.error('Erro de comunicação com o servidor.');
+//   }
+// };

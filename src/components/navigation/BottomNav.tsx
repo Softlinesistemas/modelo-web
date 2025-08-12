@@ -18,7 +18,7 @@ export const BottomNav: React.FC = () => {
   const [activeLabel, setActiveLabel] = useState<string | null>(null);
 
   const navItems = [
-    { icon: <FiUsers />, label: 'AMIGOS', route: '/amigos' },
+    { icon: <FiUsers />, label: 'AMIGOS', route: '/AMIGOS' },
     { icon: <FiLayers />, label: 'GRUPOS', route: '/grupos' },
     { icon: <FiGlobe />, label: 'FORNECEDORES', route: '/fornecedores' },
     { icon: <FiDollarSign />, label: 'EMPRESAS', route: '/empresas' },

@@ -6,7 +6,24 @@ import { FiCopy, FiPrinter, FiDownload, FiGlobe } from "react-icons/fi";
 import { useReactToPrint } from "react-to-print";
 import html2pdf from "html2pdf.js";
 
-const rawText = `
+// Definição das descrições por tipo
+const descricaoPorTipo: Record<string, string> = {
+  empresa: `
+Bem-vindo à Empresa XYZ!
+Somos uma referência em soluções tecnológicas inovadoras.
+Oferecemos consultoria, desenvolvimento e suporte.
+Nosso foco é qualidade e atendimento personalizado.
+Venha crescer conosco!
+  `.trim(),
+
+  grupo: `
+Grupo Comunidade Ativa
+Nos unimos para promover ações sociais e culturais.
+Realizamos eventos, palestras e workshops.
+Junte-se a nós para fazer a diferença na sua região!
+  `.trim(),
+
+  fornecedor: `
 Bem-vindo ao Sítio Canaã Agricultura Orgânica!
 Uma empresa de agricultura familiar em Imbituba-SC.
 Temos foco na produção orgânica agroecológica.
@@ -14,21 +31,38 @@ Oferecemos Café da Manhã - Excursão, avise antes.
 Temos Banana, Mandioca, Farinha...
 De Setembro à Dezembro (Primavera) temos colheita...
 Visitas escolares, oficinas, turismo rural e muito mais!
-`.trim();
+  `.trim(),
+
+  pessoal: `
+Perfil Pessoal
+Sou uma pessoa apaixonada por desenvolvimento web e design.
+Sempre buscando inovar e aprender coisas novas.
+Gosto de escrever, criar e compartilhar conhecimento.
+Vamos conectar e trocar ideias!
+  `.trim(),
+};
 
 const MAX_CHARACTERS = 3000;
 const PREVIEW_CHARACTERS = 250;
 
-export default function DescricaoCard() {
+interface DescricaoCardProps {
+  tipo: "empresa" | "grupo" | "fornecedor" | "pessoa";
+}
+
+export default function DescricaoCard({ tipo }: DescricaoCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [displayText, setDisplayText] = useState("");
   const [showVerMais, setShowVerMais] = useState(false);
 
   const printRef = useRef<HTMLDivElement>(null);
 
+  // Pega o texto de acordo com o tipo, ou um fallback se não existir
+  const rawText = descricaoPorTipo[tipo] || "Descrição não disponível";
+
+  // Limita o tamanho máximo do texto
   const fullText = rawText.slice(0, MAX_CHARACTERS);
 
-  // Define preview e ver mais
+  // Define preview e "ver mais"
   useEffect(() => {
     if (expanded) {
       setDisplayText(fullText);
@@ -38,7 +72,7 @@ export default function DescricaoCard() {
       setDisplayText(shouldTruncate ? fullText.slice(0, PREVIEW_CHARACTERS) : fullText);
       setShowVerMais(shouldTruncate);
     }
-  }, [expanded]);
+  }, [expanded, fullText]);
 
   // Copiar texto para área de transferência
   const handleCopy = () => {
@@ -76,7 +110,7 @@ export default function DescricaoCard() {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `DeepL-Auth-Key SUA_CHAVE_AQUI`, // Troque por sua chave real da DeepL
+          Authorization: `DeepL-Auth-Key SUA_CHAVE_AQUI`, // Troque pela sua chave real da DeepL
         },
         body: new URLSearchParams({
           text: fullText,
@@ -116,7 +150,7 @@ export default function DescricaoCard() {
         </div>
 
         {/* Botões flutuantes */}
-        <div className="absolute top-2 right-2 flex flex-col gap-2  text-green-700 hover:text-green-500 transition">
+        <div className="absolute top-2 right-2 flex flex-col gap-2 text-green-700 hover:text-green-500 transition">
           <FiCopy
             title="Copiar"
             className="cursor-pointer hover:text-orange-600"

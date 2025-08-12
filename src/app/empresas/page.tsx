@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useTabStore } from '@/store/useTabStore'
 import { TabSelector } from '@/components/TabSelector'
-import { EmpresaCard } from '@/components/EmpresaCard' 
+import { EmpresaCard } from '@/components/EmpresaCard'
 import { AppModal } from '@/utils/ui/AppModal'
 import { MainBanner } from '@/components/MainBanner'
 import { Button } from '@/utils/ui/Button'
@@ -14,7 +14,6 @@ import { Label } from '@/utils/ui/Label'
 
 const tabs = ['EMPRESAS', 'Sugestões']
 
-// Interfaces e mocks ficam fora do componente (boa prática)
 interface Empresa {
   id: string
   nome: string
@@ -22,113 +21,138 @@ interface Empresa {
   logo: string
 }
 
-const minhasEmpresasMock: Empresa[] = [
-  {
-    id: 'e1',
-    nome: 'AgroBrasil SA',
-    descricao: 'Líder em soluções agrícolas no Brasil',
-    logo: '/images/AgroBrasilSA.jpg',
-  },
-  {
-    id: 'e2',
-    nome: 'TechFarms Ltda',
-    descricao: 'Tecnologia e inovação para o campo',
-    logo: '/images/TechFarm.jpg',
-  },
-]
-
-const sugestoesEmpresasMock: Empresa[] = [
-  {
-    id: 'e3',
-    nome: 'Verde Forte',
-    descricao: 'Produtos orgânicos e sustentáveis',
-    logo: '/img/empresa-verdeforte.png',
-  },
-  {
-    id: 'e4',
-    nome: 'Campo Digital',
-    descricao: 'Plataformas digitais para gestão agrícola',
-    logo: '/img/empresa-campodigital.png',
-  },
-]
-
 export default function Empresas() {
   const router = useRouter()
   const { empresasTab, setTab } = useTabStore()
-
-  // Estados e hooks dentro do componente (corrigido)
   const [busca, setBusca] = useState('')
-
-  // Estados filtrados por aba
-  const [empresasFiltradas, setEmpresasFiltradas] = useState<Empresa[]>(minhasEmpresasMock)
-  const [sugestoesFiltradas, setSugestoesFiltradas] = useState<Empresa[]>(sugestoesEmpresasMock)
-  // const [procurarFiltradas, setProcurarFiltradas] = useState<Empresa[]>([])
-
-  // Modal de detalhes da empresa selecionada
+  const [empresas, setEmpresas] = useState<Empresa[]>([]) // estado que receberá empresas do backend
+  const [sugestoes, setSugestoes] = useState<Empresa[]>([]) // estado que receberá sugestões do backend
+  const [empresasFiltradas, setEmpresasFiltradas] = useState<Empresa[]>([])
+  const [sugestoesFiltradas, setSugestoesFiltradas] = useState<Empresa[]>([])
   const [empresaSelecionada, setEmpresaSelecionada] = useState<Empresa | null>(null)
   const [modalAberto, setModalAberto] = useState(false)
 
-  // Atualiza filtros conforme aba e busca
+  // Função para buscar as empresas do usuário no backend
+  async function fetchMinhasEmpresas() {
+    try {
+      // Aqui você faria a chamada real à API, ex:
+      // const res = await fetch('/api/empresas/minhas')
+      // const data = await res.json()
+      // setEmpresas(data)
+
+      // MOCK - REMOVER depois da API pronta:
+      const dataMock: Empresa[] = [
+        {
+          id: '1',
+          nome: 'AgroBrasil SA',
+          descricao: 'Líder em soluções agrícolas no Brasil',
+          logo: '/images/AgroBrasilSA.jpg',
+        },
+        {
+          id: '2',
+          nome: 'TechFarms Ltda',
+          descricao: 'Tecnologia e inovação para o campo',
+          logo: '/images/TechFarm.jpg',
+        },
+      ]
+      setEmpresas(dataMock)
+    } catch (error) {
+      console.error('Erro ao buscar minhas empresas:', error)
+    }
+  }
+
+  // Função para buscar as sugestões no backend
+  async function fetchSugestoesEmpresas() {
+    try {
+      // Chamada real à API, ex:
+      // const res = await fetch('/api/empresas/sugestoes')
+      // const data = await res.json()
+      // setSugestoes(data)
+
+      // MOCK - REMOVER depois da API pronta:
+      const sugestoesMock: Empresa[] = [
+        {
+          id: '3',
+          nome: 'Verde Forte',
+          descricao: 'Produtos orgânicos e sustentáveis',
+          logo: '/img/empresa-verdeforte.png',
+        },
+        {
+          id: '4',
+          nome: 'Campo Digital',
+          descricao: 'Plataformas digitais para gestão agrícola',
+          logo: '/img/empresa-campodigital.png',
+        },
+      ]
+      setSugestoes(sugestoesMock)
+    } catch (error) {
+      console.error('Erro ao buscar sugestões:', error)
+    }
+  }
+
+  // Busca dados no carregamento e quando a aba muda (pra manter atualizado)
   useEffect(() => {
     if (empresasTab === 0) {
-      setEmpresasFiltradas(
-        minhasEmpresasMock.filter((e) =>
-          e.nome.toLowerCase().includes(busca.toLowerCase())
-        )
-      )
+      fetchMinhasEmpresas()
     } else if (empresasTab === 1) {
-      setSugestoesFiltradas(
-        sugestoesEmpresasMock.filter((e) =>
-          e.nome.toLowerCase().includes(busca.toLowerCase())
-        )
-      )
-    // } else if (empresasTab === 2) {
-    //   const todas = [...minhasEmpresasMock, ...sugestoesEmpresasMock]
-    //   setProcurarFiltradas(
-    //     todas.filter((e) => e.nome.toLowerCase().includes(busca.toLowerCase()))
-    //   )
+      fetchSugestoesEmpresas()
     }
-  }, [busca, empresasTab])
+  }, [empresasTab])
 
-  // Abre modal com detalhes da empresa
+  // Filtra as listas localmente conforme o campo de busca
+  useEffect(() => {
+    setEmpresasFiltradas(
+      empresas.filter((e) =>
+        e.nome.toLowerCase().includes(busca.toLowerCase())
+      )
+    )
+    setSugestoesFiltradas(
+      sugestoes.filter((e) =>
+        e.nome.toLowerCase().includes(busca.toLowerCase())
+      )
+    )
+  }, [busca, empresas, sugestoes])
+
   const abrirModalEmpresa = (empresa: Empresa) => {
     setEmpresaSelecionada(empresa)
     setModalAberto(true)
   }
 
-  // Navega para a página de detalhes da empresa
   const navegarParaEmpresa = (id: string) => {
     router.push(`/empresa?id=${id}`)
   }
 
-  // Navega para criação de nova empresa
   const criarEmpresa = () => {
     router.push('/empresas/criar')
   }
 
-      const irParaBuscador = () => {
+  const irParaBuscador = () => {
     router.push('/buscador?selecao=empresa')
   }
 
+  const abrirEmpresa = (id: string) => {
+    if (id === 'f1') {
+      router.push('/feed/empresa')
+    } else {
+      router.push(`/feed/empresa?id=${id}`)
+    }
+  }
 
   return (
     <div className="w-full p-1 mb-8">
-      {/* Título da página */}
-      {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Empresas</h1> */}
-    <MainBanner />
-      {/* Barra superior: seleção de aba e botão de criar grupo */}
+      <MainBanner />
       <div className="flex items-center justify-between mt-2 mb-4">
         <div className="flex-1">
           <TabSelector
             tabs={tabs}
             activeIndex={empresasTab}
-            onChange={(i) => setTab("empresasTab", i)}
+            onChange={(i) => setTab('empresasTab', i)}
           />
         </div>
         <Button
           onClick={criarEmpresa}
           className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-          variant='buscarFiltros'
+          variant="buscarFiltros"
         >
           Ser EMPRESA
         </Button>
@@ -136,23 +160,22 @@ export default function Empresas() {
       <div className="flex items-center justify-center">
         <Label variant="secondary">Buscar EMPRESA por Nome ou Usuário</Label>
       </div>
-      <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2 pb-2">
-      <FiSearch className="text-gray-400" />
-      <input
-        type="text"
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-        placeholder="Escreva aqui..."
-        className="bg-transparent outline-none text-sm w-full"
-      />
-    </div>
-
-    <div className="flex justify-center items-center pb-7 p-4">
+      <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
+        <FiSearch className="text-gray-400" />
+        <input
+          type="text"
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          placeholder="Escreva aqui..."
+          className="bg-transparent outline-none text-sm w-full"
+        />
+      </div>
+      <div className="flex justify-center items-center pb-7 p-4">
         <Button
           onClick={irParaBuscador}
-          className="ml-4 flex items-center  gap-2 border bg-red-600 text-black border-red-200  rounded px-4 py-2 hover:bg-red-600 transition"
+          className="ml-4 flex items-center gap-2 border bg-red-600 text-black border-red-200 rounded px-4 py-2 hover:bg-red-600 transition"
         >
-         Procurar por filtros
+          Procurar por filtros
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-white"
@@ -170,33 +193,30 @@ export default function Empresas() {
         </Button>
       </div>
 
-      {/* Lista com animação ao trocar de aba */}
       <motion.div
         key={empresasTab}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        {/* Aba Meus */}
         {empresasTab === 0 && (
           <div className="space-y-2">
             {empresasFiltradas.length > 0 ? (
-              empresasFiltradas.map((empresa) => (
+              empresasFiltradas.map((f) => (
                 <EmpresaCard
-                  key={empresa.id}
-                  empresa={empresa}
-                  onClick={() => abrirModalEmpresa(empresa)}
+                  key={f.id}
+                  empresa={f}
+                  onClick={() => abrirEmpresa(f.id)}
+                  onFotoClick={() => abrirModalEmpresa(f)}
+                  onMensagem={() => alert(`Mensagem para ${f.nome} ainda não implementada`)}
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">
-                Nenhuma empresa encontrada.
-              </p>
+              <p className="text-center text-gray-500">Nenhum fornecedor encontrado.</p>
             )}
           </div>
         )}
 
-        {/* Aba Sugestões */}
         {empresasTab === 1 && (
           <div className="space-y-2">
             {sugestoesFiltradas.length > 0 ? (
@@ -204,36 +224,18 @@ export default function Empresas() {
                 <EmpresaCard
                   key={empresa.id}
                   empresa={empresa}
-                  onClick={() => abrirModalEmpresa(empresa)}
+                  onClick={() => abrirEmpresa(empresa.id)}
+                  onFotoClick={() => abrirModalEmpresa(empresa)}
+                  onMensagem={() => alert(`Mensagem para ${empresa.nome} ainda não implementada`)}
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">
-                Nenhuma sugestão encontrada.
-              </p>
+              <p className="text-center text-gray-500">Nenhuma sugestão encontrada.</p>
             )}
           </div>
         )}
-
-        {/* Aba Procurar */}
-        {/* {empresasTab === 2 && (
-          <div className="space-y-4">
-            {procurarFiltradas.length > 0 ? (
-              procurarFiltradas.map((empresa) => (
-                <EmpresaCard
-                  key={empresa.id}
-                  empresa={empresa}
-                  onClick={() => abrirModalEmpresa(empresa)}
-                />
-              ))
-            ) : (
-              <p className="text-center text-gray-500">Nenhuma empresa encontrada.</p>
-            )} 
-          </div>
-        )}*/}
       </motion.div>
 
-      {/* Modal detalhes empresa */}
       {empresaSelecionada && (
         <AppModal
           isOpen={modalAberto}
@@ -244,34 +246,21 @@ export default function Empresas() {
             <img
               src={empresaSelecionada.logo}
               alt={empresaSelecionada.nome}
-              className="w-32 h-32 object-contain rounded-lg border"
+              className="w-48 h-48 object-contain rounded"
             />
-            <p className="text-gray-700">{empresaSelecionada.descricao}</p>
-
-            <div className="flex gap-4 mt-6 w-full">
-              <button
-                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition flex-1"
-                onClick={() => {
-                  alert("Contato enviado!");
-                  setModalAberto(false);
-                }}
-              >
-                Entrar em contato
-              </button>
-
-              <button
-                className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition flex-1"
-                onClick={() => {
-                  navegarParaEmpresa(empresaSelecionada.id);
-                  setModalAberto(false);
-                }}
-              >
-                Ver detalhes
-              </button>
-            </div>
+            <p>{empresaSelecionada.descricao}</p>
+            <Button
+              onClick={() => {
+                setModalAberto(false)
+                navegarParaEmpresa(empresaSelecionada.id)
+              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Ver Perfil Completo
+            </Button>
           </div>
         </AppModal>
       )}
     </div>
-  );
+  )
 }

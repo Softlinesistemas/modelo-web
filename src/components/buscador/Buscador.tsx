@@ -82,11 +82,11 @@ export const Buscador: React.FC = () => {
         {/* Grid de filtros principais - responsivo */}
         <div className="grid grid-cols-2 gap-3 text-center md:gap-4 mb-6 ">
           
-            {/* Bloco Amigos */}
+            {/* Bloco AMIGOS */}
             <div
-              onClick={() => handleFilterClick("amigos")}
+              onClick={() => handleFilterClick("AMIGOS")}
               className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all border-2 border-black ${
-                selectedFilter === "amigos"
+                selectedFilter === "AMIGOS"
                   ? "bg-white border-green-700 shadow-md text-green-700"
                   : "bg-amber-300 hover:bg-amber-200"
               }`}
@@ -95,7 +95,7 @@ export const Buscador: React.FC = () => {
                PESSOAS
               </h3>
               <p className="text-xs font-medium md:text-sm mt-1">
-                Amigos e Usuários
+                AMIGOS e Usuários
               </p>
             </div>
 
@@ -160,7 +160,7 @@ export const Buscador: React.FC = () => {
             <FiSearch className="text-balck shadow-md mr-2" />
             <input
               type="text"
-              placeholder="Buscar Amigos, Grupos, Fornecedores ou Empresas."
+              placeholder="Buscar AMIGOS, Grupos, Fornecedores ou Empresas."
               className="w-full text-sm font-medium  bg-white  placeholder-gray-500 outline-none"
             />
           </div>

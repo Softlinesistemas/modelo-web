@@ -17,21 +17,23 @@ import { FeedPostCard } from "@/components/feed/FeedPostCard";
  *  - tipo='grupo'      -> dados do grupo por grupoId
  *  - tipo='pessoal'    -> dados pessoais por pessoaId
  *  - tipo='fornecedor' -> dados de fornecedor por fornecedorId
+ *  - tipo='empresa'    -> dados de empresa (pode implementar depois)
  *
  * Recebe:
- *  - tipo: 'grupo' | 'pessoal' | 'fornecedor'
+ *  - tipo: 'grupo' | 'pessoal' | 'fornecedor' | 'empresa'
  *  - id: string | undefined  (id vindo da rota)
  *
  * Comentado e pronto para trocar o mock por fetch/API depois.
  */
 
 interface Props {
-  tipo: "grupo" | "pessoal" | "fornecedor";
+  tipo: "grupo" | "pessoal" | "fornecedor" | "empresa";
   id?: string | undefined;
 }
 
 export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
   // --- MOCK CENTRALIZADO (substituir por fetch/API quando quiser) ---
+  // Aqui temos dados simulados para demonstração, substitua por fetch e API quando pronto.
   const grupos: Record<
     string,
     {
@@ -130,6 +132,51 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
     },
   };
 
+  // Caso precise, dados para empresa podem ser mockados aqui (exemplo vazio)
+  const empresas: Record<
+    string,
+    {
+      nome: string;
+      mainImage: string;
+      dataFundacao?: string;
+      bioma?: string;
+      divisao?: string;
+      posts: { images: string[]; date: string; text: string }[];
+    }
+  > = {
+    e1: {
+      nome: "Empresa Exemplo",
+      mainImage: "/images/empresa.jpg",
+      dataFundacao: "01/01/2021",
+      bioma: "Pampa",
+      divisao: "TI_06 - SERVIÇOS",
+      posts: [
+        {
+          images: ["/images/feed/ft8.jpg"],
+          date: "2025-08-01",
+          text: "Lançamento de novo produto sustentável.",
+        },
+      ],
+    },
+  };
+
+  // --- Parte para substituir por fetch/API ---
+  /*
+  // Exemplo de fetch para buscar dados reais, substituir o mock
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(`/api/feed?tipo=${tipo}&id=${id}`);
+        const data = await response.json();
+        setEntidade(data);
+      } catch (error) {
+        console.error("Erro ao buscar feed:", error);
+      }
+    }
+    fetchData();
+  }, [tipo, id]);
+  */
+
   // --- Seleção dinâmica do dataset baseado em tipo + id ---
   let entidade:
     | {
@@ -148,9 +195,10 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
   } else if (tipo === "pessoal") {
     // se id não existir, usa 'maria' por padrão
     entidade = id && pessoas[id] ? pessoas[id] : pessoas["maria"];
-  } else {
-    // fornecedor
+  } else if (tipo === "fornecedor") {
     entidade = id && fornecedores[id] ? fornecedores[id] : fornecedores["f1"];
+  } else if (tipo === "empresa") {
+    entidade = id && empresas[id] ? empresas[id] : empresas["e1"];
   }
 
   // safety: se nada encontrado, exibir mensagem
@@ -163,20 +211,31 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
   }
 
   // fotos de galeria de exemplo (pode vir do entidade.posts ou outro campo)
-  const photos = (entidade.posts[0]?.images || []).map((url) => ({ url, date: entidade?.posts[0]?.date || "" }));
+  const photos = (entidade.posts[0]?.images || []).map((url) => ({
+    url,
+    date: entidade?.posts[0]?.date || "",
+  }));
 
   return (
     <div className="rounded w-full mx-auto">
       {/* Banner comum */}
       <MainBanner />
 
-      {/* Card principal (pessoa / grupo / fornecedor) */}
+      {/* Card principal (pessoa / grupo / fornecedor / empresa) */}
       <div className="mt-2">
         <ProducerCard
           // ProducerCard espera props específicas; aqui passei mainImage, galleryImages e tipo
           mainImage={entidade.mainImage}
           galleryImages={[]} // se tiver galeria separada, passe aqui
-          tipo={tipo === "pessoal" ? "pessoa" : tipo === "fornecedor" ? "fornecedor" : "grupo"}
+          tipo={
+            tipo === "pessoal"
+              ? "pessoa"
+              : tipo === "fornecedor"
+              ? "fornecedor"
+              : tipo === "empresa"
+              ? "empresa"
+              : "grupo"
+          }
           dataFundacao={entidade.dataFundacao}
         />
       </div>

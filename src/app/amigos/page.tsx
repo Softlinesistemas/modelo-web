@@ -77,12 +77,12 @@ const dados = [
   },
 ];
 
-export default function Amigos() {
-  const { amigosTab, setTab } = useTabStore();
+export default function AMIGOS() {
+  const { AMIGOSTab, setTab } = useTabStore();
   const router = useRouter();
 
   const [busca, setBusca] = useState("");
-  const [amigosFiltrados, setAmigosFiltrados] = useState(dados);
+  const [AMIGOSFiltrados, setAMIGOSFiltrados] = useState(dados);
   const [sugestoesFiltradas, setSugestoesFiltradas] = useState(mockSugestoes);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -97,27 +97,27 @@ export default function Amigos() {
   >(null);
 
   useEffect(() => {
-    if (amigosTab === 0) {
-      setAmigosFiltrados(
+    if (AMIGOSTab === 0) {
+      setAMIGOSFiltrados(
         dados.filter((p) => p.nome.toLowerCase().includes(busca.toLowerCase()))
       );
     }
 
-    if (amigosTab === 1) {
+    if (AMIGOSTab === 1) {
       setSugestoesFiltradas(
         mockSugestoes.filter((p) =>
           p.nome.toLowerCase().includes(busca.toLowerCase())
         )
       );
     }
-  }, [busca, amigosTab]);
+  }, [busca, AMIGOSTab]);
 
   const entrarNoChat = (id: string) => {
     router.push(`/chat?id=${id}`);
   };
 
   const irParaBuscador = () => {
-    router.push("/buscador?selecao=amigos");
+    router.push("/buscador?selecao=AMIGOS");
   };
 
   const abrirModalAmigo = (nome: string, foto: string) => {
@@ -132,19 +132,19 @@ export default function Amigos() {
 
   return (
     <div className="w-full mb-8">
-      {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de Amigos</h1> */}
+      {/* <h1 className="text-2xl font-bold mb-4 text-center">Área de AMIGOS</h1> */}
       <MainBanner />
       <div className="flex items-center justify-between mt-2 mb-4">
         <div className="flex w-full gap-2 items-center">
           <TabSelector
             tabs={tabs}
-            activeIndex={amigosTab}
-            onChange={(i) => setTab("amigosTab", i)}
+            activeIndex={AMIGOSTab}
+            onChange={(i) => setTab("AMIGOSTab", i)}
           />
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <Label variant="secondary">Buscar AMIGO por Nome ou Usuário</Label>
+        <Label variant="secondary">Buscar Amigo por Nome ou Usuário</Label>
       </div>
       <div className="flex items-center gap-2 border-2 border-green-700 bg-gray-100 rounded-md px-3 py-2 mx-4 my-2">
         <FiSearch className="text-gray-400" />
@@ -181,15 +181,15 @@ export default function Amigos() {
       </div>
 
       <motion.div
-        key={amigosTab}
+        key={AMIGOSTab}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        {amigosTab === 0 && (
+        {AMIGOSTab === 0 && (
           <div className="space-y-2">
-            {amigosFiltrados.length > 0 ? (
-              amigosFiltrados.map((p) => (
+            {AMIGOSFiltrados.length > 0 ? (
+              AMIGOSFiltrados.map((p) => (
                 <PessoaCard
                   key={p.id}
                   pessoa={p}
@@ -199,13 +199,13 @@ export default function Amigos() {
               ))
             ) : (
               <p className="text-center text-gray-500">
-                Nenhum amigo encontrado.
+                Nenhum Amigo encontrado.
               </p>
             )}
           </div>
         )}
 
-        {amigosTab === 1 && (
+        {AMIGOSTab === 1 && (
           <div className="space-y-2">
             {sugestoesFiltradas.length > 0 ? (
               sugestoesFiltradas.map((p) => (
@@ -225,7 +225,7 @@ export default function Amigos() {
         )}
       </motion.div>
 
-      {/* Modal de amigo */}
+      {/* Modal de Amigo */}
       {selectedPessoa && (
         <AvatarMenu
           isOpen={isModalOpen}
@@ -269,7 +269,7 @@ export default function Amigos() {
                 setIsSugestaoModalOpen(false);
               }}
             >
-              Adicionar amigo
+              Adicionar Amigo
             </button>
 
             <button

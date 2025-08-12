@@ -18,7 +18,7 @@ const initialMembers: Member[] = [
   { name: 'Ana', role: 'member' },
 ];
 
-// Lista de amigos do admin (para adicionar)
+// Lista de AMIGOS do admin (para adicionar)
 const friendsList = ['Carlos', 'Fernanda', 'Lucas', 'Juliana'];
 
 const roleLabel = {
@@ -34,12 +34,12 @@ const MemberList: React.FC = () => {
   const [confirmRemove, setConfirmRemove] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState('Ramon'); // Mock: o Ramon é admin no exemplo
 
-  // Lista de amigos que ainda não estão no grupo
+  // Lista de AMIGOS que ainda não estão no grupo
   const availableFriends = friendsList.filter(
     (friend) => !members.find((m) => m.name === friend)
   );
 
-  // Seleciona/deseleciona amigos para adicionar
+  // Seleciona/deseleciona AMIGOS para adicionar
   const toggleFriendSelection = (friend: string) => {
     setSelectedFriends((prev) =>
       prev.includes(friend) ? prev.filter((f) => f !== friend) : [...prev, friend]
@@ -175,7 +175,7 @@ const MemberList: React.FC = () => {
         title="Adicionar Membros"
       >
         {availableFriends.length === 0 ? (
-          <p className="text-gray-500">Nenhum amigo disponível para adicionar.</p>
+          <p className="text-gray-500">Nenhum Amigo disponível para adicionar.</p>
         ) : (
           <ul className="space-y-2">
             {availableFriends.map((friend, idx) => (

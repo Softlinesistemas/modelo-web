@@ -3,7 +3,7 @@ import CadastroTipoForm, { FieldDef, OptionDef } from '@/components/CadastroTipo
 
 const visibilityOptions: OptionDef[] = [
   { value: '1', label: 'Qualquer Usuário do GooAgro' },
-  { value: '2', label: 'Somente os meus Amigos do GooAgro' },
+  { value: '2', label: 'Somente os meus AMIGOS do GooAgro' },
   { value: '3', label: 'Oculta – ninguém poderá ver' }
 ];
 
