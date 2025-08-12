@@ -13,7 +13,7 @@ export const ProducerLocationCard = () => {
   }
 
   return (
-    <div className="flex justify-between items-start rounded-md shadow-sm shadow-gray-400 px-3 py-2 mb-1 text-sm relative">
+    <div className="flex justify-between items-start bg-white rounded-md shadow-sm shadow-gray-400 px-3 py-2 mb-1 text-sm relative">
       {/* Bloco da esquerda */}
       <div className="flex flex-col">
         <p>Queimadas, Bahia, Brasil</p>

@@ -28,9 +28,9 @@ export const ProducerTableInfo = () => {
   ]
 
   return (
-    <div className="space-y-4 text-sm mt-2 mx-4 rounded-md">
+    <div className="max-w-full text-sm mt-2 mx-4 rounded-md">
       {/* Produtos & Serviços */}
-      <div className="bg-[#a4c3a4] rounded-md overflow-hidden">
+      <div className="bg-[#6f926f] rounded-md overflow-hidden mb-1">
       <h3 className="text-center font-semibold text-gray-800 py-1">
           Produtos & Serviços
         </h3>
@@ -57,7 +57,7 @@ export const ProducerTableInfo = () => {
       </div>
 
       {/* Assuntos que temos interesse */}
-      <div className="bg-[#a4c3a4] rounded-md overflow-hidden">
+      <div className="bg-[#6f926f] rounded-md overflow-hidden">
       <h3 className="text-center font-semibold text-gray-800 py-1">
           Assuntos com INTERESSE
         </h3>

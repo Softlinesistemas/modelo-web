@@ -12,7 +12,7 @@ const TagVisual = ({ value }: { value: string | string[] }) => {
     : value || "Não informado";
 
   return (
-    <div className="inline-flex items-center bg-green-100 text-gray-900 font-medium px-4 py-1 rounded-full text-sm">
+    <div className="inline-flex items-center bg-green-100 text-gray-900 font-medium px-4 rounded-full text-sm">
       {texto}
     </div>
   );
@@ -37,7 +37,7 @@ export const SocialLinksSection = () => {
     <CollapsibleSection
       title="VÍNCULOS SOCIAIS"
       subTitle={
-        <span className="text-xs md:text-sm mt-1 text-white/80">
+        <span className="text-xs md:text-sm text-white/80">
           <a href="https://seulink.com/pcd" className="underline">
             PCD
           </a>{" "}

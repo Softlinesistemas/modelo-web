@@ -286,7 +286,7 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
       </div>
 
       {/* Redes / contatos */}
-      <div className="mt-2">
+      <div className="mt-1">
         <SocialIcons
           links={{
             gps: { lat: -23.55052, lng: -46.633308 },
@@ -303,11 +303,11 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
       </div>
 
       {/* Botões de ação agrupados */}
-      <div className="flex gap-2 my-2 items-center justify-center w-full">
+      <div className="flex gap-2 my-1 items-center justify-center w-full">
         <BotaoAgrupado />
       </div>
 
-      <div className="mt-3">
+      <div className="mt-0">
         <SocialLinksSection />
       </div>
 

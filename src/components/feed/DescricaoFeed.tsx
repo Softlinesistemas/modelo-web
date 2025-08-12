@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Card, CardAlter, CardContent } from "@/components/common/Card";
+import { Card, CardContent } from "@/components/common/Card";
 import { FiCopy, FiPrinter, FiDownload, FiGlobe } from "react-icons/fi";
 import { useReactToPrint } from "react-to-print";
 import html2pdf from "html2pdf.js";
@@ -136,7 +136,7 @@ export default function DescricaoCard({ tipo }: DescricaoCardProps) {
         {/* Conteúdo a ser impresso e baixado */}
         <div
           ref={printRef}
-          className="px-1 py-1 text-sm text-gray-800 whitespace-pre-line"
+          className="px-1 py-1 text-sm text-black whitespace-pre-line"
         >
           {displayText}
           {showVerMais && (
