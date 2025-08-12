@@ -34,7 +34,7 @@ export const ProducerTableInfo = () => {
       <h3 className="text-center font-semibold text-gray-800 py-1">
           Produtos & Serviços
         </h3>
-        <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-green-100">
+        <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-orange-100">
           <table className="w-full text-center border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-center">
@@ -46,7 +46,7 @@ export const ProducerTableInfo = () => {
             <tbody>
               {products.map(({ TIPO, CATEGORIA, MODALIDADE }, i) => (
                 <tr key={i} className="bg-green-100 text-gray-700">
-                  <td className="p-2 border border-white bg-gray-300 m-2">{TIPO}</td>
+                  <td className="p-2 border border-gray-300">{TIPO}</td>
                   <td className="p-2 border border-gray-300">{CATEGORIA}</td>
                   <td className="p-2 border border-gray-300">{MODALIDADE}</td>
                 </tr>
@@ -61,7 +61,7 @@ export const ProducerTableInfo = () => {
       <h3 className="text-center font-semibold text-gray-800 py-1">
           Assuntos com INTERESSE
         </h3>
-        <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-green-100">
+        <div className="max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-orange-100">
           <table className="w-full text-center border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-center">
@@ -73,7 +73,7 @@ export const ProducerTableInfo = () => {
             <tbody>
               {interests.map(({ TIPO, CATEGORIA, MODALIDADE }, i) => (
                 <tr key={i} className="bg-green-100 text-gray-700">
-                  <td className="p-2 border border-white bg-gray-300 m-2">{TIPO}</td>
+                  <td className="p-2 border border-gray-300">{TIPO}</td>
                   <td className="p-2 border border-gray-300">{CATEGORIA}</td>
                   <td className="p-2 border border-gray-300">{MODALIDADE}</td>
                 </tr>

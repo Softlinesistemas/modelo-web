@@ -91,14 +91,18 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
           </div>
 
           {/* Ícones à direita */}
+          {(tipo === "pessoa" || isFornecedor) && (
+          <>
           <div className="flex flex-col justify-between items-center mr-2 h-[90px]">
             <IoShareSocialSharp
               size={24}
               className="text-gray-900 hover:text-green-900 cursor-pointer"
             />
-            {/* <FiUsers size={20} className="text-blue-600" />
-            <MdDeliveryDining size={22} className="text-orange-500" /> */}
+            <FiUsers size={20} className="text-blue-600" />
+            <MdDeliveryDining size={22} className="text-orange-500" />
           </div>
+          </>
+          )}
         </div>
       </div>
 

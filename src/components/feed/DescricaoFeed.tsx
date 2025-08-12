@@ -131,7 +131,7 @@ export default function DescricaoCard({ tipo }: DescricaoCardProps) {
   };
 
   return (
-    <CardAlter className="relative shadow-sm">
+    <Card className="relative shadow-sm">
       <CardContent className="p-0">
         {/* Conteúdo a ser impresso e baixado */}
         <div
@@ -173,6 +173,6 @@ export default function DescricaoCard({ tipo }: DescricaoCardProps) {
           />
         </div>
       </CardContent>
-    </CardAlter>
+    </Card>
   );
 }
