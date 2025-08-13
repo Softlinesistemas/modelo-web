@@ -19,7 +19,7 @@ import { IoShareSocialSharp } from "react-icons/io5";
 interface ProducerCardProps {
   mainImage: string;
   galleryImages: string[];
-  tipo?: "pessoa" | "grupo" | "fornecedor" | "empresa";
+  tipo?: "pessoal" | "grupo" | "fornecedor" | "empresa";
   dataFundacao?: string;
 }
 
@@ -27,7 +27,7 @@ const tipoConfig: Record<
   string,
   { nome: string; descricao: string; extraInfo?: string }
 > = {
-  pessoa: {
+  pessoal: {
     nome: "Maria Da Silva",
     descricao: "Agricultora",
     extraInfo: "Familia Canaa",
@@ -45,14 +45,14 @@ const tipoConfig: Record<
   grupo: {
     nome: "TRATOR-CAR-0013_T-4_SISAL",
     descricao: "3. VEÍCULO COLETIVO - CONVENIADO",
-    extraInfo: "2. LEVE",
+    extraInfo: "Porte Leve",
   },
 };
 
 export const ProducerCard: React.FC<ProducerCardProps> = ({
   mainImage,
   galleryImages,
-  tipo = "pessoa",
+  tipo = "pessoal",
   dataFundacao,
 }) => {
   const [isFriend, setIsFriend] = useState(false);
@@ -65,7 +65,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
   const isGrupo = tipo === "grupo";
 
   const { nome, descricao, extraInfo } =
-    tipoConfig[tipo] || tipoConfig["pessoa"];
+    tipoConfig[tipo] || tipoConfig["pessoal"];
 
   return (
     <>
@@ -91,17 +91,20 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
           </div>
 
           {/* Ícones à direita */}
-          {(tipo === "pessoa" || isFornecedor) && (
-          <>
-          <div className="flex flex-col justify-between items-center mr-2 h-[90px]">
-            <IoShareSocialSharp
-              size={24}
-              className="text-gray-900 hover:text-green-900 cursor-pointer"
-            />
-            <FiUsers size={20} className="text-blue-600" />
-            <MdDeliveryDining size={22} className="text-orange-500" />
-          </div>
-          </>
+          {(tipo === "pessoal" || isFornecedor) && (
+            <>
+              <div className="flex flex-col justify-between items-center mr-2 h-[90px]">
+                <IoShareSocialSharp
+                  size={24}
+                  className="text-gray-900 hover:text-green-900 cursor-pointer"
+                />
+                <FiUsers size={20} className="text-blue-600" />
+                <MdDeliveryDining size={22} className="text-[#B6D2B7]" />
+                {(isFornecedor || isGrupo) && (
+                <MdDeliveryDining size={22} className="text-orange-500" />
+              )}
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -118,7 +121,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
             </button>
 
             {/* Mostrar ligar e vídeo só para pessoa, fornecedor e empresa */}
-            {(tipo === "pessoa" || isFornecedor) && (
+            {(tipo === "pessoal" || isFornecedor) && (
               <>
                 <button className="flex flex-col items-center text-green-700 hover:text-orange-500 text-xs">
                   <FiPhone size={20} />
@@ -130,8 +133,9 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
                 </button>
               </>
             )}
-                        {/* Mostrar fundação sempre que dataFundacao existir */}
-                        {dataFundacao && (
+
+            {/* Mostrar fundação apenas para grupos */}
+            {tipo === "grupo" && dataFundacao && (
               <div className="ml-4 text-sm text-gray-700 font-medium whitespace-nowrap">
                 Fundação:{" "}
                 <span className="text-green-800 font-bold">{dataFundacao}</span>
@@ -142,7 +146,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
           {/* Ações à direita */}
           <div className="flex justify-end sm:gap-4 w-full sm:w-auto mt-1 sm:mt-0 items-center">
             {/* Se for pessoa, fornecedor ou empresa, botão Amigo */}
-            {(tipo === "pessoa" || isFornecedor) && (
+            {(tipo === "pessoal" || isFornecedor) && (
               <Button
                 onClick={toggleFriendship}
                 variant={isFriend ? "friend" : "primary"}
@@ -192,8 +196,6 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
                 )}
               </Button>
             )}
-
-
           </div>
         </CardContent>
       </CardAlter>

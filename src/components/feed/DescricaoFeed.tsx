@@ -46,7 +46,7 @@ const MAX_CHARACTERS = 3000;
 const PREVIEW_CHARACTERS = 250;
 
 interface DescricaoCardProps {
-  tipo: "empresa" | "grupo" | "fornecedor" | "pessoa";
+  tipo: "empresa" | "grupo" | "fornecedor" | "pessoal";
 }
 
 export default function DescricaoCard({ tipo }: DescricaoCardProps) {

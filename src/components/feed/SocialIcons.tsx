@@ -13,8 +13,7 @@ import { AiOutlineMail, AiOutlineGlobal, AiOutlineLink } from "react-icons/ai"
 import { PiButterflyFill } from "react-icons/pi"
 import { SiThreads } from "react-icons/si"
 import { MdAlternateEmail } from "react-icons/md"
-// import { BsThreads } from "react-icons/bs"
-import { JSX } from "react"
+import { JSX, useEffect, useState } from "react"
 
 type SocialLinks = {
   gps?: { lat: number; lng: number }
@@ -29,7 +28,7 @@ type SocialLinks = {
   tiktok?: string
   telefone?: string
   linktree?: string
-  borboleta?: boolean
+  borboleta?: string
   adicionar?: boolean
 }
 
@@ -42,10 +41,29 @@ type IconItem = {
 }
 
 interface SocialIconsProps {
-  links: SocialLinks
+  links?: SocialLinks
 }
 
-export const SocialIcons = ({ links }: SocialIconsProps) => {
+export const SocialIcons = ({ links: initialLinks }: SocialIconsProps) => {
+  const [links, setLinks] = useState<SocialLinks>(initialLinks || {})
+
+  useEffect(() => {
+    // Aqui você poderia buscar os dados do backend
+    /*
+    async function fetchSocialLinks() {
+      try {
+        const res = await fetch("/api/social-links") // endpoint que retorna os links do DB
+        const data = await res.json()
+        setLinks(data)
+      } catch (err) {
+        console.error("Erro ao buscar links:", err)
+      }
+    }
+
+    fetchSocialLinks()
+    */
+  }, [])
+
   const mainIcons: IconItem[] = [
     links.gps && {
       icon: <FaMapMarkedAlt size={28} />,
@@ -72,11 +90,6 @@ export const SocialIcons = ({ links }: SocialIconsProps) => {
       label: "Email",
       action: () => (window.location.href = `mailto:${links.email}`),
     },
-    // links.altEmail && {
-    //   icon: <MdAlternateEmail size={24} />,
-    //   label: "Contato",
-    //   action: () => (window.location.href = `mailto:${links.altEmail}`),
-    // },
     links.instagram && {
       icon: <FaInstagram size={24} />,
       label: "Instagram",
@@ -97,11 +110,6 @@ export const SocialIcons = ({ links }: SocialIconsProps) => {
       label: "Threads",
       action: () => window.open(links.threads!, "_blank"),
     },
-    // links.threadsAlt && {
-    //   icon: <BsThreads size={24} />,
-    //   label: "Threads 2",
-    //   action: () => window.open(links.threadsAlt!, "_blank"),
-    // },
     links.tiktok && {
       icon: <FaTiktok size={24} />,
       label: "TikTok",
@@ -112,11 +120,6 @@ export const SocialIcons = ({ links }: SocialIconsProps) => {
       label: "Borboleta",
       action: () => alert("Este é um botão simbólico"),
     },
-    // links.telefone && {
-    //   icon: <FaPhoneAlt size={24} />,
-    //   label: "Telefone",
-    //   action: () => (window.location.href = `tel:${links.telefone}`),
-    // },
   ].filter(Boolean) as IconItem[]
 
   const adicionarBtn: IconItem | null = links.adicionar
@@ -130,31 +133,29 @@ export const SocialIcons = ({ links }: SocialIconsProps) => {
   const allIcons: IconItem[] = [...mainIcons, ...(adicionarBtn ? [adicionarBtn] : [])]
 
   return (
-  <div className="grid grid-cols-6 gap-2 p-2 rounded-xl w-full shadow-gray-300">
-    {allIcons.map((item, index) => {
-      const isGPS = item.colSpan;
-
-      return (
-        <button
-          key={index}
-          title={item.label}
-          onClick={item.action}
-          className={`flex flex-col items-center justify-center p-3 rounded-2xl transition shadow-md shadow-gray-400 text-sm font-medium border border-black
-            ${item.highlight ? "bg-[#05c8f7] text-black hover:bg-green-300" : "bg-white text-black hover:scale-105"}
-            ${isGPS ? "col-span-2" : ""}        
-          `}
-        >
-          {item.icon}
-          <span
-            className={`mt-1 text-[11px] leading-tight text-center ${
-              item.highlight ? "font-bold uppercase" : ""
-            }`}
+    <div className="grid grid-cols-6 gap-2 p-2 rounded-xl w-full shadow-gray-300">
+      {allIcons.map((item, index) => {
+        const isGPS = item.colSpan
+        return (
+          <button
+            key={index}
+            title={item.label}
+            onClick={item.action}
+            className={`flex flex-col items-center justify-center p-3 rounded-2xl transition shadow-md shadow-gray-400 text-sm font-medium border border-black
+              ${item.highlight ? "bg-[#05c8f7] text-black hover:bg-green-300" : "bg-white text-black hover:scale-105"}
+              ${isGPS ? "col-span-2" : ""}`}
           >
-            {item.label}
-          </span>
-        </button>
-      );
-    })}
-  </div>
-);
+            {item.icon}
+            <span
+              className={`mt-1 text-[11px] leading-tight text-center ${
+                item.highlight ? "font-bold uppercase" : ""
+              }`}
+            >
+              {item.label}
+            </span>
+          </button>
+        )
+      })}
+    </div>
+  )
 }

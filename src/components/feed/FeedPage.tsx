@@ -240,7 +240,7 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
       {/* Banner comum */}
       <MainBanner />
 
-      {/* Card principal (pessoa / grupo / fornecedor / empresa) */}
+      {/* Card principal (pessoal / grupo / fornecedor / empresa) */}
       <div className="mt-2">
         <ProducerCard
           // ProducerCard espera props específicas; aqui passei mainImage, galleryImages e tipo
@@ -248,7 +248,7 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
           galleryImages={[]} // se tiver galeria separada, passe aqui
           tipo={
             tipo === "pessoal"
-              ? "pessoa"
+              ? "pessoal"
               : tipo === "fornecedor"
               ? "fornecedor"
               : tipo === "empresa"
@@ -264,21 +264,24 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
         <ProducerLocationCard />
       </div>
 
-      <div className="">
-        <GeographicReference
-          bioma={entidade.bioma || "—"}
-          divisao={entidade.divisao || "—"}
-          dia="Segunda"
-          inicio="08:00"
-          fim="10:00"
-          nivel="Intermediário"
-          idadeMin={10}
-          idadeMax={17}
-          genero="Misto"
-          mensalidade="R$ 10,00"
-          avulso="R$ 10,00"
-        />
-      </div>
+     {/* Referências geográficas — só para grupos */}
+{tipo === "grupo" && (
+  <div className="">
+    <GeographicReference
+      bioma={entidade.bioma || "—"}
+      divisao={entidade.divisao || "—"}
+      dia="Segunda"
+      inicio="08:00"
+      fim="10:00"
+      nivel="Intermediário"
+      idadeMin={10}
+      idadeMax={17}
+      genero="Misto"
+      mensalidade="R$ 10,00"
+      avulso="R$ 10,00"
+    />
+  </div>
+)}
 
       {/* Galeria de fotos */}
       <div className="mt-1">
@@ -295,9 +298,14 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
             instagram: "https://instagram.com/user",
             facebook: "https://facebook.com/page",
             telefone: "+5511999999999",
-            linktree: "https://linktr.ee/seuperfil",
-            adicionar: true,
-            borboleta: true,
+            linktree: "https://linktr.ee/seuperfil",   
+            altEmail: "a",
+            youtube: "b",
+            threads: "c",
+            tiktok: "d",
+            borboleta: "e",
+            adicionar: true
+
           }}
         />
       </div>
