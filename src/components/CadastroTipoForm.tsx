@@ -1,391 +1,272 @@
 'use client';
+import { useState } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/utils/ui/Card';
+import { Button } from '@/utils/ui/Button';
+import { Checkbox } from '@/utils/ui/checkbox';
+import { MultiSelectButtonGroup } from '@/utils/ui/MultiSelectButtonGroup';
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/utils/ui/Select';
+import { Textarea } from '@/utils/ui/Textarea';
 
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-
-export interface OptionDef {
-  value: string;
-  label: string;
-}
-
-export interface FieldDef {
-  name: string;
-  label: string;
-  type?: string;
-  required?: boolean;
-  options?: OptionDef[];
-  fields?: FieldDef[];
-  max?: number;
-  prefix?: string;
-  mask?: string;
-}
-
-interface CadastroTipoFormProps {
-  tipo: string;
+export interface CadastroTipoFormProps {
+  tipo: string;           // 👈 adiciona essa linha
   fields: FieldDef[];
-  initialValues?: Record<string, any>;
 }
 
-const CadastroTipoForm: React.FC<CadastroTipoFormProps> = ({ 
-  tipo, 
-  fields, 
-  initialValues = {} 
-}) => {
-  const router = useRouter();
-  const [formData, setFormData] = useState<Record<string, any>>(initialValues);
-  const [groupCounters, setGroupCounters] = useState<Record<string, number>>({});
+export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps) {
+  const [showModal, setShowModal] = useState(true);
 
-  // Initialize group counters
-  useEffect(() => {
-    const counters: Record<string, number> = {};
-    fields.forEach(field => {
-      if (field.type === 'group' && field.name) {
-        counters[field.name] = formData[field.name]?.length || 1;
-      }
-    });
-    setGroupCounters(counters);
-  }, [fields]);
-
-  // Load saved data
-  useEffect(() => {
-    const saved = localStorage.getItem(`cadastro_${tipo}`);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setFormData(parsed);
-        
-        const counters: Record<string, number> = {};
-        fields.forEach(field => {
-          if (field.type === 'group' && field.name) {
-            counters[field.name] = parsed[field.name]?.length || 1;
-          }
-        });
-        setGroupCounters(counters);
-      } catch {
-        console.warn('Erro ao ler dados locais de', tipo);
-      }
-    }
-  }, [tipo]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    const target = e.target as HTMLInputElement;
-
-    if (type === 'checkbox') {
-      setFormData(prev => {
-        const prevValue = prev[name];
-        let newArray: string[] = [];
-        
-        if (Array.isArray(prevValue)) {
-          newArray = [...prevValue];
-        }
-        
-        if (target.checked) {
-          if (!newArray.includes(value)) {
-            newArray.push(value);
-          }
-        } else {
-          newArray = newArray.filter(v => v !== value);
-        }
-        
-        return { ...prev, [name]: newArray };
-      });
-    } else if (type === 'radio') {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
-  };
-
-  const handleGroupChange = (groupName: string, index: number, fieldName: string, value: any) => {
-    setFormData(prev => {
-      const groupData = prev[groupName] || [];
-      const newGroupData = [...groupData];
-      
-      if (!newGroupData[index]) {
-        newGroupData[index] = {};
-      }
-      
-      newGroupData[index][fieldName] = value;
-      return { ...prev, [groupName]: newGroupData };
-    });
-  };
-
-  const addGroupItem = (groupName: string, max: number) => {
-    setGroupCounters(prev => {
-      if (prev[groupName] >= max) return prev;
-      return { ...prev, [groupName]: prev[groupName] + 1 };
-    });
-  };
-
-  const removeGroupItem = (groupName: string) => {
-    setGroupCounters(prev => {
-      if (prev[groupName] <= 1) return prev;
-      
-      setFormData(prevData => {
-        const groupData = [...(prevData[groupName] || [])];
-        groupData.pop();
-        return { ...prevData, [groupName]: groupData };
-      });
-      
-      return { ...prev, [groupName]: prev[groupName] - 1 };
-    });
-  };
-
-  const renderField = (field: FieldDef) => {
-    const value = formData[field.name] || '';
-    
-    switch (field.type) {
-      case 'textarea':
-        return (
-          <div key={field.name} className="flex flex-col mb-4">
-            <label htmlFor={field.name} className="mb-1 font-medium">
-              {field.label}{field.required && ' *'}
-            </label>
-            <textarea
-              id={field.name}
-              name={field.name}
-              required={field.required}
-              value={value}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
-              rows={4}
-            />
-          </div>
-        );
-      
-      case 'select':
-        return (
-          <div key={field.name} className="flex flex-col mb-4">
-            <label htmlFor={field.name} className="mb-1 font-medium">
-              {field.label}{field.required && ' *'}
-            </label>
-            <select
-              id={field.name}
-              name={field.name}
-              required={field.required}
-              value={value}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
-            >
-              <option value="">Selecione...</option>
-              {field.options?.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      
-      case 'radio':
-        return (
-          <div key={field.name} className="flex flex-col mb-4">
-            <label className="mb-1 font-medium">
-              {field.label}{field.required && ' *'}
-            </label>
-            <div className="space-y-2">
-              {field.options?.map(option => (
-                <label key={option.value} className="flex items-center">
-                  <input
-                    type="radio"
-                    name={field.name}
-                    value={option.value}
-                    checked={value === option.value}
-                    onChange={handleChange}
-                    className="mr-2"
-                    required={field.required}
-                  />
-                  {option.label}
-                </label>
-              ))}
-            </div>
-          </div>
-        );
-      
-      case 'checkbox':
-        return (
-          <div key={field.name} className="flex flex-col mb-4">
-            <label className="mb-1 font-medium">
-              {field.label}{field.required && ' *'}
-            </label>
-            <div className="space-y-2">
-              {field.options?.map(option => (
-                <label key={option.value} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    name={field.name}
-                    value={option.value}
-                    checked={Array.isArray(value) && value.includes(option.value)}
-                    onChange={handleChange}
-                    className="mr-2"
-                  />
-                  {option.label}
-                </label>
-              ))}
-            </div>
-          </div>
-        );
-      
-      case 'group':
-        const groupItems = [];
-        const count = groupCounters[field.name] || 1;
-        
-        for (let i = 0; i < count; i++) {
-          groupItems.push(
-            <div key={`${field.name}-${i}`} className="border p-4 rounded mb-4">
-              <h4 className="font-medium mb-2">Responsável {i + 1}</h4>
-              {field.fields?.map(subField => {
-                const fieldId = `${field.name}-${i}-${subField.name}`;
-                const groupData = formData[field.name] || [];
-                const groupItem = groupData[i] || {};
-                const fieldValue = groupItem[subField.name] || '';
-
-                return (
-                  <div key={fieldId} className="flex flex-col mb-3">
-                    <label htmlFor={fieldId} className="mb-1 text-sm">
-                      {subField.label}{subField.required && ' *'}
-                    </label>
-                    {subField.prefix ? (
-                      <div className="flex">
-                        <span className="flex items-center px-3 bg-gray-100 border border-r-0 rounded-l">
-                          {subField.prefix}
-                        </span>
-                        <input
-                          id={fieldId}
-                          type={subField.type || 'text'}
-                          value={fieldValue}
-                          onChange={(e) => handleGroupChange(field.name, i, subField.name, e.target.value)}
-                          className="border rounded-r px-3 py-2 flex-1"
-                          required={subField.required}
-                        />
-                      </div>
-                    ) : (
-                      <input
-                        id={fieldId}
-                        type={subField.type || 'text'}
-                        value={fieldValue}
-                        onChange={(e) => handleGroupChange(field.name, i, subField.name, e.target.value)}
-                        className="border rounded px-3 py-2"
-                        required={subField.required}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-              
-              {i > 0 && (
-                <button
-                  type="button"
-                  onClick={() => removeGroupItem(field.name)}
-                  className="text-red-600 mt-2 text-sm"
-                >
-                  Remover
-                </button>
-              )}
-            </div>
-          );
-        }
-        
-        return (
-          <div key={field.name} className="mb-6">
-            <div className="flex justify-between items-center mb-2">
-              <label className="font-medium">
-                {field.label}{field.required && ' *'}
-              </label>
-              
-              {count < (field.max || 3) && (
-                <button
-                  type="button"
-                  onClick={() => addGroupItem(field.name, field.max || 3)}
-                  className="text-blue-600 text-sm"
-                >
-                  + Adicionar
-                </button>
-              )}
-            </div>
-            
-            {groupItems}
-          </div>
-        );
-      
-      case 'password':
-        return (
-          <div key={field.name} className="flex flex-col mb-4">
-            <label htmlFor={field.name} className="mb-1 font-medium">
-              {field.label}{field.required && ' *'}
-            </label>
-            <input
-              id={field.name}
-              name={field.name}
-              type="password"
-              required={field.required}
-              value={value}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
-            />
-          </div>
-        );
-      
-      default:
-        return (
-          <div key={field.name} className="flex flex-col mb-4">
-            <label htmlFor={field.name} className="mb-1 font-medium">
-              {field.label}{field.required && ' *'}
-            </label>
-            {field.prefix ? (
-              <div className="flex">
-                <span className="flex items-center px-3 bg-gray-100 border border-r-0 rounded-l">
-                  {field.prefix}
-                </span>
-                <input
-                  id={field.name}
-                  name={field.name}
-                  type={field.type || 'text'}
-                  required={field.required}
-                  value={value}
-                  onChange={handleChange}
-                  className="border rounded-r px-3 py-2 flex-1"
-                />
-              </div>
-            ) : (
-              <input
-                id={field.name}
-                name={field.name}
-                type={field.type || 'text'}
-                required={field.required}
-                value={value}
-                onChange={handleChange}
-                className="border rounded px-3 py-2"
-              />
-            )}
-          </div>
-        );
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    localStorage.setItem(`cadastro_${tipo}`, JSON.stringify(formData));
-    router.push('/cadastro/concluido');
-  };
+  // Estados de seleção
+  const [visibilidade, setVisibilidade] = useState<Array<string | number>>([]);
+  const [delivery, setDelivery] = useState<Array<string | number>>([]);
+  const [prazoChat, setPrazoChat] = useState('');
+  const [participaEventos, setParticipaEventos] = useState<Array<string | number>>([]);
+  const [autorizo, setAutorizo] = useState(false);
+  const [referenciasGeo, setReferenciasGeo] = useState<Array<string | number>>([]);
+  const [condicoesEspeciais, setCondicoesEspeciais] = useState<Array<string | number>>([]);
+  const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6 capitalize">Cadastro – {tipo.replace('-', ' ')}</h2>
+    <div className="p-4">
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <Card className="max-w-lg w-full p-6">
+            <CardHeader>
+              <CardTitle>Bem-vindo ao GooAgro!</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm whitespace-pre-line">
+                {`Olá Usuário-GG! Parabéns pela escolha do GooAgro para participar de grupos com os mesmos propósitos que você tem!
 
-      <div className="space-y-6">
-        {fields.map(field => renderField(field))}
-      </div>
+                    Para grupos:
+                    • Criar grupos;
+                    • Facilitar, organizar e controlar.
 
-      <button
-        type="submit"
-        className="w-full mt-8 py-3 bg-green-600 text-white rounded hover:bg-green-700 transition"
-      >
-        Salvar {tipo}
-      </button>
-    </form>
+                    Para pessoas:
+                    • Procurar e ser procurado;
+                    • Convidar e ser convidado para grupos que têm interesse.
+
+                    Quando puder, coloque mais informações e interesses para participar de eventos, feiras, aulas e muito mais.`}
+                                  </p>
+              <Button variant="primary" size="md" onClick={() => setShowModal(false)}>
+                Continuar
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {!showModal && (
+        <form className="space-y-6">
+          {/* IDENTIFICAÇÃO */}
+          <Card>
+            <CardHeader><CardTitle>Identificação</CardTitle></CardHeader>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input name="nome" placeholder="Nome completo" className="input" required />
+              <input name="nomePublico" placeholder="Nome público no GooAgro" className="input" required />
+              <input name="usuarioGG" placeholder="Usuário GooAgro (@usuario)" className="input" required />
+              <input name="cpf" placeholder="CPF" className="input" required />
+              <input name="telefone1" placeholder="Telefone principal" className="input" required />
+              <input name="telefone2" placeholder="Telefone secundário" className="input" />
+              <input type="email" name="email" placeholder="Email" className="input" required />
+              <input type="password" name="senha" placeholder="Senha (6–8 caracteres, 1 letra)" className="input" required />
+              <input type="password" name="confirmarSenha" placeholder="Confirmar senha" className="input" required />
+            </CardContent>
+          </Card>
+
+          {/* ENDEREÇO */}
+          <Card>
+            <CardHeader><CardTitle>Endereço</CardTitle></CardHeader>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input name="cidadeUF" placeholder="Cidade / UF" className="input" required />
+              <input name="bairro" placeholder="Bairro" className="input" required />
+              <input name="cep" placeholder="CEP" className="input" required />
+              <input name="endereco" placeholder="Endereço" className="input" required />
+            </CardContent>
+          </Card>
+
+          {/* VISIBILIDADE */}
+          <Card>
+            <CardHeader><CardTitle>Visibilidade</CardTitle></CardHeader>
+            <CardContent>
+              <MultiSelectButtonGroup
+                title="A minha pública poderá ser vista por:"
+                options={[
+                  { value: '1', label: 'Qualquer usuário do GooAgro' },
+                  { value: '2', label: 'Somente meus amigos do GooAgro' },
+                  { value: '3', label: 'Oculta – ninguém poderá ver' },
+                ]}
+                selectedValues={visibilidade}
+                onChange={setVisibilidade}
+                singleSelect
+              />
+            </CardContent>
+          </Card>
+
+          {/* DELIVERY */}
+          <Card>
+            <CardHeader><CardTitle>Delivery</CardTitle></CardHeader>
+            <CardContent>
+              <MultiSelectButtonGroup
+                title="É delivery (entrega ao cliente)?"
+                options={[
+                  { value: 'sim', label: 'Sim' },
+                  { value: 'nao', label: 'Não' },
+                ]}
+                selectedValues={delivery}
+                onChange={setDelivery}
+                singleSelect
+              />
+            </CardContent>
+          </Card>
+
+          {/* CATEGORIA / TIPO / MODALIDADE */}
+          <Card>
+            <CardHeader><CardTitle>Categoria / Tipo / Modalidade</CardTitle></CardHeader>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input name="categoria" placeholder="Categoria" className="input" required />
+              <input name="tipo" placeholder="Tipo" className="input" required />
+              <input name="modalidade" placeholder="Modalidade" className="input" required />
+              <input name="localEntrega" placeholder="Local da entrega" className="input" required />
+            </CardContent>
+          </Card>
+
+          {/* CONTATOS ADICIONAIS */}
+          <Card>
+            <CardHeader><CardTitle>Contatos adicionais (até 3)</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-2 border p-3 rounded-lg">
+                  <input name={`contato${i}_nome`} placeholder="Nome" className="input" />
+                  <input name={`contato${i}_relacao`} placeholder="Relação" className="input" />
+                  <input name={`contato${i}_usuario`} placeholder="Usuário GooAgro" className="input" />
+                  <input name={`contato${i}_telefone`} placeholder="Telefone" className="input" />
+                  <input name={`contato${i}_email`} placeholder="Email" className="input" />
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          {/* OUTRAS INFORMAÇÕES */}
+          <Card>
+            <CardHeader><CardTitle>Outras informações</CardTitle></CardHeader>
+            <CardContent className="grid grid-cols-1 gap-4">
+              <Textarea name="outrasAtividades" placeholder="Outras atividades profissionais" />
+              <Textarea name="apresentacao" placeholder="Apresentação e informações" />
+              <MultiSelectButtonGroup
+                title="Deseja participar de eventos, feiras, campeonatos?"
+                options={[
+                  { value: 'sim', label: 'Sim' },
+                  { value: 'nao', label: 'Não' },
+                ]}
+                selectedValues={participaEventos}
+                onChange={setParticipaEventos}
+                singleSelect
+              />
+              <input name="educacao" placeholder="Nível/Série/Grau de educação" className="input" />
+              <input name="link1" placeholder="Link 1" className="input" />
+              <input name="link2" placeholder="Link 2" className="input" />
+              <input name="link3" placeholder="Link 3" className="input" />
+            </CardContent>
+          </Card>
+
+          {/* AUTORIZAÇÕES */}
+          <Card>
+            <CardHeader><CardTitle>Autorizações</CardTitle></CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-2">
+                <Checkbox checked={autorizo} onChange={(e) => setAutorizo(e.target.checked)} />
+                <span>Autorizo receber mensagens vinculadas aos meus interesses e atividades profissionais neste perfil.</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* FOTO PERFIL */}
+          <Card>
+            <CardHeader><CardTitle>Foto de perfil (selfie)</CardTitle></CardHeader>
+            <CardContent className="space-y-2">
+              <input type="file" accept="image/*" onChange={(e) => setFotoPerfil(e.target.files?.[0] || null)} />
+              {fotoPerfil && (
+                <img src={URL.createObjectURL(fotoPerfil)} alt="Pré-visualização" className="w-32 h-32 object-cover rounded-full" />
+              )}
+            </CardContent>
+          </Card>
+
+          {/* GPS */}
+          <Card>
+            <CardHeader><CardTitle>Coordenadas GPS</CardTitle></CardHeader>
+            <CardContent>
+              <input name="gps" placeholder="Coordenadas GPS (opcional)" className="input" />
+            </CardContent>
+          </Card>
+
+          {/* PRAZO DE CHAT */}
+          <Card>
+            <CardHeader><CardTitle>Prazo para manter arquivos do chat</CardTitle></CardHeader>
+            <CardContent>
+              <Select value={prazoChat} onChange={setPrazoChat}>
+                <SelectTrigger><SelectValue placeholder="Selecione" /></SelectTrigger>
+                <SelectContent>
+                  {['15', '30', '45', '60', '90', '120', '180', '360', 'nunca'].map((val) => (
+                    <SelectItem key={val} value={val}>{val === 'nunca' ? 'Nunca' : `${val} dias`}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </CardContent>
+          </Card>
+
+          {/* REFERÊNCIAS GEOGRÁFICAS */}
+          <Card>
+            <CardHeader><CardTitle>Referências geográficas</CardTitle></CardHeader>
+            <CardContent>
+              <MultiSelectButtonGroup
+                options={[
+                  { value: 'sisal', label: 'TI_04 - SISAL' },
+                  { value: 'bioma', label: 'Bioma' },
+                  { value: 'povos', label: 'Povos tradicionais' },
+                ]}
+                selectedValues={referenciasGeo}
+                onChange={setReferenciasGeo}
+              />
+            </CardContent>
+          </Card>
+
+          {/* CONDIÇÕES ESPECIAIS */}
+          <Card>
+            <CardHeader><CardTitle>Condições especiais</CardTitle></CardHeader>
+            <CardContent>
+              <MultiSelectButtonGroup
+                options={[
+                  { value: 'pcd', label: 'PCD / Doença crônica' },
+                  { value: 'voluntariado', label: 'Projeto social sem fins lucrativos / Voluntariado' },
+                  { value: 'economiaSolidaria', label: 'Economia solidária' },
+                  { value: 'racaCor', label: 'De raça/cor' },
+                  { value: 'genero', label: 'De gênero' },
+                  { value: 'culturaPopular', label: 'Cultura popular' },
+                  { value: 'acaoAmbiental', label: 'Ação ambiental / Ecologia' },
+                  { value: 'religiao', label: 'Religião' },
+                  { value: 'vinculosSociais', label: 'Vínculos sociais' },
+                ]}
+                selectedValues={condicoesEspeciais}
+                onChange={setCondicoesEspeciais}
+              />
+            </CardContent>
+          </Card>
+
+          {/* ASSUNTOS DE INTERESSE */}
+          <Card>
+            <CardHeader><CardTitle>Assuntos de interesse</CardTitle></CardHeader>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input name="assuntoTipo" placeholder="Assunto - Tipo" className="input" />
+              <input name="assuntoModalidade" placeholder="Assunto - Modalidade" className="input" />
+              <input name="assuntoCategoria" placeholder="Assunto - Categoria" className="input" />
+            </CardContent>
+          </Card>
+
+          <Button type="submit" variant="primary" size="md" className="w-full">
+            Salvar Cadastro
+          </Button>
+        </form>
+      )}
+    </div>
   );
-};
-
-export default CadastroTipoForm;
+}

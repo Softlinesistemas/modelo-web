@@ -183,7 +183,8 @@ Quando puder, coloque mais informações e interesses para participar de eventos
         </div>
       )}
 
-      {!showModal && <CadastroTipoForm tipo="fornecedor-pf-motorista" fields={fields} />}
+{!showModal && <CadastroTipoForm fields={fields} tipo={''} />}
+
     </div>
   );
 }

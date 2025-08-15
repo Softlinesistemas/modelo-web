@@ -123,7 +123,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
             <FiInfo /> Sobre o GooAgro
           </button>
 
-          <button className="flex items-center gap-2 text-left" onClick={() => handleNavigate('/ajuda')}>
+          <button className="flex items-center gap-2 text-left" onClick={() => handleNavigate('/faq')}>
             <FiHelpCircle /> Ajuda / FAQ
           </button>
 
