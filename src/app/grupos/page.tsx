@@ -36,7 +36,7 @@ const dados = [
   {
     id: "1",
     nome: "TRATOR-BA_T-4_SISAL_CAR-0113",
-    descricao: "@TRATOR-CAR-0013_cj&03r4#@%+03dr",
+    descricao: "Veículo Coletivo - CONVÊNIO",
     atuacao: "Veiculos",
     foto: "./images/trator.jpg",
   },

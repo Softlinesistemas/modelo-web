@@ -43,8 +43,8 @@ const tipoConfig: Record<
     extraInfo: "Inovação agrícola",
   },
   grupo: {
-    nome: "TRATOR-CAR-0013_T-4_SISAL",
-    descricao: "3. VEÍCULO COLETIVO - CONVENIADO",
+    nome: "TRATOR-BA_T-4_SISAL_CAR-0113",
+    descricao: "3. Veículo Coletivo - CONVÊNIO",
     extraInfo: "Porte Leve",
   },
 };

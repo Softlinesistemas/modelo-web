@@ -43,7 +43,7 @@ export default function EmpresaPage() {
       <MainBanner />
 
       {/* Passa o tipo 'empresa' para o ProducerCard */}
-      <ProducerCard mainImage="/avatar-empresa.jpeg" galleryImages={[]} tipo="empresa" />
+      <ProducerCard mainImage="/agro-tech.png" galleryImages={[]} tipo="empresa" />
 
       <div className="mt-1">
         <ProducerLocationCard />
