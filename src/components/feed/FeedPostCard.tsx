@@ -54,7 +54,7 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
             alt={`Imagem ${currentImageIndex + 1} do post`}
             onError={(e) => {
               e.currentTarget.onerror = null;
-              e.currentTarget.src = '/placeholder.jpg';
+              e.currentTarget.src = '/placeholder1.jpg';
             }}
             className="w-full h-80 object-cover"
           />

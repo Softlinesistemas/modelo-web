@@ -76,7 +76,7 @@ export default function PessoalPage() {
             tiktok: "https://tiktok.com/@user",
             telefone: "+5511999999999",
             linktree: "https://linktr.ee/seuperfil",
-            borboleta: true,
+            borboleta: "A",
             adicionar: true,
           }}
         />

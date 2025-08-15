@@ -66,7 +66,7 @@ export default function EmpresaPage() {
             tiktok: "https://tiktok.com/@empresa",
             telefone: "+5511999999999",
             linktree: "https://linktr.ee/empresa",
-            borboleta: true,
+            borboleta: "A",
             adicionar: true,
           }}
         />

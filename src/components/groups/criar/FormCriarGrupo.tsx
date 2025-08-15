@@ -45,7 +45,7 @@ export default function FormCriarGrupo() {
       // descricao: data.descricao,
       // categoria: data.categoria,
       atuacao: data.tipoGrupo.join(', '),
-      foto: '/img/grupo-placeholder.jpg',
+      foto: '/img/TechFarm.jpg',
       ...data
     }
 
