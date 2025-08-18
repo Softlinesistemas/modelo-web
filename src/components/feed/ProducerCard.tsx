@@ -101,7 +101,7 @@ export const ProducerCard: React.FC<ProducerCardProps> = ({
                 <FiUsers size={20} className="text-blue-600" />
                 <MdDeliveryDining size={22} className="text-[#B6D2B7]" />
                 {(isFornecedor || isGrupo) && (
-                <MdDeliveryDining size={22} className="text-orange-500" />
+                <MdDeliveryDining size={22} className="text-red-500" />
               )}
               </div>
             </>
