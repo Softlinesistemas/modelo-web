@@ -124,7 +124,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
                 onClick={handleSearchClick}
                 className="hover:text-green-600 transition"
                 title="Buscar"
-                variant="userSelect"
+                variant="icon"
               >
                 <MdOutlineQrCodeScanner size={40} />
               </Button>
@@ -133,7 +133,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
                 onClick={handleCalendarClick}
                 className="hover:text-green-600 transition"
                 title="Calendário"
-                variant="userSelect"
+                variant="icon"
               >
                 <FiCalendar size={40} />
               </Button>
@@ -142,7 +142,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
                 onClick={handleClockClick}
                 className="hover:text-green-600 transition"
                 title="Relógio"
-                variant="userSelect"
+                variant="icon"
               >
                 <FiClock size={40} />
               </Button>
@@ -151,7 +151,7 @@ export const UserSelect: React.FC<{ onActionSelect?: (action: string) => void }>
                 onClick={handleCloudClick}
                 className="hover:text-green-600 transition"
                 title="Nuvem"
-                variant="userSelect"
+                variant="icon"
               >
                 <FiCloud size={40} />
               </Button>
