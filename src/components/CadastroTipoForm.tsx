@@ -1,4 +1,14 @@
 'use client';
+
+/**
+ * CadastroTipoForm.tsx
+ * - Componente completo e tipado
+ * - Mantém todas as seções do seu original (modal, identificação, endereço, etc.)
+ * - Adiciona um card inicial "Campos do tipo selecionado" que renderiza dinamicamente a prop `fields`
+ * - Exporta `FieldDef` (inclui `type`) para uso no page.tsx
+ * - Evita pitfalls de tipagem (ex.: Checkbox e Select customizados)
+ */
+
 import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/utils/ui/Card';
 import { Button } from '@/utils/ui/Button';
@@ -7,24 +17,39 @@ import { MultiSelectButtonGroup } from '@/utils/ui/MultiSelectButtonGroup';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/utils/ui/Select';
 import { Textarea } from '@/utils/ui/Textarea';
 
-export interface CadastroTipoFormProps {
-  tipo: string;           // 👈 adiciona essa linha
-  fields: FieldDef[];
+/** Tipo dos campos dinâmicos que chegam do page.tsx */
+export interface FieldDef {
+  name: string;
+  label: string;
+  /** text | number | email | date | password etc.  */
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+  options?: OptionDef[];
+  prefix?: string;
+  mask? : string;
+  fields?: FieldDef[];
+  max?: number;
+}
+export interface OptionDef {
+  value: string | number;
+  label: string;
 }
 
-// Tipo para definir os campos do formulário
-export interface FieldDef {
-  name: string
-  label: string
-  type?: string     
-  required?: boolean
-  placeholder?: string
+/** Props do componente */
+export interface CadastroTipoFormProps {
+  /** Ex.: "autônomo", "empresa", etc. — só informativo/estratégico */
+  tipo: string;
+  /** Campos extras para renderização dinâmica (card inicial) */
+  fields: FieldDef[];
+  initialValues?: Record<string, any>; 
 }
 
 export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps) {
+  // Estado do modal de boas-vindas
   const [showModal, setShowModal] = useState(true);
 
-  // Estados de seleção
+  // Estados de seleção (mantidos do seu original)
   const [visibilidade, setVisibilidade] = useState<Array<string | number>>([]);
   const [delivery, setDelivery] = useState<Array<string | number>>([]);
   const [prazoChat, setPrazoChat] = useState('');
@@ -34,8 +59,36 @@ export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps
   const [condicoesEspeciais, setCondicoesEspeciais] = useState<Array<string | number>>([]);
   const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
 
+  // Estado simples para armazenar valores do card dinâmico
+  const [dynamicData, setDynamicData] = useState<Record<string, string>>({});
+
+  // Handler genérico para inputs do card dinâmico
+  const handleDynamicChange = (name: string, value: string) => {
+    setDynamicData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Submit geral (se quiser capturar tudo, conecta aqui)
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Aqui você poderia enviar tudo que precisa: dynamicData + demais estados
+    // Mantive simples para não alterar sua lógica original.
+    console.log('SUBMIT :: tipo:', tipo, {
+      dynamicData,
+      visibilidade,
+      delivery,
+      prazoChat,
+      participaEventos,
+      autorizo,
+      referenciasGeo,
+      condicoesEspeciais,
+      fotoPerfil: fotoPerfil?.name ?? null,
+    });
+    alert('Cadastro enviado! (veja o console do navegador para os dados coletados)');
+  };
+
   return (
     <div className="p-4">
+      {/* MODAL DE BOAS-VINDAS */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
           <Card className="max-w-lg w-full p-6">
@@ -46,16 +99,16 @@ export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps
               <p className="text-sm whitespace-pre-line">
                 {`Olá Usuário-GG! Parabéns pela escolha do GooAgro para participar de grupos com os mesmos propósitos que você tem!
 
-                    Para grupos:
-                    • Criar grupos;
-                    • Facilitar, organizar e controlar.
+Para grupos:
+• Criar grupos;
+• Facilitar, organizar e controlar.
 
-                    Para pessoas:
-                    • Procurar e ser procurado;
-                    • Convidar e ser convidado para grupos que têm interesse.
+Para pessoas:
+• Procurar e ser procurado;
+• Convidar e ser convidado para grupos que têm interesse.
 
-                    Quando puder, coloque mais informações e interesses para participar de eventos, feiras, aulas e muito mais.`}
-                                  </p>
+Quando puder, coloque mais informações e interesses para participar de eventos, feiras, aulas e muito mais.`}
+              </p>
               <Button variant="primary" size="md" onClick={() => setShowModal(false)}>
                 Continuar
               </Button>
@@ -64,8 +117,34 @@ export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps
         </div>
       )}
 
+      {/* FORM: mantém toda a estrutura do seu original */}
       {!showModal && (
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          {/* CAMPOS DINÂMICOS (usa os `fields` do page.tsx) */}
+          {fields?.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle>{`Campos do tipo selecionado (${tipo})`}</CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {fields.map((f) => (
+                  <div key={f.name} className="flex flex-col">
+                    <label className="text-sm font-medium mb-1">{f.label}</label>
+                    <input
+                      type={f.type || 'text'}
+                      name={f.name}
+                      placeholder={f.placeholder || f.label}
+                      required={f.required}
+                      className="input"
+                      value={dynamicData[f.name] || ''}
+                      onChange={(e) => handleDynamicChange(f.name, e.target.value)}
+                    />
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+
           {/* IDENTIFICAÇÃO */}
           <Card>
             <CardHeader><CardTitle>Identificação</CardTitle></CardHeader>
@@ -183,7 +262,8 @@ export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps
             <CardHeader><CardTitle>Autorizações</CardTitle></CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
-                <Checkbox checked={autorizo} onChange={(e) => setAutorizo(e.target.checked)} />
+                {/* Usamos um toggler simples para evitar divergência de tipos do componente Checkbox */}
+                <Checkbox checked={autorizo} onChange={() => setAutorizo((v) => !v)} />
                 <span>Autorizo receber mensagens vinculadas aos meus interesses e atividades profissionais neste perfil.</span>
               </div>
             </CardContent>
@@ -193,9 +273,17 @@ export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps
           <Card>
             <CardHeader><CardTitle>Foto de perfil (selfie)</CardTitle></CardHeader>
             <CardContent className="space-y-2">
-              <input type="file" accept="image/*" onChange={(e) => setFotoPerfil(e.target.files?.[0] || null)} />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setFotoPerfil(e.target.files?.[0] || null)}
+              />
               {fotoPerfil && (
-                <img src={URL.createObjectURL(fotoPerfil)} alt="Pré-visualização" className="w-32 h-32 object-cover rounded-full" />
+                <img
+                  src={URL.createObjectURL(fotoPerfil)}
+                  alt="Pré-visualização"
+                  className="w-32 h-32 object-cover rounded-full"
+                />
               )}
             </CardContent>
           </Card>
@@ -212,11 +300,15 @@ export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps
           <Card>
             <CardHeader><CardTitle>Prazo para manter arquivos do chat</CardTitle></CardHeader>
             <CardContent>
-              <Select value={prazoChat} onChange={setPrazoChat}>
+              {/* Mantido como no seu original. Se seu Select for baseado no shadcn, geralmente usa onValueChange.
+                 Como você já compilava com onChange, mantive para evitar quebra. */}
+              <Select value={prazoChat} onChange={setPrazoChat as unknown as (v: string) => void}>
                 <SelectTrigger><SelectValue placeholder="Selecione" /></SelectTrigger>
                 <SelectContent>
                   {['15', '30', '45', '60', '90', '120', '180', '360', 'nunca'].map((val) => (
-                    <SelectItem key={val} value={val}>{val === 'nunca' ? 'Nunca' : `${val} dias`}</SelectItem>
+                    <SelectItem key={val} value={val}>
+                      {val === 'nunca' ? 'Nunca' : `${val} dias`}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -271,6 +363,7 @@ export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps
             </CardContent>
           </Card>
 
+          {/* BOTÃO SALVAR */}
           <Button type="submit" variant="primary" size="md" className="w-full">
             Salvar Cadastro
           </Button>
