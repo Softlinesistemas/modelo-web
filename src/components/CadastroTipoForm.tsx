@@ -1,3 +1,5 @@
+
+
 'use client';
 
 /**
@@ -17,20 +19,31 @@ import { Button } from '@/utils/ui/Button';
 import { Checkbox } from '@/utils/ui/checkbox';
 import { Textarea } from '@/utils/ui/Textarea';
 
-/** Tipo de campos dinâmicos */
+/** Tipo dos campos dinâmicos que chegam do page.tsx */
 export interface FieldDef {
   name: string;
   label: string;
-  type?: string; // text, email, password, textarea
+  /** text | number | email | date | password etc.  */
+  type?: string;
   required?: boolean;
   placeholder?: string;
-  options?: { value: string | number; label: string }[];
+  options?: OptionDef[];
+  prefix?: string;
+  mask? : string;
+  fields?: FieldDef[];
+  max?: number;
 }
-
+export interface OptionDef {
+  value: string | number;
+  label: string;
+}
 /** Props do componente */
 export interface CadastroTipoFormProps {
+  /** Ex.: "autônomo", "empresa", etc. — só informativo/estratégico */
   tipo: string;
+  /** Campos extras para renderização dinâmica (card inicial) */
   fields: FieldDef[];
+  initialValues?: Record<string, any>; 
 }
 
 export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps) {
