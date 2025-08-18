@@ -1,47 +1,54 @@
-'use client'
+"use client";
 
-import { Controller } from 'react-hook-form'
-import { Input } from '@/utils/ui/Input'
-import { Label } from '@/utils/ui/Label'
+import { Controller } from "react-hook-form";
+import { Input } from "@/utils/ui/Input";
+import { Label } from "@/utils/ui/Label";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from '@/utils/ui/Select'
-import { Checkbox } from '@/utils/ui/checkbox'
-import { FormData } from '@/schemas/grupoSchema'
+} from "@/utils/ui/Select";
+
+import { FormData } from "@/schemas/grupoSchema";
+import { Checkbox } from "@/utils/ui/checkbox";
 
 type Props = {
-  control: any
-  register: any
-  errors: any
-  setValue: any
-  watch: any
-}
+  control: any;
+  register: any;
+  errors: any;
+  setValue: any;
+  watch: any;
+};
 
-export default function GrupoOrganizacaoAgenda({ control, register, errors, setValue, watch }: Props) {
+export default function GrupoOrganizacaoAgenda({
+  control,
+  register,
+  errors,
+  setValue,
+  watch,
+}: Props) {
   const diasSemana = [
-    'Segunda',
-    'Terça',
-    'Quarta',
-    'Quinta',
-    'Sexta',
-    'Sábado',
-    'Domingo'
-  ]
+    "Segunda",
+    "Terça",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Sábado",
+    "Domingo",
+  ];
 
-  const selecionados = new Set(watch('diasSemana') || [])
+  const selecionados = new Set(watch("diasSemana") || []);
 
   const alternarDia = (dia: string, marcado: boolean) => {
     if (marcado) {
-      selecionados.add(dia)
+      selecionados.add(dia);
     } else {
-      selecionados.delete(dia)
+      selecionados.delete(dia);
     }
-    setValue('diasSemana', Array.from(selecionados))
-  }
+    setValue("diasSemana", Array.from(selecionados));
+  };
 
   return (
     <div className="space-y-6">
@@ -54,7 +61,11 @@ export default function GrupoOrganizacaoAgenda({ control, register, errors, setV
           name="dataFundacao"
           control={control}
           render={({ field }) => (
-            <Input type="date" {...field} error={errors.dataFundacao?.message} />
+            <Input
+              type="date"
+              {...field}
+              error={errors.dataFundacao?.message}
+            />
           )}
         />
       </div>
@@ -71,7 +82,7 @@ export default function GrupoOrganizacaoAgenda({ control, register, errors, setV
                 <SelectValue placeholder="Selecione o turno" />
               </SelectTrigger>
               <SelectContent>
-                {['Manhã', 'Tarde', 'Noite'].map((turno) => (
+                {["Manhã", "Tarde", "Noite"].map((turno) => (
                   <SelectItem key={turno} value={turno}>
                     {turno}
                   </SelectItem>
@@ -94,7 +105,7 @@ export default function GrupoOrganizacaoAgenda({ control, register, errors, setV
                 <SelectValue placeholder="Selecione a frequência" />
               </SelectTrigger>
               <SelectContent>
-                {['Evento Único', 'Semanal', 'Mensal'].map((freq) => (
+                {["Evento Único", "Semanal", "Mensal"].map((freq) => (
                   <SelectItem key={freq} value={freq}>
                     {freq}
                   </SelectItem>
@@ -113,7 +124,11 @@ export default function GrupoOrganizacaoAgenda({ control, register, errors, setV
             name="horarioInicio"
             control={control}
             render={({ field }) => (
-              <Input type="time" {...field} error={errors.horarioInicio?.message} />
+              <Input
+                type="time"
+                {...field}
+                error={errors.horarioInicio?.message}
+              />
             )}
           />
         </div>
@@ -123,7 +138,11 @@ export default function GrupoOrganizacaoAgenda({ control, register, errors, setV
             name="horarioFim"
             control={control}
             render={({ field }) => (
-              <Input type="time" {...field} error={errors.horarioFim?.message} />
+              <Input
+                type="time"
+                {...field}
+                error={errors.horarioFim?.message}
+              />
             )}
           />
         </div>
@@ -134,19 +153,21 @@ export default function GrupoOrganizacaoAgenda({ control, register, errors, setV
         <Label>Dias da Semana</Label>
         <div className="grid grid-cols-3 gap-2">
           {diasSemana.map((dia) => {
-            const checked = selecionados.has(dia)
+            const checked = selecionados.has(dia);
             return (
               <label key={dia} className="flex items-center gap-2">
                 <Checkbox
                   checked={checked}
-                  onChange={(e) => alternarDia(dia, e.target.checked)}
+                  onCheckedChange={(marcado: boolean) =>
+                    alternarDia(dia, marcado)
+                  }
                 />
                 <span>{dia}</span>
               </label>
-            )
+            );
           })}
         </div>
       </div>
     </div>
-  )
+  );
 }
