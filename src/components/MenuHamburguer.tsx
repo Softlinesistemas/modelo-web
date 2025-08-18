@@ -102,6 +102,9 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onClose, isLoggedI
                   <button className="flex items-center gap-2" onClick={() => handleNavigate('/cadastro/corporativo')}>
                     <MdOutlineCorporateFare /> CNPJ Corporativo
                   </button>
+                  <button className="flex items-center gap-2" onClick={() => handleNavigate('/cadastro/cnpj-corporativo')}>
+                    <MdOutlineCorporateFare /> CAF
+                  </button>
                 </div>
               )}
             </div>
