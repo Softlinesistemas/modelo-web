@@ -16,7 +16,9 @@ export interface CadastroTipoFormProps {
 export interface FieldDef {
   name: string
   label: string
+  type?: string     
   required?: boolean
+  placeholder?: string
 }
 
 export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps) {
