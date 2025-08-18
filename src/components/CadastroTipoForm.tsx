@@ -12,6 +12,13 @@ export interface CadastroTipoFormProps {
   fields: FieldDef[];
 }
 
+// Tipo para definir os campos do formulário
+export interface FieldDef {
+  name: string
+  label: string
+  required?: boolean
+}
+
 export default function CadastroTipoForm({ tipo, fields }: CadastroTipoFormProps) {
   const [showModal, setShowModal] = useState(true);
 
