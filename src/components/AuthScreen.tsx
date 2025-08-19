@@ -23,8 +23,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { userBasicSchema, UserBasicSchema } from "@/schemas/userSchema";
 import { toast } from "react-hot-toast";
 import { MapPinPlus } from "lucide-react";
-import { InfoModal } from "@/components/cadastro/InfoModal"
-import { SuggestionModal } from "@/components/SuggestionModal"
+import { InfoModal } from "@/components/cadastro/InfoModal";
+import { SuggestionModal } from "@/components/SuggestionModal";
 import { cadastroInfo } from "./cadastro/cadastroInfo";
 
 interface Estado {
@@ -57,9 +57,9 @@ export const AuthScreen = () => {
   });
 
   const [usarGps, setUsarGps] = useState(false);
-  const [showInfoModal, setShowInfoModal] = useState(false)
-  const [showSuggestionModal, setShowSuggestionModal] = useState(false)
-  const info = cadastroInfo.cadastroPrincipal
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [showSuggestionModal, setShowSuggestionModal] = useState(false);
+  const info = cadastroInfo.cadastroPrincipal;
 
   const [activeTab, setActiveTab] = useState<"login" | "cadastro">("login");
   const [showPassword, setShowPassword] = useState(false);
@@ -82,7 +82,7 @@ export const AuthScreen = () => {
   const [showWelcomeToast, setShowWelcomeToast] = useState(false);
   const onSubmit = (data: UserBasicSchema) => {
     console.log("Dados válidos:", data);
-    setShowInfoModal(true)
+    setShowInfoModal(true);
     // setShowWelcomeToast(true);
     setTimeout(() => setShowWelcomeToast(false), 7000);
   };
@@ -137,66 +137,78 @@ export const AuthScreen = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-[#B6D2B7]">
-      <div
-        className="h-48 w-full bg-cover bg-center rounded-b-[50px] opacity-30"
-        style={{ backgroundImage: `url('/images/bg-auth.jpg')` }}
-      />
-      <div className="flex-1 bg-[#B6D2B7] w-full flex items-start justify-center px-1 sm:px-1 md:px-1 shadow-md relative shadow-black">
-        <div className="relative z-10 w-full max-w-3xl bg-[#B6D2B7] rounded-3xl shadow-2xl shadow-green-300 p-1 sm:p-1 -mt-16">
-          {/* Tabs */}
-          <div className="flex bg-gray-100 rounded-full p-1 mb-6">
-            <button
-              onClick={() => setActiveTab("login")}
-              className={`flex-1 text-sm uppercase font-semibold py-2 rounded-full ${
-                activeTab === "login" ? "bg-green-700 text-white" : "text-black"
-              }`}
-            >
+    <div className="relative min-h-screen w-full bg-[#B6D2B7] overflow-hidden">
+    {/* Vídeo de fundo só na aba “Acessar” */}
+    {activeTab === "login" && (
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
+        autoPlay
+        loop
+        muted
+      >
+        <source src="/images/video/teste.mp4" type="video/mp4" />
+        Seu navegador não suporta vídeos.
+      </video>
+    )}
+  
+    {/* Conteúdo sobreposto */}
+    <div className="relative z-10 flex flex-col items-center justify-start min-h-screen p-8 text-white">
+      <h1 className="text-4xl text-green-700 font-bold mb-4 text-center bg-[#B6D2B7] p-4 rounded-b-md">
+        Bem-vindo ao <span className="!text-green-800 font-extrabold">GooAgro</span>
+      </h1>
+  
+      {/* Container do formulário */}
+      <div className="relative z-10 w-full max-w-3xl rounded-3xl shadow-2xl shadow-green-300 p-4 mt-8 bg-[#B6D2B7] ">
+        
+        {/* Tabs com fundo verde sólido */}
+        <div className="flex bg-green-600 rounded-full p-1 mb-6">
+          <button
+            onClick={() => setActiveTab("login")}
+            className={`flex-1 text-sm uppercase font-semibold py-2 rounded-full ${
+              activeTab === "login" ? "bg-green-900 text-white" : "text-white/80"
+            }`}
+          >
+            Acessar
+          </button>
+          <button
+            onClick={() => setActiveTab("cadastro")}
+            className={`flex-1 text-sm font-semibold py-2 uppercase rounded-full ${
+              activeTab === "cadastro" ? "bg-green-900 text-white" : "text-white/80"
+            }`}
+          >
+            Criar conta
+          </button>
+        </div>
+  
+        {/* Login */}
+        {activeTab === "login" && (
+          <div className="space-y-3 gap-2 relative z-10">
+            <Label>Usuário</Label>
+            <Input type="text" />
+  
+            <Label>Senha</Label>
+            <div className="relative">
+              <Input type={showPassword ? "text" : "password"} />
+              <div
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black cursor-pointer"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+              </div>
+            </div>
+  
+            <button className="w-full bg-green-800 text-white py-2 rounded-full font-semibold hover:bg-green-900 transition">
               Acessar
             </button>
-            <button
-              onClick={() => setActiveTab("cadastro")}
-              className={`flex-1 text-sm font-semibold py-2 uppercase rounded-full ${
-                activeTab === "cadastro"
-                  ? "bg-green-700 text-white"
-                  : "text-black"
-              }`}
-            >
-              Criar conta
-            </button>
           </div>
-
-          {/* Login */}
-          {activeTab === "login" && (
-            <div className="space-y-3 gap-2">
-              <Label>Usuário</Label>
-              <div className="relative -top-1">
-                <Input type="text" />
-              </div>
-
-              <Label>Senha</Label>
-              <div className="relative -top-1">
-                <Input type={showPassword ? "text" : "password"} />
-                <div
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black cursor-pointer"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                >
-                  {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-                </div>
-              </div>
-
-              <button className="w-full bg-green-700 text-white py-2 rounded-full font-semibold hover:bg-green-800 transition">
-                Acessar
-              </button>
-            </div>
-          )}
-
-          {/* Cadastro */}
-          {activeTab === "cadastro" && (
-            <form
-              className="space-y-2 w-full px-8 mx-auto"
-              onSubmit={handleSubmit(onSubmit)}
-            >
+        )}
+  
+        {/* Cadastro */}
+        {activeTab === "cadastro" && (
+          <form
+            className="space-y-2 w-full px-4 mx-auto relative z-10"
+            onSubmit={handleSubmit(onSubmit)}
+          >
               {/* Descrição PESSOA-FÍSICA */}
               <div className="text-sm text-black bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-md">
                 <strong>1- PESSOA-FÍSICA:</strong> Participante de Grupos
@@ -403,13 +415,11 @@ export const AuthScreen = () => {
                 </div>
                 {/* GPS */}
                 <div className="mt-2 flex flex-col w-full gap-2 mb-2">
-                   
-                 <Label className="flex items-center gap-2 bg-green-300 rounded-md shadow-md">
-                 <MapPinPlus size={20} /> <span>Localização GPS</span>
+                  <Label className="flex items-center gap-2 bg-green-300 rounded-md shadow-md">
+                    <MapPinPlus size={20} /> <span>Localização GPS</span>
                   </Label>
 
                   <label className="flex items-center gap-2 text-sm">
-                  
                     <input
                       type="checkbox"
                       checked={usarGps}
@@ -441,7 +451,7 @@ export const AuthScreen = () => {
                         }
                       }}
                     />
-                   <span> Quer marcar a sua localização com GPS? </span>
+                    <span> Quer marcar a sua localização com GPS? </span>
                   </label>
 
                   {/* Campos ocultos de latitude e longitude */}
@@ -453,7 +463,7 @@ export const AuthScreen = () => {
               {/* Contatos Apoio */}
               <div className="w-full mt-4">
                 <Label className="border p-1 mb-1 text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
-                Quer adicionar Apoio de Comunicação? (Até 3)
+                  Quer adicionar Apoio de Comunicação? (Até 3)
                   <br />
                   (Pais/Responsáveis, Cônjuge, Familiar, Parceria, etc.)
                 </Label>
@@ -624,7 +634,7 @@ export const AuthScreen = () => {
 
               <div className="space-y-2 pt-2">
                 <Label className="border p-2 mb-1  text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
-                A MINHA TELA-PÚBLICA PODERÁ SER VISTA POR:
+                  A MINHA TELA-PÚBLICA PODERÁ SER VISTA POR:
                 </Label>
                 <label className="flex items-center gap-2 text-sm">
                   <input
@@ -661,8 +671,8 @@ export const AuthScreen = () => {
                       value="true"
                     />
                     <a>
-                    Autorizo receber mensagens vinculadas aos Meus
-                    Interesses e às minhas Atividades Profissionais.
+                      Autorizo receber mensagens vinculadas aos Meus Interesses
+                      e às minhas Atividades Profissionais.
                     </a>
                   </Label>
                 </div>
@@ -670,7 +680,12 @@ export const AuthScreen = () => {
               {/* Senha e repetr senha */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <Label>Senha * <span className="text-xs !text-red-600">(6 - 8 Carac./ 1 Letra)</span></Label>
+                  <Label>
+                    Senha *{" "}
+                    <span className="text-xs !text-red-600">
+                      (6 - 8 Carac./ 1 Letra)
+                    </span>
+                  </Label>
                   <Input
                     type="senha"
                     {...register("Senha")}
@@ -705,21 +720,18 @@ export const AuthScreen = () => {
                 </button>
               </div>
             </form>
-            )}
-            
-            {showInfoModal && (
-              <InfoModal
-              title={info.title} content={info.content}
-              />
-            )}
-            
-            {showSuggestionModal && (
-              <SuggestionModal onClose={() => setShowSuggestionModal(false)} />
-            )}
+          )}
+
+          {showInfoModal && (
+            <InfoModal title={info.title} content={info.content} />
+          )}
+
+          {showSuggestionModal && (
+            <SuggestionModal onClose={() => setShowSuggestionModal(false)} />
+          )}
         </div>
       </div>
     </div>
-    
   );
 };
 
