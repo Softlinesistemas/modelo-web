@@ -22,6 +22,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userBasicSchema, UserBasicSchema } from "@/schemas/userSchema";
 import { toast } from "react-hot-toast";
+import { MapPinPlus } from "lucide-react";
+import { InfoModal } from "@/components/cadastro/InfoModal"
+import { SuggestionModal } from "@/components/SuggestionModal"
+import { cadastroInfo } from "./cadastro/cadastroInfo";
 
 interface Estado {
   id: number;
@@ -52,6 +56,11 @@ export const AuthScreen = () => {
     },
   });
 
+  const [usarGps, setUsarGps] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false)
+  const [showSuggestionModal, setShowSuggestionModal] = useState(false)
+  const info = cadastroInfo.cadastroPrincipal
+
   const [activeTab, setActiveTab] = useState<"login" | "cadastro">("login");
   const [showPassword, setShowPassword] = useState(false);
   const [listaEstados, setListaEstados] = useState<Estado[]>([]);
@@ -73,7 +82,8 @@ export const AuthScreen = () => {
   const [showWelcomeToast, setShowWelcomeToast] = useState(false);
   const onSubmit = (data: UserBasicSchema) => {
     console.log("Dados válidos:", data);
-    setShowWelcomeToast(true);
+    setShowInfoModal(true)
+    // setShowWelcomeToast(true);
     setTimeout(() => setShowWelcomeToast(false), 7000);
   };
 
@@ -132,13 +142,13 @@ export const AuthScreen = () => {
         className="h-48 w-full bg-cover bg-center rounded-b-[50px] opacity-30"
         style={{ backgroundImage: `url('/images/bg-auth.jpg')` }}
       />
-      <div className="flex-1 bg-[#B6D2B7] w-full flex items-start justify-center px-4 sm:px-6 md:px-10 shadow-md relative shadow-black">
-        <div className="relative z-10 w-full max-w-3xl bg-[#B6D2B7] rounded-3xl shadow-2xl shadow-green-300 p-6 sm:p-8 -mt-16">
+      <div className="flex-1 bg-[#B6D2B7] w-full flex items-start justify-center px-1 sm:px-1 md:px-1 shadow-md relative shadow-black">
+        <div className="relative z-10 w-full max-w-3xl bg-[#B6D2B7] rounded-3xl shadow-2xl shadow-green-300 p-1 sm:p-1 -mt-16">
           {/* Tabs */}
           <div className="flex bg-gray-100 rounded-full p-1 mb-6">
             <button
               onClick={() => setActiveTab("login")}
-              className={`flex-1 text-sm font-semibold py-2 rounded-full ${
+              className={`flex-1 text-sm uppercase font-semibold py-2 rounded-full ${
                 activeTab === "login" ? "bg-green-700 text-white" : "text-black"
               }`}
             >
@@ -146,7 +156,7 @@ export const AuthScreen = () => {
             </button>
             <button
               onClick={() => setActiveTab("cadastro")}
-              className={`flex-1 text-sm font-semibold py-2 rounded-full ${
+              className={`flex-1 text-sm font-semibold py-2 uppercase rounded-full ${
                 activeTab === "cadastro"
                   ? "bg-green-700 text-white"
                   : "text-black"
@@ -184,7 +194,7 @@ export const AuthScreen = () => {
           {/* Cadastro */}
           {activeTab === "cadastro" && (
             <form
-              className="space-y-3 w-full px-8 mx-auto"
+              className="space-y-2 w-full px-8 mx-auto"
               onSubmit={handleSubmit(onSubmit)}
             >
               {/* Descrição PESSOA-FÍSICA */}
@@ -212,12 +222,14 @@ export const AuthScreen = () => {
               <div className="flex flex-col gap-2">
                 <Label className="flex items-center gap-2">
                   <span className="whitespace-nowrap text-black">E-MAIL *</span>
-                  <span className="text-[8px] !text-gray-700  bg-yellow-50 border-l-4 border-red-700 mb-1 p-3 rounded-md px-2 py-0.5 leading-tight text-justify">
+                  <span className="text-[9px] !text-gray-700  bg-yellow-50 border-l-4 border-red-700 mb-1 p-3 rounded-md px-2 py-0.5 leading-tight text-justify">
                     I - Para Confirmações e Recuperação de Senha – caso você
                     perca o número do telefone cadastrado – temos versão WEB
-                    para Desktop / CPU. II - Para Usuários que queiram – além do
-                    seu perfil pessoal – criar mais perfis: de Fornecedor; de
-                    Empresa; Instituição Pública ou Organização Social.
+                    para Desktop / CPU.
+                    <br />
+                    II - Para Usuários que queiram – além do seu perfil pessoal
+                    – criar mais perfis: de Fornecedor; de Empresa; Instituição
+                    Pública ou Organização Social.
                   </span>
                 </Label>
 
@@ -389,15 +401,62 @@ export const AuthScreen = () => {
                     <Input type="text" {...register("Endereco")} />
                   </div>
                 </div>
+                {/* GPS */}
+                <div className="mt-2 flex flex-col w-full gap-2 mb-2">
+                   
+                 <Label className="flex items-center gap-2 bg-green-300 rounded-md shadow-md">
+                 <MapPinPlus size={20} /> <span>Localização GPS</span>
+                  </Label>
+
+                  <label className="flex items-center gap-2 text-sm">
+                  
+                    <input
+                      type="checkbox"
+                      checked={usarGps}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        setUsarGps(checked);
+
+                        if (checked) {
+                          const cepValue = watch("Cep");
+                          if (!cepValue || cepValue.trim() === "") {
+                            alert("Preencha o CEP antes de ativar o GPS.");
+                            setUsarGps(false);
+                            return;
+                          }
+
+                          navigator.geolocation.getCurrentPosition(
+                            (pos) => {
+                              setValue("Latitude", pos.coords.latitude);
+                              setValue("Longitude", pos.coords.longitude);
+                            },
+                            () => {
+                              alert("Não foi possível obter a localização.");
+                              setUsarGps(false);
+                            }
+                          );
+                        } else {
+                          setValue("Latitude", undefined);
+                          setValue("Longitude", undefined);
+                        }
+                      }}
+                    />
+                   <span> Quer marcar a sua localização com GPS? </span>
+                  </label>
+
+                  {/* Campos ocultos de latitude e longitude */}
+                  <input type="hidden" {...register("Latitude")} />
+                  <input type="hidden" {...register("Longitude")} />
+                </div>
               </div>
+
               {/* Contatos Apoio */}
               <div className="w-full mt-4">
-                <Label>
-                  Adicione mais contatos de comunicação (Até 3 - OPCIONAL)
-                </Label>
-                <div className="border rounded-lg p-3 mb-1 text-sm text-black">
+                <Label className="border p-1 mb-1 text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
+                Quer adicionar Apoio de Comunicação? (Até 3)
+                  <br />
                   (Pais/Responsáveis, Cônjuge, Familiar, Parceria, etc.)
-                </div>
+                </Label>
 
                 {contatosApoio.map((contato, index) => {
                   const usuarioField =
@@ -550,23 +609,23 @@ export const AuthScreen = () => {
                 })}
 
                 {contatosApoio.length < 3 && (
-                  
                   <div className="flex justify-center gap-3 pt-2">
                     <button
-                    type="button"
-                    onClick={adicionarContato}
-                    className="flex items-center gap-2 text-white mt-2 text-sm p-2 rounded-md justify-center bg-green-700"
-                  >
-                    <FiPlus /> Adicionar outro contato
-                  </button>
-                </div>
+                      type="button"
+                      onClick={adicionarContato}
+                      className="flex items-center gap-2 text-white mt-2 text-sm p-2 rounded-md justify-center bg-green-700"
+                    >
+                      <FiPlus /> Adicionar outro contato
+                    </button>
+                  </div>
                 )}
               </div>
               {/* Visibilidade */}
-              <Label className="mt-4">
-                A minha tela pública poderá ser vista por:
-              </Label>
-              <div className="space-y-1">
+
+              <div className="space-y-2 pt-2">
+                <Label className="border p-2 mb-1  text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
+                A MINHA TELA-PÚBLICA PODERÁ SER VISTA POR:
+                </Label>
                 <label className="flex items-center gap-2 text-sm">
                   <input
                     type="checkbox"
@@ -585,33 +644,33 @@ export const AuthScreen = () => {
                   Somente meus AMIGOS do{" "}
                   <span className="text-green-500 font-semibold">GooAgro</span>
                 </label>
-                <label className="flex items-center gap-2 text-sm">
+                <Label className="flex items-center gap-2 text-sm">
                   <input
                     type="checkbox"
                     {...register("Privacidade")}
                     value="PRIVADO"
                   />
                   Oculto - Ninguém poderá ver.
-                </label>
+                </Label>
 
-                <div className="space-y-2 px-5 py-2">
-                  <label className="flex items-center gap-2 text-sm">
+                <div className="space-y-2 px-5 p-4">
+                  <Label className="border p-2 mb-1 text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
                     <input
                       type="checkbox"
                       {...register("Privacidade")}
                       value="true"
                     />
                     <a>
-                      Autorizo receber mensagens vinculadas aos Meus Interesses
-                      e à minhas Atividades Profissionais.
+                    Autorizo receber mensagens vinculadas aos Meus
+                    Interesses e às minhas Atividades Profissionais.
                     </a>
-                  </label>
+                  </Label>
                 </div>
               </div>
               {/* Senha e repetr senha */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <Label>Senha *</Label>
+                  <Label>Senha * <span className="text-xs !text-red-600">(6 - 8 Carac./ 1 Letra)</span></Label>
                   <Input
                     type="senha"
                     {...register("Senha")}
@@ -625,7 +684,7 @@ export const AuthScreen = () => {
               </div>
               <div className="space-y-2 px-5">
                 {/* check box senha */}
-                <label className="flex items-center gap-2 text-sm">
+                <Label className="border p-3 mb-1 text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
                   <input
                     type="checkbox"
                     {...register("Privacidade")}
@@ -635,7 +694,7 @@ export const AuthScreen = () => {
                     Eu li e concordo com a Política de Privacidade do aplicativo
                     GooAgro e desejo me cadastrar gratuitamente.
                   </a>
-                </label>
+                </Label>
               </div>
               <div className="pt-4 pb-24">
                 <button
@@ -646,55 +705,66 @@ export const AuthScreen = () => {
                 </button>
               </div>
             </form>
-          )}
+            )}
+            
+            {showInfoModal && (
+              <InfoModal
+              title={info.title} content={info.content}
+              />
+            )}
+            
+            {showSuggestionModal && (
+              <SuggestionModal onClose={() => setShowSuggestionModal(false)} />
+            )}
         </div>
       </div>
     </div>
+    
   );
 };
 
-// const onSubmitRegister = async (data: RegisterData) => {
+// // // dentro do AuthScreen
+// const onSubmit = async (data: UserBasicSchema) => {
 //   try {
-//     const response = await fetch('/api/register', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(data) // nome, email, senha, etc.
-//     });
+//     // ================================
+//     // 1) Envio dos dados para o backend
+//     // ================================
+//     const response = await fetch("/api/register", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       // Envia os dados validados pelo Zod (nome, email, senha, etc.)
+//       body: JSON.stringify(data),
+//     })
 
+//     // Caso o backend retorne erro (ex: 400, 500), capturamos aqui
 //     if (!response.ok) {
-//       const errorData = await response.json();
-//       toast.error('Erro ao registrar: ' + errorData.message);
-//       return;
+//       const errorData = await response.json()
+//       console.error("Erro no registro:", errorData.message)
+//       // Aqui você pode exibir um toast ou modal de erro
+//       return
 //     }
 
-//     toast.success('Registro realizado com sucesso!');
-//     // Aqui você pode redirecionar o usuário ou limpar o formulário
-//   } catch (error) {
-//     toast.error('Erro de comunicação com o servidor.');
+//     // ================================
+//     // 2) Sucesso no cadastro
+//     // ================================
+//     const result = await response.json()
+//     console.log("Usuário cadastrado com sucesso:", result)
+
+//     // Aqui você pode salvar token de autenticação, caso o backend retorne
+//     // localStorage.setItem("token", result.token)
+
+//     // ================================
+//     // 3) Abrir modal de boas-vindas
+//     // ================================
+//     setShowInfoModal(true)
+
+//   } catch (err) {
+//     // ================================
+//     // 4) Falha na comunicação com o servidor
+//     // ================================
+//     console.error("Erro ao comunicar com backend:", err)
+//     // Exibir toast/modal genérico de erro de conexão
 //   }
-// };
-
-// const onSubmitLogin = async (data: LoginData) => {
-//   try {
-//     const response = await fetch('/api/login', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(data) // email e senha
-//     });
-
-//     if (!response.ok) {
-//       const errorData = await response.json();
-//       toast.error('Login falhou: ' + errorData.message);
-//       return;
-//     }
-
-//     const result = await response.json();
-//     // Exemplo: salvar token no localStorage para manter sessão
-//     localStorage.setItem('token', result.token);
-
-//     toast.success('Login realizado com sucesso!');
-//     // Redirecionar para dashboard, página protegida, etc.
-//   } catch (error) {
-//     toast.error('Erro de comunicação com o servidor.');
-//   }
-// };
+// }

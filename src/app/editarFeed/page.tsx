@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Calendar, Camera, Image, X, Grid, Check } from "react-feather";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { MainBanner } from "@/components/MainBanner";
 
 interface Photo {
   id: string;
@@ -101,7 +102,8 @@ export default function EditarFeedPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 mt-8">
+      <MainBanner />
       {/* Cabeçalho */}
       <header className="sticky top-0 bg-white shadow-sm z-10">
         <div className="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">

@@ -46,6 +46,10 @@ export const userBasicSchema = z.object({
   Senha: z.string().min(6, 'Senha deve ter no mínimo 6 caracteres').max(8, 'Senha deve ter no máximo 100 caracteres'),
 
   ContatosApoio: z.array(createContactsSupportSchema.or(connectsSupportSchema)).max(3, 'Você pode adicionar no máximo 3 contatos de apoio').optional(),
+
+  Latitude: z.number().optional(),
+  Longitude: z.number().optional(),
+  usarGps: z.boolean().optional(),
 });
 
 export const userExtraSchema = z.object({
@@ -68,6 +72,7 @@ export const userExtraSchema = z.object({
   Site: z.string().max(100, 'Site deve ter no máximo 100 caracteres').optional(),
   Latitude: z.number().optional(),
   Longitude: z.number().optional(),
+  usarGps: z.boolean().optional(),
 });
 
 export const userFullSchema = userBasicSchema.merge(userExtraSchema);

@@ -1,5 +1,30 @@
 export const cadastroInfo = {
-    pessoaFisica: {
+  cadastroPrincipal:{
+    title: "Cadastro Realizado",
+    content:`Olá Usuário-GG! 
+    Parabéns pela escolha do GooAgro, para
+    participar de grupos com os mesmos propósitos que você tem!
+    Agradecemos sua a confiança:
+    Para GRUPOS:
+    • Criar Grupos;
+    • Facilitar, Organizar e Controlar.
+    Para PESSOAS:
+    • Procurar e ser procurado;
+    • Convidar e ser convidado...
+    para grupos que tem interesse
+    INFORMAÇÕES ADICIONAIS
+    Quando puder coloque mais
+    informações, os grupos que você tem
+    interesse de participar.
+    Estamos à disposição para apoios.
+    
+    Da equipe GooAgro.
+* Se você ainda não tem 14 anos, apresente
+o GooAgro para seus pais (para eles também
+criarem os Grupos-GG. ;)`
+  },  
+ 
+  pessoaFisica: {
       title: 'Bem-vindo ao Cadastro de Pessoa Física',
       content: `Aqui você pode cadastrar seu perfil individual como pessoa física.
   
