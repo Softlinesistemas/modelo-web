@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+  span, label {
+    @apply !text-black uppercase;
+  }
+}
+
 @keyframes slide {
   0% {
     transform: translateX(0%);
@@ -44,6 +51,8 @@ html {
 input, textarea, select {
   font-size: 1rem;
 }
+
+
 
 :root{
   --bgTotal:'bg-[#B6D2B7]'
