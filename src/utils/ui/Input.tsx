@@ -32,7 +32,7 @@ export const Input: React.FC<InputProps> = ({
         <input
           {...props}
           className={cn(
-            'w-full px-4 py-3 pr-10 rounded-md text-md transition border duration-200 ease-in-out',
+            'w-full px-4 py-3 pr-10 rounded-xs text-md transition border duration-200 ease-in-out shadow-md',
             leftIcon ? 'pl-9' : undefined, 
             error
               ? 'border-red-500 focus:ring-red-500 animate-shake'

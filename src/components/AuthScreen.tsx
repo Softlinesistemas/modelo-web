@@ -57,7 +57,7 @@ export const AuthScreen = () => {
   const [listaEstados, setListaEstados] = useState<Estado[]>([]);
   const [listaPaises, setListaPaises] = useState<Pais[]>([]);
 
-  const [contatosApoio, setContatosApoio] = useState([{ open: true }]);
+  const [contatosApoio, setContatosApoio] = useState([{ open: false }]);
 
   const adicionarContato = () => {
     if (contatosApoio.length >= 3) return;
@@ -208,42 +208,48 @@ export const AuthScreen = () => {
                 error={errors.Usuario?.message}
               />
 
-{/* E-mail e repetir e-mail */}
-<div className="flex flex-col gap-2">
-  <Label className="flex items-center gap-2">
-    <span className="whitespace-nowrap text-black">E-MAIL *</span>
-    <span className="text-[8px] text-black bg-yellow-50 border-l-4 border-red-700 mb-1 p-3 rounded-md px-2 py-0.5 leading-tight">
-      I - Para Confirmações e Recuperação de Senha – caso você perca o número do
-      telefone cadastrado – temos versão WEB para Desktop / CPU.  
-      II - Para Usuários que queiram – além do seu perfil pessoal – criar mais
-      perfis: de Fornecedor; de Empresa; Instituição Pública ou Organização Social.
-    </span>
-  </Label>
+              {/* E-mail e repetir e-mail */}
+              <div className="flex flex-col gap-2">
+                <Label className="flex items-center gap-2">
+                  <span className="whitespace-nowrap text-black">E-MAIL *</span>
+                  <span className="text-[8px] !text-gray-700  bg-yellow-50 border-l-4 border-red-700 mb-1 p-3 rounded-md px-2 py-0.5 leading-tight text-justify">
+                    I - Para Confirmações e Recuperação de Senha – caso você
+                    perca o número do telefone cadastrado – temos versão WEB
+                    para Desktop / CPU. II - Para Usuários que queiram – além do
+                    seu perfil pessoal – criar mais perfis: de Fornecedor; de
+                    Empresa; Instituição Pública ou Organização Social.
+                  </span>
+                </Label>
 
-  <Input
-    type="email"
-    {...register("Email")}
-    error={errors.Email?.message}
-  />
+                <Input
+                  type="email"
+                  {...register("Email")}
+                  error={errors.Email?.message}
+                />
 
-  <Label>Repetir e-mail</Label>
-  <Input type="email" {...register("Email")} />
-</div>
+                <Label>Repetir e-mail</Label>
+                <Input type="email" {...register("Email")} />
+              </div>
 
-              <p className="text-[10px] text-black mt-1">
-                * Atendendo à Lei Geral de Proteção de Dados Pessoais Nº
-                13.709/18
-              </p>
               {/* Telefone e repetir telefone */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
                 {/* Campo: Telefone */}
                 <div className="flex flex-col space-y-1">
                   <Label className="flex items-center gap-2">
                     <FaWhatsapp className="text-green-500" />
                     <FaTelegramPlane className="text-blue-700" />
                     <FaHome className="text-black" />
-                    Telefone *
+
+                    {/* Mantém Telefone + * juntos */}
+                    <span className="whitespace-nowrap">Telefone *</span>
+
+                    {/* Texto explicativo */}
+                    <span className="text-[8px] !text-gray-700 bg-yellow-50 border-l-4 border-red-700 rounded-md mb-1 px-1 py-1 leading-tight text-justify">
+                      I - Para os Usuários que queiram telefonar de forma
+                      digital dentro do GooAgro.
+                    </span>
                   </Label>
+
                   <Input
                     type="tel"
                     {...register("Telefone")}
@@ -265,13 +271,54 @@ export const AuthScreen = () => {
                   />
                 </div>
               </div>
-              {/* Usuário */}
-              <Label>CPF</Label>
+              {/* CPF */}
+              <Label className="flex items-center gap-2">
+                <span className="whitespace-nowrap">CPF</span>
+                {/* Texto explicativo */}
+                <span className="text-[8px] !text-gray-700 bg-yellow-50 border-l-4 border-red-700 rounded-md mb-1 px-1 py-1 leading-tight text-justify">
+                  Para Usuários que queiram – além do seu perfil pessoal – criar
+                  mais perfis de: Grupos; Fornecedor; Empresa; Instituição
+                  Pública ou Organização Social.
+                </span>
+              </Label>
               <Input
                 type="text"
                 {...register("CPF")}
                 error={errors.CPF?.message}
               />
+              {/* Data de nascimento */}
+              <div className="flex items-center justify-between">
+                <Label className="flex items-center gap-2">
+                  <span>Data de nascimento * </span>
+                  <span className="text-[10px] !text-green-900 bg-yellow-50 border-l-4 border-green-700 rounded-md mb-1 px-1 py-1 leading-tight text-justify">
+                    Sua idade ficará sempre oculta.
+                  </span>
+                </Label>
+              </div>
+              <div className="flex gap-2 mb-2">
+                <Input
+                  placeholder="Dia"
+                  type="number"
+                  {...register("DiaNascimento")}
+                />
+                <Input
+                  placeholder="Mês"
+                  type="number"
+                  {...register("MesNascimento")}
+                />
+                <Input
+                  placeholder="Ano"
+                  type="number"
+                  {...register("AnoNascimento")}
+                />
+              </div>
+              <div className="flex justify-center items-center mb-1">
+                <span className="text-xs !text-green-900 bg-yellow-50 border-l-4 border-r-4 border-orange-700 rounded-md mb-1 px-1 py-1 leading-tight justify-center">
+                  * Atendendo à Lei Geral de Proteção de Dados Pessoais Nº
+                  13.709/18
+                </span>
+              </div>
+
               {/* País, Estado, Cidade e Bairro */}
               <div className="flex flex-wrap gap-4">
                 {/* País */}
@@ -311,36 +358,37 @@ export const AuthScreen = () => {
                   <Label>Cidade</Label>
                   <Input type="text" {...register("Cidade")} />
                 </div>
+              </div>
+              {/* Bairro */}
+              <div className="flex flex-wrap gap-2">
+                <Label className="flex items-center gap-2 bg-green-300 rounded-md shadow-md">
+                  <span className="ml-2">ENDEREÇO (OPCIONAL)</span>
+                </Label>
+                <span className="text-[8px] !text-red-900 bg-yellow-50 border-l-4 font-semibold border-red-700 rounded-md mb-1 px-2 py-1 leading-tight text-justify">
+                  Para Usuários que queiram – além do seu perfil pessoal – criar
+                  perfil de: Grupos / Fornecedor Pessoa Física / Profissional
+                  Autônomo / Diarista.
+                </span>
+                {/* Campos do endereço */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-1 w-full">
+                  {/* CEP */}
+                  <div className="flex flex-col">
+                    <Label className="mb-1">CEP</Label>
+                    <Input type="text" {...register("Cep")} />
+                  </div>
 
-                {/* Bairro */}
-                <div className="flex-1 min-w-[200px] space-y-2">
-                  <Label>Bairro / Local / Região</Label>
-                  <Input type="text" {...register("Bairro")} />
+                  {/* Bairro */}
+                  <div className="flex flex-col">
+                    <Label className="mb-1">Bairro</Label>
+                    <Input type="text" {...register("Bairro")} />
+                  </div>
+
+                  {/* Endereço */}
+                  <div className="flex flex-col">
+                    <Label className="mb-1">Endereço</Label>
+                    <Input type="text" {...register("Endereco")} />
+                  </div>
                 </div>
-              </div>
-              {/* Data de nascimento */}
-              <div className="flex items-center justify-between">
-                <Label>Data de nascimento *</Label>
-                <p className="text-xs text-green-700">
-                  Sua idade ficará sempre oculta.
-                </p>
-              </div>
-              <div className="flex gap-2 mb-2">
-                <Input
-                  placeholder="Dia"
-                  type="number"
-                  {...register("DiaNascimento")}
-                />
-                <Input
-                  placeholder="Mês"
-                  type="number"
-                  {...register("MesNascimento")}
-                />
-                <Input
-                  placeholder="Ano"
-                  type="number"
-                  {...register("AnoNascimento")}
-                />
               </div>
               {/* Contatos Apoio */}
               <div className="w-full mt-4">
@@ -502,13 +550,16 @@ export const AuthScreen = () => {
                 })}
 
                 {contatosApoio.length < 3 && (
-                  <button
+                  
+                  <div className="flex justify-center gap-3 pt-2">
+                    <button
                     type="button"
                     onClick={adicionarContato}
-                    className="flex items-center gap-2 text-green-700 mt-2 text-sm"
+                    className="flex items-center gap-2 text-white mt-2 text-sm p-2 rounded-md justify-center bg-green-700"
                   >
                     <FiPlus /> Adicionar outro contato
                   </button>
+                </div>
                 )}
               </div>
               {/* Visibilidade */}
