@@ -167,7 +167,7 @@ export default function EditarPerfilPage() {
       {/* Cabeçalho */}
       <header className="sticky top-0 bg-white shadow-sm z-10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-green-700">Editar Perfil</h1>
+          <h1 className="text-xl font-bold text-green-700">INFORMAÇÕES ADCIONAIS / EDITAR PERFIL</h1>
           <button
             onClick={salvarPerfil}
             className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg"
@@ -179,7 +179,7 @@ export default function EditarPerfilPage() {
 
       <main className="max-w-4xl mx-auto px-1 py-2 space-y-1">
         {/* Seção Foto de Perfil */}
-        <section className="bg-white p-4 rounded-xl shadow-md">
+        <div className="p-4">
           <Label variant="perfil">FOTO PERFIL</Label>
 
           {/* Foto à esquerda e botões à direita */}
@@ -215,10 +215,10 @@ export default function EditarPerfilPage() {
             className="hidden"
             onChange={handleImageSelect}
           />
-        </section>
+        </div>
 
         {/* Seção Informações Básicas
-        <section className="bg-white p-6 rounded-xl shadow-md">
+        <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold mb-4">INFORMAÇÕES PESSOAIS</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -303,10 +303,10 @@ export default function EditarPerfilPage() {
               />
             </div>
           </div>
-        </section> */}
+        </div> */}
 
         {/* Seção Gênero e Raça/Cor */}
-        <section className="bg-white p-4 rounded-xl shadow-md">
+        <div className="p-2 w-full">
           <Label variant="perfil">GÊNERO</Label>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -350,7 +350,7 @@ export default function EditarPerfilPage() {
                 )}
               </div>
             </div>
-            <div className="w-full">
+            <div className="p-2">
               <Label variant="perfil">
                 PRECISA CUIDADO ESPECIAL OU TEM DOENÇA CRÔNICA?
               </Label>
@@ -388,9 +388,9 @@ export default function EditarPerfilPage() {
               </div>
             </div>
           </div>
-        </section>
+        </div>
 
-        <section className="bg-white p-4 rounded-lg border">
+        <div className="p-2">
           <Label variant="perfil">
             CUIDADO ESPECIAL OU DOENÇA CRÔNICA /{" "}
             <a href="#" className="text-blue-600 underline">
@@ -437,10 +437,10 @@ export default function EditarPerfilPage() {
               </select>
             </div>
           </div>
-        </section>
+        </div>
 
         {/* Seção Apresentação */}
-        <section className="bg-white p-6 rounded-xl shadow-md">
+        <div className="p-2">
           <Label variant="perfil">APRESENTAÇÃO E INFORMAÇÕES</Label>
 
           <div className="relative">
@@ -460,10 +460,10 @@ export default function EditarPerfilPage() {
               {apresentacao.length}/3000
             </span>
           </div>
-        </section>
+        </div>
 
         {/* Seção Atividades Profissionais */}
-        <section className="bg-white p-6 rounded-xl shadow-md">
+        <div className="p-2">
           <Label variant="perfil">ATIVIDADES PROFISSIONAIS</Label>
 
           <div className="mt-4 space-y-4">
@@ -502,7 +502,7 @@ export default function EditarPerfilPage() {
           </div>
 
           {/* Seção Outras Atividades Profissionais */}
-          <div className="bg-white mt-2 rounded-xl shadow-md">
+          <div className="mt-2">
             <Label variant="perfil">
               OUTRAS ATIVIDADES PROFISSIONAIS
             </Label>
@@ -592,19 +592,19 @@ export default function EditarPerfilPage() {
   ))}
 </div>
 
-        </section>
+        </div>
 
         {/* Seção Vínculos Sociais */}
-        <section className="bg-white p-6 rounded-xl shadow-md">
+        <div className="p-4">
           <h2 className="text-lg font-semibold mb-4">VÍNCULOS SOCIAIS</h2>
           <p className="text-sm text-gray-600 mb-4">
             PCD.GÉNERO.CULTURA.SOCIAL. SSE .MEIO AMBIENTE
           </p>
           <VinculosSociais />
-        </section>
+        </div>
 
         {/* Seção Contatos Adicionais */}
-        <section className="bg-white p-6 rounded-xl shadow-md">
+        <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold mb-4">CONTATOS ADICIONAIS</h2>
           <p className="text-sm text-gray-600 mb-4">
             (Pais/Responsáveis, Cônjuge, Familiar, Parceria etc.)
@@ -695,10 +695,10 @@ export default function EditarPerfilPage() {
               </button>
             )}
           </div>
-        </section>
+        </div>
 
         {/* Seção Preferências e Configurações */}
-        <section className="bg-white p-6 rounded-xl shadow-md">
+        <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold mb-4">
             PREFERÊNCIAS E CONFIGURAÇÕES
           </h2>
@@ -763,10 +763,10 @@ export default function EditarPerfilPage() {
               </div>
             </div>
           </div>
-        </section>
+        </div>
 
         {/* Seção Referências Geográficas */}
-        <section className="bg-white p-6 rounded-xl shadow-md">
+        <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold mb-4">
             REFERÊNCIAS GEOGRÁFICAS
           </h2>
@@ -847,7 +847,7 @@ export default function EditarPerfilPage() {
               </p>
             </div>
           </div>
-        </section>
+        </div>
 
         {/* Botão Salvar */}
         <div className="sticky bottom-4 z-10">
