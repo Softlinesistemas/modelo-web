@@ -138,77 +138,81 @@ export const AuthScreen = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-[#B6D2B7] overflow-hidden">
-    {/* Vídeo de fundo só na aba “Acessar” */}
-    {activeTab === "login" && (
-      <video
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
-        autoPlay
-        loop
-        muted
-      >
-        <source src="/images/video/teste.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeos.
-      </video>
-    )}
-  
-    {/* Conteúdo sobreposto */}
-    <div className="relative z-10 flex flex-col items-center justify-start min-h-screen p-8 text-white">
-      <h1 className="text-4xl text-green-700 font-bold mb-4 text-center bg-[#B6D2B7] p-4 rounded-b-md">
-        Bem-vindo ao <span className="!text-green-800 font-extrabold">GooAgro</span>
-      </h1>
-  
-      {/* Container do formulário */}
-      <div className="relative z-10 w-full max-w-3xl rounded-3xl shadow-2xl shadow-green-300 p-4 mt-8 bg-[#B6D2B7] ">
-        
-        {/* Tabs com fundo verde sólido */}
-        <div className="flex bg-green-600 rounded-full p-1 mb-6">
-          <button
-            onClick={() => setActiveTab("login")}
-            className={`flex-1 text-sm uppercase font-semibold py-2 rounded-full ${
-              activeTab === "login" ? "bg-green-900 text-white" : "text-white/80"
-            }`}
-          >
-            Acessar
-          </button>
-          <button
-            onClick={() => setActiveTab("cadastro")}
-            className={`flex-1 text-sm font-semibold py-2 uppercase rounded-full ${
-              activeTab === "cadastro" ? "bg-green-900 text-white" : "text-white/80"
-            }`}
-          >
-            Criar conta
-          </button>
-        </div>
-  
-        {/* Login */}
-        {activeTab === "login" && (
-          <div className="space-y-3 gap-2 relative z-10">
-            <Label>Usuário</Label>
-            <Input type="text" />
-  
-            <Label>Senha</Label>
-            <div className="relative">
-              <Input type={showPassword ? "text" : "password"} />
-              <div
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black cursor-pointer"
-                onClick={() => setShowPassword((prev) => !prev)}
-              >
-                {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-              </div>
-            </div>
-  
-            <button className="w-full bg-green-800 text-white py-2 rounded-full font-semibold hover:bg-green-900 transition">
+      {/* Vídeo de fundo só na aba “Acessar” */}
+      {activeTab === "login" && (
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
+          autoPlay
+          loop
+          muted
+        >
+          <source src="/images/video/teste.mp4" type="video/mp4" />
+          Seu navegador não suporta vídeos.
+        </video>
+      )}
+
+      {/* Conteúdo sobreposto */}
+      <div className="relative z-10 flex flex-col items-center justify-start min-h-screen p-6 text-white">
+        <h1 className="text-4xl text-black font-bold mb-6 text-center bg-[#B6D2B7] p-4 rounded-b-md">
+          Bem-vindo ao{" "}
+          <span className="!text-green-800 font-extrabold">GooAgro</span>
+        </h1>
+
+        {/* Container do formulário */}
+        <div className="relative z-10 w-full max-w-3xl rounded-3xl p-2 mt-8 bg-[#B6D2B7] ">
+          {/* Tabs com fundo verde sólido */}
+          <div className="flex bg-green-600 rounded-full p-1 mb-6">
+            <button
+              onClick={() => setActiveTab("login")}
+              className={`flex-1 text-sm uppercase font-semibold py-2 rounded-full ${
+                activeTab === "login"
+                  ? "bg-green-900 text-white"
+                  : "text-white/80"
+              }`}
+            >
               Acessar
             </button>
+            <button
+              onClick={() => setActiveTab("cadastro")}
+              className={`flex-1 text-sm font-semibold py-2 uppercase rounded-full ${
+                activeTab === "cadastro"
+                  ? "bg-green-900 text-white"
+                  : "text-white/80"
+              }`}
+            >
+              Criar conta
+            </button>
           </div>
-        )}
-  
-        {/* Cadastro */}
-        {activeTab === "cadastro" && (
-          <form
-            className="space-y-2 w-full px-4 mx-auto relative z-10"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+
+          {/* Login */}
+          {activeTab === "login" && (
+            <div className="space-y-3 gap-2 relative z-10">
+              <Label>Usuário</Label>
+              <Input type="text" />
+
+              <Label>Senha</Label>
+              <div className="relative">
+                <Input type={showPassword ? "text" : "password"} />
+                <div
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black cursor-pointer"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                </div>
+              </div>
+
+              <button className="w-full bg-green-800 text-white py-2 rounded-full font-semibold hover:bg-green-900 transition">
+                Acessar
+              </button>
+            </div>
+          )}
+
+          {/* Cadastro */}
+          {activeTab === "cadastro" && (
+            <form
+              className="space-y-2 w-full px-4 mx-auto relative z-10"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               {/* Descrição PESSOA-FÍSICA */}
               <div className="text-sm text-black bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-md">
                 <strong>1- PESSOA-FÍSICA:</strong> Participante de Grupos
@@ -384,11 +388,11 @@ export const AuthScreen = () => {
                 </div>
               </div>
               {/* Bairro */}
-              <div className="flex flex-wrap gap-2">
-                <Label className="flex items-center gap-2 bg-green-300 rounded-md shadow-md">
+              <div className="flex flex-wrap gap-2 justify-center">
+                <Label className="flex items-center gap-2 bg-green-300 rounded-md shadow-md p-1 justify-center">
                   <span className="ml-2">ENDEREÇO (OPCIONAL)</span>
                 </Label>
-                <span className="text-[8px] !text-red-900 bg-yellow-50 border-l-4 font-semibold border-red-700 rounded-md mb-1 px-2 py-1 leading-tight text-justify">
+                <span className="text-[8px] !text-red-900 bg-yellow-50 border-l-4 font-semibold  border-red-700 rounded-md mb-1 px-2 py-1 leading-tight text-justify">
                   Para Usuários que queiram – além do seu perfil pessoal – criar
                   perfil de: Grupos / Fornecedor Pessoa Física / Profissional
                   Autônomo / Diarista.
@@ -415,11 +419,11 @@ export const AuthScreen = () => {
                 </div>
                 {/* GPS */}
                 <div className="mt-2 flex flex-col w-full gap-2 mb-2">
-                  <Label className="flex items-center gap-2 bg-green-300 rounded-md shadow-md">
+                  <Label className="flex items-center gap-2 bg-green-300 rounded-md shadow-md p-1 justify-center">
                     <MapPinPlus size={20} /> <span>Localização GPS</span>
                   </Label>
 
-                  <label className="flex items-center gap-2 text-sm">
+                  <label className="flex items-center gap-2 text-sm justify-center">
                     <input
                       type="checkbox"
                       checked={usarGps}
@@ -462,10 +466,11 @@ export const AuthScreen = () => {
 
               {/* Contatos Apoio */}
               <div className="w-full mt-4">
-                <Label className="border p-1 mb-1 text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
-                  Quer adicionar Apoio de Comunicação? (Até 3)
-                  <br />
-                  (Pais/Responsáveis, Cônjuge, Familiar, Parceria, etc.)
+                <Label className="border mb-1 text-sm text-black flex flex-col gap-0 bg-green-300 rounded-md shadow-md justify-center p-1 text-center">
+                  <span>Quer adicionar Apoio de Comunicação? (Até 3)</span>
+                  <span className="text-xs">
+                    (Pais/Responsáveis, Cônjuge, Familiar, Parceria, etc.)
+                  </span>
                 </Label>
 
                 {contatosApoio.map((contato, index) => {
@@ -633,7 +638,7 @@ export const AuthScreen = () => {
               {/* Visibilidade */}
 
               <div className="space-y-2 pt-2">
-                <Label className="border p-2 mb-1  text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
+                <Label className="border p-2 mb-1 justify-center text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
                   A MINHA TELA-PÚBLICA PODERÁ SER VISTA POR:
                 </Label>
                 <label className="flex items-center gap-2 text-sm">
