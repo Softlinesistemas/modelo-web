@@ -5,7 +5,7 @@ import cn from '@/utils/cn';
 
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean;
-  variant?: 'default' | 'primary' | 'secondary' | 'error'; // variações que quiser
+  variant?: 'default' | 'primary' | 'secondary' | 'error' |  'perfil'; // variações que quiser
 }
 
 export const Label: React.FC<LabelProps> = ({
@@ -20,6 +20,7 @@ export const Label: React.FC<LabelProps> = ({
     default: 'text-gray-700 font-medium rounded-md',
     primary: 'text-blue-600 font-semibol rounded-md',
     secondary: 'text-green-700 font-medium text-center text-md rounded-md',
+    perfil:  'bg-green-300 rounded-md shadow-md p-1 justify-center text-black font-medium rounded-md flex items-center gap-2 mb-1',
     error: 'text-red-600 font-semibol rounded-md',
   };
 
