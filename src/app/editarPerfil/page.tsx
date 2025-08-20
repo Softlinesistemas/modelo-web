@@ -163,11 +163,14 @@ export default function EditarPerfilPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#B6D2B7] mt-8">
+    <div className="min-h-screen w-full mt-2 bg-[#B6D2B7] mt-8">
+      <main className="max-w-4xl mx-auto px-1 py-2 gap-4">
       {/* Cabeçalho */}
       <header className="sticky top-0 bg-white shadow-sm z-10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-green-700">INFORMAÇÕES ADCIONAIS / EDITAR PERFIL</h1>
+          <h1 className="text-xl font-bold text-green-700">
+            INFORMAÇÕES ADCIONAIS / EDITAR PERFIL
+          </h1>
           <button
             onClick={salvarPerfil}
             className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg"
@@ -177,9 +180,8 @@ export default function EditarPerfilPage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-1 py-2 space-y-1">
         {/* Seção Foto de Perfil */}
-        <div className="p-4">
+        <div className="w-full mt-2">
           <Label variant="perfil">FOTO PERFIL</Label>
 
           {/* Foto à esquerda e botões à direita */}
@@ -191,7 +193,7 @@ export default function EditarPerfilPage() {
             <div className="flex flex-col gap-3">
               <button
                 onClick={openCamera}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg w-full justify-center"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg w-full mt-2 justify-center"
               >
                 <Camera size={20} className="text-green-600" />
                 <span className="text-sm">Selfie</span>
@@ -199,7 +201,7 @@ export default function EditarPerfilPage() {
 
               <button
                 onClick={openGallery}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg w-full justify-center"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg w-full mt-2 justify-center"
               >
                 <span className="text-green-600 font-bold text-lg">...</span>
                 <span className="text-sm">Procurar</span>
@@ -216,121 +218,33 @@ export default function EditarPerfilPage() {
             onChange={handleImageSelect}
           />
         </div>
-
-        {/* Seção Informações Básicas
-        <div className="bg-white p-6 rounded-xl shadow-md">
-          <h2 className="text-lg font-semibold mb-4">INFORMAÇÕES PESSOAIS</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Nome *</label>
-              <input
-                type="text"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Usuário *</label>
-              <input
-                type="text"
-                value={usuario}
-                onChange={(e) => setUsuario(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Cidade / Estado / País *</label>
-              <input
-                type="text"
-                value={cidade}
-                onChange={(e) => setCidade(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Bairro / Local / Região *</label>
-              <input
-                type="text"
-                value={bairro}
-                onChange={(e) => setBairro(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Telefone *</label>
-              <input
-                type="text"
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Email (Opcional)</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">CPF (Opcional)</label>
-              <input
-                type="text"
-                value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-                placeholder="XXX.XXX.XXX-XX"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Data de Nascimento</label>
-              <input
-                type="date"
-                value={dataNascimento}
-                onChange={(e) => setDataNascimento(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
-          </div>
-        </div> */}
-
         {/* Seção Gênero e Raça/Cor */}
-        <div className="p-2 w-full">
+        <div className="w-full mt-2">
           <Label variant="perfil">GÊNERO</Label>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <div className="flex flex-wrap gap-2">
-                {["Masculino", "Feminino", "LGBTQI+", "Não declarar"].map(
-                  (opcao) => (
-                    <button
-                      key={opcao}
-                      onClick={() => setGenero(opcao)}
-                      className={`px-3 py-2 rounded-lg border transition-colors duration-200 ${
-                        genero === opcao
-                          ? "bg-green-700 border-green-500 text-white hover:border-green-600" // Selecionado → Verde
-                          : "bg-orange-100 border-orange-500 text-orange-700 hover:border-orange-600" // Não selecionado → Laranja
-                      }`}
-                    >
-                      {opcao}
-                    </button>
-                  )
-                )}
-              </div>
+            <div className="flex flex-nowrap items-center gap-2 md:gap-2">
+              {["Masculino", "Feminino", "LGBTQI+", "Não declarar"].map(
+                (opcao) => (
+                  <button
+                    key={opcao}
+                    onClick={() => setGenero(opcao)}
+                    className={`whitespace-nowrap shrink px-3 py-2 text-[11px] leading-tight tracking-tight rounded-lg border transition-colors duration-200
+                        md:px-3 md:py-2 md:text-sm
+                        ${
+                          genero === opcao
+                            ? "bg-green-700 border-green-500 text-white hover:border-green-600" // Selecionado → Verde
+                            : "bg-orange-100 border-orange-500 text-orange-700 hover:border-orange-600" // Não selecionado → Laranja
+                        }`}
+                  >
+                    {opcao}
+                  </button>
+                )
+              )}
             </div>
-
-            <div>
+          </div>
+          
+            <div className="w-full mt-2 mt-2">
               <Label variant="perfil">RAÇA/COR</Label>
               <div className="flex flex-wrap gap-2">
                 {["Negra", "Pardo", "Branco", "Indígena", "Amarelo"].map(
@@ -338,11 +252,13 @@ export default function EditarPerfilPage() {
                     <button
                       key={opcao}
                       onClick={() => setRacaCor(opcao)}
-                      className={`px-3 py-2 rounded-lg border ${
-                        racaCor === opcao
-                          ? "bg-green-700 border-green-500 text-white hover:border-green-600" // Selecionado → Verde
-                          : "bg-orange-100 border-orange-500 text-orange-700 hover:border-orange-600" // Não selecionado → Laranja
-                      }`}
+                      className={`whitespace-nowrap shrink px-3 py-2 text-[11px] leading-tight tracking-tight rounded-lg border transition-colors duration-200
+                        md:px-3 md:py-2 md:text-sm
+                        ${
+                          racaCor === opcao
+                            ? "bg-green-700 border-green-500 text-white hover:border-green-600" // Selecionado → Verde
+                            : "bg-orange-100 border-orange-500 text-orange-700 hover:border-orange-600" // Não selecionado → Laranja
+                        }`}
                     >
                       {opcao}
                     </button>
@@ -350,7 +266,7 @@ export default function EditarPerfilPage() {
                 )}
               </div>
             </div>
-            <div className="p-2">
+            <div className="w-full mt-2">
               <Label variant="perfil">
                 PRECISA CUIDADO ESPECIAL OU TEM DOENÇA CRÔNICA?
               </Label>
@@ -387,7 +303,7 @@ export default function EditarPerfilPage() {
                 />
               </div>
             </div>
-          </div>
+          
         </div>
 
         <div className="p-2">
@@ -451,7 +367,7 @@ export default function EditarPerfilPage() {
                   setApresentacao(e.target.value);
                 }
               }}
-              className="w-full h-40 p-4 border rounded-lg resize-none border-orange-700"
+              className="w-full mt-2 h-40 p-4 border rounded-lg resize-none border-orange-700"
               placeholder="Fale sobre você, sua formação, experiência profissional e interesses..."
             />
 
@@ -503,10 +419,7 @@ export default function EditarPerfilPage() {
 
           {/* Seção Outras Atividades Profissionais */}
           <div className="mt-2">
-            <Label variant="perfil">
-              OUTRAS ATIVIDADES PROFISSIONAIS
-            </Label>
-
+            <Label variant="perfil">OUTRAS ATIVIDADES PROFISSIONAIS</Label>
 
             {/* Inputs para adicionar nova atividade */}
             <div className="flex flex-col gap-2 mb-2">
@@ -518,7 +431,7 @@ export default function EditarPerfilPage() {
                   onChange={(e) =>
                     setNovaAtividade({ ...novaAtividade, tipo: e.target.value })
                   }
-                 className="flex-1 border border-black p-2 rounded-md text-sm"
+                  className="flex-1 border border-black p-2 rounded-md text-sm"
                   placeholder="Tipo"
                 />
               </div>
@@ -566,32 +479,37 @@ export default function EditarPerfilPage() {
               </button>
             </div>
           </div>
-           {/* Lista de atividades adicionadas em cards responsivos */}
-<div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-4 gap-4 mb-4">
-  {outrasAtividades.map((atividade, index) => (
-    <div
-      key={index}
-      className="bg-green-100 p-1 rounded-lg shadow flex flex-col justify-between"
-    >
-      {/* Conteúdo da atividade */}
-      <div className="flex flex-col gap-1">
-        <span className="text-sm"><strong>Tipo:</strong> {atividade.tipo}</span>
-        <span className="text-sm"><strong>Categoria:</strong> {atividade.categoria}</span>
-        <span className="text-sm"><strong>Modalidade:</strong> {atividade.modalidade}</span>
-      </div>
+          {/* Lista de atividades adicionadas em cards responsivos */}
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-4 gap-4 mb-4">
+            {outrasAtividades.map((atividade, index) => (
+              <div
+                key={index}
+                className="bg-green-100 p-1 rounded-lg shadow flex flex-col justify-between"
+              >
+                {/* Conteúdo da atividade */}
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm">
+                    <strong>Tipo:</strong> {atividade.tipo}
+                  </span>
+                  <span className="text-sm">
+                    <strong>Categoria:</strong> {atividade.categoria}
+                  </span>
+                  <span className="text-sm">
+                    <strong>Modalidade:</strong> {atividade.modalidade}
+                  </span>
+                </div>
 
-      {/* Botão remover */}
-      <Button
-      variant="danger"
-        onClick={() => removerAtividade(index)}
-        // className="self-end mt-2 text-red-500 hover:text-red-700"
-      >
-        <Trash2 size={16} />
-      </Button>
-    </div>
-  ))}
-</div>
-
+                {/* Botão remover */}
+                <Button
+                  variant="danger"
+                  onClick={() => removerAtividade(index)}
+                  // className="self-end mt-2 text-red-500 hover:text-red-700"
+                >
+                  <Trash2 size={16} />
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Seção Vínculos Sociais */}
@@ -632,7 +550,7 @@ export default function EditarPerfilPage() {
                       onChange={(e) =>
                         atualizarContato(index, "nome", e.target.value)
                       }
-                      className="w-full p-2 border rounded-lg"
+                      className="w-full mt-2 p-2 border rounded-lg"
                     />
                   </div>
 
@@ -644,7 +562,7 @@ export default function EditarPerfilPage() {
                       onChange={(e) =>
                         atualizarContato(index, "usuario", e.target.value)
                       }
-                      className="w-full p-2 border rounded-lg"
+                      className="w-full mt-2 p-2 border rounded-lg"
                     />
                   </div>
 
@@ -656,7 +574,7 @@ export default function EditarPerfilPage() {
                       onChange={(e) =>
                         atualizarContato(index, "telefone", e.target.value)
                       }
-                      className="w-full p-2 border rounded-lg"
+                      className="w-full mt-2 p-2 border rounded-lg"
                     />
                   </div>
 
@@ -667,7 +585,7 @@ export default function EditarPerfilPage() {
                       onChange={(e) =>
                         atualizarContato(index, "relacao", e.target.value)
                       }
-                      className="w-full p-2 border rounded-lg"
+                      className="w-full mt-2 p-2 border rounded-lg"
                     >
                       {[
                         "Pais/Responsável",
@@ -689,7 +607,7 @@ export default function EditarPerfilPage() {
             {contatosAdicionais.length < 3 && (
               <button
                 onClick={adicionarContato}
-                className="w-full py-3 bg-gray-100 border border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200"
+                className="w-full mt-2 py-3 bg-gray-100 border border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200"
               >
                 + Adicionar Contato
               </button>
@@ -853,7 +771,7 @@ export default function EditarPerfilPage() {
         <div className="sticky bottom-4 z-10">
           <button
             onClick={salvarPerfil}
-            className="w-full py-4 bg-green-600 text-white font-bold text-lg rounded-lg shadow-lg hover:bg-green-700"
+            className="w-full mt-2 py-4 bg-green-600 text-white font-bold text-lg rounded-lg shadow-lg hover:bg-green-700"
           >
             SALVAR PERFIL
           </button>

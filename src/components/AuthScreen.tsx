@@ -628,9 +628,9 @@ export const AuthScreen = () => {
                     <button
                       type="button"
                       onClick={adicionarContato}
-                      className="flex items-center gap-2 text-white mt-2 text-sm p-2 rounded-md justify-center bg-green-700"
+                      className="flex items-center gap-2 text-white mt-2 text-sm p-2 uppercase rounded-md justify-center bg-green-700"
                     >
-                      <FiPlus /> Adicionar outro contato
+                      <FiPlus /> Adicionar mais Contato Apoio de Comunicação
                     </button>
                   </div>
                 )}
