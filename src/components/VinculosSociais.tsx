@@ -50,7 +50,7 @@ export default function VinculosSociais() {
   };
 
   return (
-    <div className="relative w-full max-w-3xl" ref={dropdownRef}>
+    <div className="relative w-full max-w-3xl justify-center" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-between items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition-colors"

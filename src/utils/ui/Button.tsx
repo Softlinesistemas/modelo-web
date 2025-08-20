@@ -16,7 +16,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'friend'
     | 'friend-add'
     | 'friend-remove'
-    | 'icon';
+    | 'icon'
+    | 'gpsAtivo'   
+    | 'gpsInativo'; 
   size?: 'xs' | 'sm' | 'md' | 'lg';
   loading?: boolean;
 }
@@ -51,7 +53,9 @@ export const Button: React.FC<ButtonProps> = ({
     filter: 'bg-amber-300 text-gray-800 hover:bg-amber-200 focus:ring-amber-400',
     distance: 'bg-yellow-100 text-gray-800 border border-yellow-300 hover:bg-yellow-200 focus:ring-yellow-400',
     buscarFiltros: 'bg-blue-600 text-white hover:bg-blue-500 focus:ring-blue-400 shadow',
-    icon: 'p-2 rounded-full bg-transparent hover:bg-gray-100 focus:ring-gray-300 text-gray-700'
+    icon: 'p-2 rounded-full bg-transparent hover:bg-gray-100 focus:ring-gray-300 text-gray-700',
+    gpsAtivo: 'bg-green-600 text-white hover:bg-green-500 focus:ring-green-400 shadow',
+    gpsInativo: 'bg-orange-400 text-white hover:bg-gray-500 focus:ring-gray-300 shadow'
   };
 
   const buttonSize = variant === 'icon' ? 'p-2' : sizeStyles[size];
