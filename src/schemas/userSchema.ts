@@ -69,17 +69,27 @@ export const userBasicSchema = z.object({
     .min(1, "Usuário é obrigatório")
     .max(100, "Usuário deve ter no máximo 100 caracteres")
     .superRefine(async (value, ctx) => {
-      if (!value) return; 
+      if (!value) return; // já tratado pelo min(3)
 
       try {
-        const res = await server.get(`/user/exists/${value}`);
+        // Aqui: faz a requisição para verificar se o usuário existe
+        const res = await server.get(`/user/exists/${value}`, {
+          headers: { "x-skip-global-error": "1" }, // evita alerta global
+        });
+
+        // Se existir, adiciona issue de validação
         if (res.data.exists) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: "Esse usuário já existe",
           });
         }
-      } catch (err) {
+        // Se não existe → passa normalmente
+      } catch (err: any) {
+        // Se a API retorna 404 → usuário não existe → ok
+        if (err.response?.status === 404) return;
+
+        // Outros erros do servidor → adiciona mensagem genérica
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Erro ao validar usuário",

@@ -3,7 +3,7 @@
 
 import React from "react";
 import { MainBanner } from "@/components/MainBanner";
-import { ProducerCard } from "@/components/feed/ProducerCard";
+import { ProducerCardForm } from "@/components/feed/ProducerCard";
 import { ProducerLocationCard } from "@/components/feed/ProducerLocationCard";
 import { FeedPhotoGallery } from "@/components/feed/FeedPhotoGallery";
 import { SocialIcons } from "@/components/feed/SocialIcons";
@@ -242,7 +242,7 @@ export const FeedPage: React.FC<Props> = ({ tipo, id }) => {
 
       {/* Card principal (pessoal / grupo / fornecedor / empresa) */}
       <div className="mt-2">
-        <ProducerCard
+        <ProducerCardForm  
           // ProducerCard espera props específicas; aqui passei mainImage, galleryImages e tipo
           mainImage={entidade.mainImage}
           galleryImages={[]} // se tiver galeria separada, passe aqui

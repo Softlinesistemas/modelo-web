@@ -6,6 +6,7 @@ import { HiLocationMarker } from 'react-icons/hi';
 
 interface GpsButtonProps {
     className?: string;
+    onChangeCoords?: (lat: number, lng: number) => void;
   }
 
 export default function GpsButton({ className }: GpsButtonProps){

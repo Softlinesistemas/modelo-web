@@ -39,11 +39,12 @@ type FormValues = z.infer<typeof userBasicSchema> & {
   RepetirSenha?: string; // só existe no front
 };
 
-export const CadastroForm = () => {
+export const CadastroForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    trigger,
     setValue,
     watch,
   } = useForm<UserBasicSchema>({
@@ -52,12 +53,13 @@ export const CadastroForm = () => {
     // reValidateMode: "onBlur",
     defaultValues: {
       Pais: "Brasil",
+      TermosPrivacidade: false,
       //   Role: "USER",
-      //   TermosPrivacidade: false,
       //   // ParticiparEvento: false,
       //   Privacidade: "PUBLICO",
     },
   });
+  console.log(errors);
 
   const [loading, setLoading] = useState(false);
   const [listaEstados, setListaEstados] = useState<Estado[]>([]);
@@ -115,7 +117,7 @@ export const CadastroForm = () => {
       setLoading(true);
 
       // Chamada ao backend
-      const response = await axios.post("/api/register", data);
+      const response = await server.post("/auth/register", data);
 
       toast.success("Conta criada com sucesso!");
 
@@ -155,6 +157,7 @@ export const CadastroForm = () => {
           <Input
             type="text"
             {...register("Usuario")}
+            onBlur={() => trigger("Usuario")}
             error={errors.Usuario?.message}
           />
           {/* <input {...register("Usuario")} />
@@ -251,17 +254,17 @@ export const CadastroForm = () => {
             <Input
               placeholder="Dia"
               type="number"
-              {...register("DiaNascimento")}
+              {...register("DiaNascimento", { valueAsNumber: true })}
             />
             <Input
               placeholder="Mês"
               type="number"
-              {...register("MesNascimento")}
+              {...register("MesNascimento", { valueAsNumber: true })}
             />
             <Input
               placeholder="Ano"
               type="number"
-              {...register("AnoNascimento")}
+              {...register("AnoNascimento", { valueAsNumber: true })}
             />
           </div>
           <div className="flex justify-center items-center mb-1">
@@ -275,33 +278,34 @@ export const CadastroForm = () => {
             {/* País */}
             <div className="flex-1 min-w-[200px] space-y-2">
               <Label>País</Label>
-              <select
+              <Input
+                type="text"
                 {...register("Pais")}
                 className="w-full border rounded-lg p-2"
               >
-                <option value="">Selecione o país</option>
+                {/* <option value="">Selecione o país</option>
                 {listaPaises.map((p) => (
                   <option key={p.cca2} value={p.name.common}>
                     {p.name.common}
-                  </option>
-                ))}
-              </select>
+                  </option> 
+                {/* ))} */}
+              </Input>
             </div>
 
             {/* Estado */}
             <div className="flex-1 min-w-[200px] space-y-2">
               <Label>Estado (UF)</Label>
-              <select
+              <Input
                 {...register("Estado")}
                 className="w-full border rounded-lg p-2"
               >
-                <option value="">Selecione o estado</option>
+                {/* <option value="">Selecione o estado</option>
                 {listaEstados.map((uf) => (
                   <option key={uf.id} value={uf.sigla}>
                     {uf.nome} ({uf.sigla})
                   </option>
-                ))}
-              </select>
+                ))} */}
+              </Input>
             </div>
 
             {/* Cidade */}
@@ -564,6 +568,7 @@ export const CadastroForm = () => {
             <Label className="border p-2 mb-1 justify-center text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
               A MINHA TELA-PÚBLICA PODERÁ SER VISTA POR:
             </Label>
+
             <label className="flex items-center gap-2 text-sm">
               <input
                 type="radio"
@@ -573,33 +578,29 @@ export const CadastroForm = () => {
               Qualquer usuário do{" "}
               <span className="text-green-500 font-semibold">GooAgro</span>
             </label>
+
             <label className="flex items-center gap-2 text-sm">
               <input type="radio" {...register("Privacidade")} value="AMIGOS" />
               Somente meus AMIGOS do{" "}
               <span className="text-green-500 font-semibold">GooAgro</span>
             </label>
-            <Label className="flex items-center gap-2 text-sm">
+
+            <label className="flex items-center gap-2 text-sm">
               <input
                 type="radio"
                 {...register("Privacidade")}
                 value="PRIVADO"
               />
               Oculto - Ninguém poderá ver.
-            </Label>
+            </label>
+          </div>
 
-            <div className="space-y-2 px-5 p-4">
-              <Label className="border p-2 mb-1 text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
-                <input
-                  type="checkbox"
-                  {...register("Privacidade")}
-                  value="true"
-                />
-                <a>
-                  Autorizo receber mensagens vinculadas aos Meus Interesses e às
-                  minhas Atividades Profissionais.
-                </a>
-              </Label>
-            </div>
+          <div className="space-y-2 px-5 p-4">
+            <Label className="flex items-center gap-2 text-sm border p-2 mb-1 bg-green-300 rounded-md shadow-md">
+              <input type="checkbox" {...register("ReceberAnuncios")} />
+              Autorizo receber mensagens vinculadas aos Meus Interesses e às
+              minhas Atividades Profissionais.
+            </Label>
           </div>
 
           {/* Senha e repetir senha */}
@@ -643,11 +644,7 @@ export const CadastroForm = () => {
           <div className="space-y-2 px-5">
             {/* check box senha */}
             <Label className="border p-3 mb-1 text-sm text-black flex items-center gap-2 bg-green-300 rounded-md shadow-md">
-              <input
-                type="checkbox"
-                {...register("Privacidade")}
-                value="true"
-              />
+              <input type="checkbox" {...register("TermosPrivacidade")} />
               <a>
                 Eu li e concordo com a Política de Privacidade do aplicativo
                 GooAgro e desejo me cadastrar gratuitamente.
