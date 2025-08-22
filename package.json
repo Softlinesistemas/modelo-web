@@ -24,7 +24,7 @@
     "@hookform/resolvers": "^5.1.1",
     "apexcharts": "^4.5.0",
     "aws-sdk": "^2.1580.0",
-    "axios": "^1.6.8",
+    "axios": "^1.11.0",
     "clsx": "^2.1.1",
     "crypto": "^1.0.1",
     "date-fns": "^3.6.0",

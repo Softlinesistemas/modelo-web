@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { FiUsers, FiLayers, FiGlobe, FiDollarSign } from 'react-icons/fi';
 import Image from 'next/image';
-import { useUser } from '@/app/context/AuthContext';
+import { useAuth } from '@/app/context/AuthContext';
 import { useAction } from '@/app/context/ActionContext';
 import { NavButton } from './NavButton';
 import { motion } from 'framer-motion';
@@ -13,7 +13,7 @@ import { avatar2 } from '../../../public'; // ou ajuste conforme o caminho
 export const BottomNav: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { user }: any = useUser();
+  const { user }: any = useAuth();
   const { setActiveAction } = useAction();
   const [activeLabel, setActiveLabel] = useState<string | null>(null);
 
