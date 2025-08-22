@@ -48,14 +48,14 @@ export const CadastroForm = () => {
     watch,
   } = useForm<UserBasicSchema>({
     resolver: zodResolver(userBasicSchema),
-    mode: "onChange",
+    mode: "onBlur",
     // reValidateMode: "onBlur",
     defaultValues: {
-      Role: "USER",
-      TermosPrivacidade: false,
-      // ParticiparEvento: false,
       Pais: "Brasil",
-      Privacidade: "PUBLICO",
+      //   Role: "USER",
+      //   TermosPrivacidade: false,
+      //   // ParticiparEvento: false,
+      //   Privacidade: "PUBLICO",
     },
   });
 
@@ -154,14 +154,13 @@ export const CadastroForm = () => {
           <Label>Usuário*</Label>
           <Input
             type="text"
-            {...register("Usuario", {
-              validate: async (value) => {
-                const res = await server.get(`/user/exists/${value}`);
-                return !res.data.exists;
-              },
-            })}
+            {...register("Usuario")}
             error={errors.Usuario?.message}
           />
+          {/* <input {...register("Usuario")} />
+          {errors.Usuario && (
+            <span className="text-red-500">{errors.Usuario.message}</span>
+          )} */}
 
           {/* E-mail e repetir e-mail */}
           <div className="flex flex-col gap-2">

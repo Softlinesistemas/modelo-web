@@ -16,12 +16,7 @@ server.interceptors.response.use(
       // Handle unauthorized access, e.g., redirect to login
       alert("Unauthorized access. Please log in again.");
       console.error(error);
-    } else if (error.response.status === 404) {
-      // Handle not found error
-      alert("Resource not found.");
-      console.error(error);
-      console.error("Resource not found");
-    } else {
+    }  else {
       // Handle other errors
       alert("An error occurred. Please try again later.");
       console.error("An error occurred:", error.message);
