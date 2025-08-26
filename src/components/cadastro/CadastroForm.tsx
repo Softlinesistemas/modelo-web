@@ -125,6 +125,9 @@ export const CadastroForm: React.FC = () => {
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
       }
+      
+      // Redirecionar para o feed após cadastro bem-sucedido
+      window.location.href = '/feed';
     } catch (error: any) {
       const message = error.response?.data?.message || "Erro ao criar conta.";
       toast.error(message);

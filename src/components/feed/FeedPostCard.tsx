@@ -9,32 +9,52 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from 'react-icons/fa';
+import { z } from 'zod';
+import { userFullSchema } from '@/schemas/userSchema'; // ajuste o path conforme tua estrutura
 
-interface FeedPostCardProps {
-  images: string[];
-  date: string;
-  text: string;
-}
+// --- Tipos baseados em Zod --- //
+type User = z.infer<typeof userFullSchema>;
 
-export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
+// Estrutura de um Post no feed
+type FeedPost = {
+  id: number;
+  texto: string;
+  imagens: string[];
+  dataPublicacao: string;
+  likes: number;
+  comentarios: number;
+  autor: User; // já tipado pelo schema
+};
+
+// Props do Card
+type FeedPostCardProps = {
+  post: FeedPost;
+  onLike: () => void;
+};
+
+export const FeedPostCard = ({ post, onLike }: FeedPostCardProps) => {
   const [liked, setLiked] = useState(false);
   const [favorited, setFavorited] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const toggleLike = () => setLiked(!liked);
+  const toggleLike = () => {
+    setLiked(!liked);
+    onLike();
+  };
+
   const toggleFavorite = () => setFavorited(!favorited);
 
   const goToNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      prevIndex === post.imagens.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const goToPrevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? post.imagens.length - 1 : prevIndex - 1
     );
   };
 
@@ -46,11 +66,11 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
   return (
     <div className="w-full lg:max-w-[98%] mx-auto mb-2 cursor-pointer gap-2">
       {/* Área verde (imagem + ações) */}
-      <div className="bg-green-100 border-2 shadow overflow-hidden">
+      <div className="bg-green-100 border-2 shadow overflow-hidden rounded-t-xl">
         {/* Carrossel de Imagens */}
         <div className="relative">
           <img
-            src={images[currentImageIndex]}
+            src={post.imagens[currentImageIndex]}
             alt={`Imagem ${currentImageIndex + 1} do post`}
             onError={(e) => {
               e.currentTarget.onerror = null;
@@ -59,7 +79,7 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
             className="w-full h-80 object-cover"
           />
 
-          {images.length > 1 && (
+          {post.imagens.length > 1 && (
             <>
               <button
                 onClick={goToPrevImage}
@@ -76,7 +96,7 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
                 <FaChevronRight />
               </button>
               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-                {images.map((_, index) => (
+                {post.imagens.map((_, index) => (
                   <span
                     key={index}
                     className={`block w-2 h-2 rounded-full ${
@@ -93,6 +113,7 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
         <div className="flex justify-between items-center mt-2 px-2">
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
+              {/* Curtir */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -105,9 +126,10 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
                 ) : (
                   <FaRegHeart />
                 )}
-                <span className="text-xs">Curtir</span>
+                <span className="text-xs">Curtir ({post.likes})</span>
               </button>
 
+              {/* Favoritar */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -128,19 +150,20 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
           {/* Indicador de imagem */}
           <div className="flex items-center gap-1">
             <span className="text-xs text-gray-500">
-              {currentImageIndex + 1}/{images.length}
+              {currentImageIndex + 1}/{post.imagens.length}
             </span>
           </div>
         </div>
-                    {/* Data */}
-            <p className="text-center text-sm font-semibold text-gray-800 mt-1">
-              {formatDate(date)}
-            </p>
+
+        {/* Data */}
+        <p className="text-center text-sm font-semibold text-gray-800 mt-1">
+          {formatDate(post.dataPublicacao)}
+        </p>
       </div>
 
       {/* Área branca (descrição) */}
       <div className="bg-white rounded-b-xl shadow px-4 py-2">
-        <p className="text-sm text-gray-700">{text}</p>
+        <p className="text-sm text-gray-700">{post.texto}</p>
       </div>
     </div>
   );

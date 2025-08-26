@@ -23,6 +23,7 @@ export const LoginForm = () => {
       })
       toast.success('Login realizado com sucesso!')
       if (response.token) localStorage.setItem('token', response.token)
+      // Redirecionar para o feed após login bem-sucedido
       window.location.href = '/feed'
     } catch (error) {
       if (error instanceof AxiosError) {

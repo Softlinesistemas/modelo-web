@@ -69,34 +69,44 @@ export const userBasicSchema = z.object({
     .min(1, "Usuário é obrigatório")
     .max(100, "Usuário deve ter no máximo 100 caracteres")
     .superRefine(async (value, ctx) => {
-      if (!value) return; // já tratado pelo min(3)
-
+      if (!value) return;
       try {
-        // Aqui: faz a requisição para verificar se o usuário existe
         const res = await server.get(`/user/exists/${value}`, {
-          headers: { "x-skip-global-error": "1" }, // evita alerta global
+          headers: { "x-skip-global-error": "1" },
         });
 
-        // Se existir, adiciona issue de validação
         if (res.data.exists) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: "Esse usuário já existe",
           });
         }
-        // Se não existe → passa normalmente
       } catch (err: any) {
-        // Se a API retorna 404 → usuário não existe → ok
-        if (err.response?.status === 404) return;
+        const status = err.response?.status;
 
-        // Outros erros do servidor → adiciona mensagem genérica
+        if (status === 404) {
+          // usuário não existe → ok
+          return;
+        }
+
+        // se for 401 → talvez pedir login
+        if (status === 401) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Sessão expirada. Faça login novamente.",
+          });
+          return;
+        }
+
+        // se for outro erro, logar no console mas não travar o form
+        console.error("Erro ao validar usuário:", err);
+
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Erro ao validar usuário",
+          message: "Não foi possível validar. Tente novamente.",
         });
       }
     }),
-
   Role: z.enum(["USER", "ADMIN", "MOD"]).default("USER").optional(),
 
   Telefone: phoneSchema,
@@ -275,9 +285,12 @@ export const userExtraSchema = z.strictObject({
     .min(1, "Código da divisão geopolítica é obrigatório")
     .optional()
     .nullable(),
-
-  Latitude: z.number().optional().nullable(),
-  Longitude: z.number().optional().nullable(),
+  
+  gps: z.object({
+    Latitude: z.number().optional().nullable(),
+    Longitude: z.number().optional().nullable(),
+  })
+  .optional(),
 
   ExcluirChat: z.number().int().min(0).max(360).default(0).optional(),
 });
