@@ -7,7 +7,7 @@ export const AuthScreen = () => {
   const [activeTab, setActiveTab] = useState<"login" | "cadastro">("login");
 
   return (
-    <div className="relative min-h-screen w-full bg-[#B6D2B7] flex justify-center items-start overflow-hidden">
+    <div className="relative min-h-screen w-full px-2 bg-[#B6D2B7] flex items-center justify-center overflow-hidden">
       {/* Vídeo de fundo só aparece no login */}
       {activeTab === "login" && (
         <video

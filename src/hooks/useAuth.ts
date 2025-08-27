@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { server } from '@/utils/server';
+import { useState, useEffect } from "react";
+import { server } from "@/utils/server";
 
 interface User {
   CodUsuario: number;
@@ -24,29 +24,34 @@ export const useAuth = () => {
 
   const checkAuth = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
         setLoading(false);
         return;
       }
 
-      const response = await server.get('/user');
+      const response = await server.get("/user");
       setUser(response.data);
       setIsAuthenticated(true);
+
+      localStorage.setItem("user", JSON.stringify(response.data)); //Para ser usado no front-end
     } catch (error) {
-      console.error('Erro ao verificar autenticação:', error);
-      localStorage.removeItem('token');
+      console.error("Erro ao verificar autenticação:", error);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       setIsAuthenticated(false);
+      setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
     setIsAuthenticated(false);
-    window.location.href = '/login';
+    window.location.href = "/login";
   };
 
   useEffect(() => {
@@ -58,7 +63,6 @@ export const useAuth = () => {
     loading,
     isAuthenticated,
     logout,
-    refetch: checkAuth
+    refetch: checkAuth,
   };
 };
-

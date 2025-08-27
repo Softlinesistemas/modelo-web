@@ -1,32 +1,36 @@
-// app/feed/page.tsx
 "use client";
 
-import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-import FeedPage from "@/components/feed/FeedPage";
-import { server } from "@/utils/server";
+import { useUser } from "@/hooks/queries/useUser";
+import { useGroup } from "@/hooks/queries/useGroup";
+import { useCompany } from "@/hooks/queries/useCompany";
+import { useFeedType } from "@/hooks/dynamic/useFeedType";
+import { useAuthUser } from "@/hooks/dynamic/useAuthUser";
 
-// Carrego FeedPage client component dinamicamente (ou importe direto se preferir)
-// const FeedPage = dynamic(() => import("@/components/feed/FeedPage").then((m) => m.default || m.FeedPage), {
-//   ssr: false,
-// });
+const FeedPage = dynamic(() => import("@/components/feed/FeedPage"), {
+  ssr: false,
+});
 
-/**
- * Página do feed principal (pessoal).
- * Aqui escolhemos exibir a Maria por padrão.
- * Se no futuro quiser passar outro id, basta alterar a rota ou usar query params.
- */
 export default function PersonalFeedPage() {
-  useEffect(() => {
-    // Lógica para buscar dados do usuário
-    async function getProfileInfo(){
-      const { data } = await server.get("/user");
-      console.log(data)
-      return data
-    }
-    getProfileInfo()
-  }, []);
+  const authUser = useAuthUser();
 
-  // ID 'maria' bate com o mock dentro do FeedPage.tsx
-  return <FeedPage tipo="pessoal" id="Maria" />;
+ const { data: dataUser, isLoading: loadingUser } = useUser({
+    enabled: !!authUser && authUser.Role === "USER",
+  });
+
+  const { data: dataGroup, isLoading: loadingGroup } = useGroup({
+    enabled: !!authUser && authUser.Role === "GROUP",
+  });
+
+  const { data: dataCompany, isLoading: loadingCompany } = useCompany({
+    enabled: !!authUser && authUser.Role === "COMPANY",
+  });
+
+  const { tipo, id } = useFeedType(
+    dataUser,
+    dataGroup,
+    dataCompany
+  );
+
+  return <FeedPage dataUser={dataUser} tipo={tipo} id={id} />;
 }

@@ -2,9 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const server = axios.create({
-  baseURL:"http://10.71.0.104:3001/api/v1",
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://10.71.0.104:3001/api/v1",
   withCredentials:true
-  
 });
 
 server.interceptors.response.use(
@@ -23,11 +22,12 @@ server.interceptors.response.use(
 
     if (error.response?.status === 401) {
       // Usuário não autorizado → redirecionar ou alertar
+      localStorage.removeItem("token");
+      Cookies.remove("token");
       alert('Unauthorized access. Please log in again.');
       console.error('Unauthorized:', error);
     } else {
       // Outros erros do servidor
-      alert('An error occurred. Please try again later.');
       console.error('Server error:', error.message);
     }
 

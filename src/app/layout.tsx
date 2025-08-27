@@ -11,6 +11,8 @@ import { BottomNav } from '../components/navigation/BottomNav'
 import { AjudaLinks } from '@/components/AjudaLinks'
 import { SplashScreen } from '@/components/SplashScreen' // ✅
 import WelcomeModal from '@/components/WelcomeModal'
+import { QueryClientProvider } from 'react-query'
+import { queryClient } from '@/lib/react-query'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -24,29 +26,30 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         
         <SplashScreen /> 
         
-              <WelcomeModal />
+        <WelcomeModal />
+        <QueryClientProvider client={queryClient}>
+          <AppProvider>
+            <AuthProvider>
+              <NotificationProvider>
+                <ActionProvider>
+                  <Header />
 
-        <AppProvider>
-          <AuthProvider>
-            <NotificationProvider>
-              <ActionProvider>
-                <Header />
+                  <Suspense fallback={
+                    <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+                      Carregando...
+                    </div>
+                  }>
+                    <main className="flex-grow">{children}</main>
+                  </Suspense>
 
-                <Suspense fallback={
-                  <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-                    Carregando...
-                  </div>
-                }>
-                  <main className="flex-grow">{children}</main>
-                </Suspense>
+                  <AjudaLinks />
+                  <BottomNav />
 
-                <AjudaLinks />
-                <BottomNav />
-
-              </ActionProvider>
-            </NotificationProvider>
-          </AuthProvider>
-        </AppProvider>
+                </ActionProvider>
+              </NotificationProvider>
+            </AuthProvider>
+          </AppProvider>
+        </QueryClientProvider>
 
       </body>
     </html>

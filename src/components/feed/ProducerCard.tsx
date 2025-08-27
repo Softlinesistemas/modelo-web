@@ -9,6 +9,7 @@ import { CardAlter, CardContent } from "@/components/common/Card";
 import { Button } from "@/utils/ui/Button";
 import DescricaoCard from "./DescricaoFeed";
 import { server } from "@/utils/server"; // Axios configurado com token
+import { Usuario } from "@/types/User";
 
 export interface ProducerCardProps {
   mainImage?: string;
@@ -20,6 +21,7 @@ export interface ProducerCardProps {
   initialIsFriend?: boolean;
   dataFundacao?: string;
   fetchUser?: boolean; // Se true, busca `/user/me`, senão usa props
+  dataUser?: Usuario
 }
 
 export const ProducerCardForm: React.FC<ProducerCardProps> = ({
@@ -32,34 +34,14 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
   initialIsFriend = false,
   dataFundacao,
   fetchUser = true,
+  dataUser,
 }) => {
-  const [userData, setUserData] = useState<ProducerCardProps | null>(null);
   const [isFriend, setIsFriend] = useState(initialIsFriend);
 
-  useEffect(() => {
-    if (!fetchUser) {
-      // Usar dados passados por props
-      setUserData({ mainImage, galleryImages, tipo, nome, descricao, extraInfo, dataFundacao });
-      setIsFriend(initialIsFriend);
-      return;
-    }
+  if (!dataUser) return <div>Carregando perfil...</div>;
 
-    async function fetchUser() {
-      try {
-        const res = await server.get("/user");
-        setUserData(res.data);
-        setIsFriend(res.data.isFriend || false);
-      } catch (err) {
-        console.error("Erro ao buscar usuário:", err);
-      }
-    }
-    fetchUser();
-  }, [fetchUser, mainImage, galleryImages, tipo, nome, descricao, extraInfo, dataFundacao, initialIsFriend]);
-
-  if (!userData) return <div>Carregando perfil...</div>;
-
-  const isFornecedor = userData.tipo === "fornecedor" || userData.tipo === "empresa";
-  const isGrupo = userData.tipo === "grupo";
+  const isFornecedor = dataUser.Fornecedor;
+  const isGrupo = false;
 
   const toggleFriendship = () => setIsFriend(!isFriend);
 
@@ -69,18 +51,18 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
       <div className="shadow-sm mb-1 mt-1 rounded-b-md">
         <div className="flex items-start">
           <Image
-            src={userData.mainImage || "/default-profile.png"}
-            alt={`Foto de ${userData.nome}`}
+            src={mainImage || "/default-profile.png"}
+            alt={`Foto de ${dataUser.Nome}`}
             width={96}
             height={96}
             className="h-24 w-24 rounded overflow-hidden flex-fit border-2 border-black cursor-pointer"
           />
           <div className="flex-1 ml-3 items-start">
-            <div className="text-md font-bold text-black">{userData.nome}</div>
-            <div className="text-md text-gray-900">{userData.descricao}</div>
-            {userData.extraInfo && <div className="text-md font-bold text-black">{userData.extraInfo}</div>}
+            <div className="text-md font-bold text-black">{dataUser.Nome}</div>
+            <div className="text-md text-gray-900">{dataUser.Apresentacao}</div>
+            {/* {dataUser.extraInfo && <div className="text-md font-bold text-black">{userData.extraInfo}</div>} */}
           </div>
-          {(userData.tipo === "pessoal" || isFornecedor) && (
+          {(tipo === "pessoal" || isFornecedor) && (
             <div className="flex flex-col justify-between items-center mr-2 h-[90px]">
               <IoShareSocialSharp size={24} className="text-gray-900 hover:text-green-900 cursor-pointer" />
               <FiUsers size={20} className="text-blue-600" />
@@ -100,7 +82,7 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
               <span>Mensagem</span>
             </button>
 
-            {(userData.tipo === "pessoal" || isFornecedor) && (
+            {(tipo === "pessoal" || isFornecedor) && (
               <>
                 <button className="flex flex-col items-center text-green-700 hover:text-orange-500 text-xs">
                   <FiPhone size={20} />
@@ -113,15 +95,15 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
               </>
             )}
 
-            {isGrupo && userData.dataFundacao && (
+            {/* {isGrupo && userData.dataFundacao && (
               <div className="ml-4 text-sm text-gray-700 font-medium whitespace-nowrap">
                 Fundação: <span className="text-green-800 font-bold">{userData.dataFundacao}</span>
               </div>
-            )}
+            )} */}
           </div>
 
           <div className="flex justify-end sm:gap-4 w-full sm:w-auto mt-1 sm:mt-0 items-center">
-            {(userData.tipo === "pessoal" || isFornecedor) && (
+            {(tipo === "pessoal" || isFornecedor) && (
               <Button
                 onClick={toggleFriendship}
                 variant={isFriend ? "friend" : "primary"}
@@ -151,7 +133,7 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
       </CardAlter>
 
       {/* Card 3: Descrição adicional */}
-      <DescricaoCard tipo={userData.tipo ?? "pessoal"} />
+      <DescricaoCard tipo={tipo ?? "pessoal"} />
     </>
   );
 };
