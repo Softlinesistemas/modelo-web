@@ -23,7 +23,6 @@ export type Usuario = {
   Privacidade: "PUBLICO" | "PRIVADO" | "AMIGOS";
 
   ReceberAnuncios: boolean;
-  Senha: string;
   TermosPrivacidade: boolean;
 
   Endereco?: string;

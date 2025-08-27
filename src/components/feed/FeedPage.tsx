@@ -15,7 +15,7 @@ import { Usuario } from "@/types/User";
 
 interface Props {
   tipo: "grupo" | "pessoal" | "fornecedor" | "empresa";
-  id?: number;
+  id?: number | string;
   dataUser?: Usuario
 }
 

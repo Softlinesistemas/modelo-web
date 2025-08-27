@@ -4,14 +4,14 @@ import { useState } from 'react'
 
 interface ProducerLocationCardProps {
   endereco?: {
-    rua: string
-    bairro: string
-    cidade: string
-    estado: string
-    pais: string
-    cep: string
+    rua: string | undefined
+    bairro: string | undefined
+    cidade: string | undefined
+    estado: string | undefined
+    pais: string | undefined
+    cep: string | undefined
   }
-  gps?: { lat: number; lng: number }
+  gps?: { lat: number | undefined; lng: number | undefined }
 }
 
 export const ProducerLocationCard: React.FC<ProducerLocationCardProps> = ({

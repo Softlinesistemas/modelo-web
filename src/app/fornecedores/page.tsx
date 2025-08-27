@@ -193,24 +193,24 @@ export default function Fornecedores() {
         transition={{ duration: 0.4 }}
       >
         {fornecedoresTab === 0 && (
-  <div className="space-y-2">
-    {fornecedoresFiltrados.length > 0 ? (
-      fornecedoresFiltrados.map((f) => (
-        <PessoaCard
-          key={f.id}
-          pessoa={f}
-          // Clique no card inteiro vai para o fornecedor
-          onClick={() => abrirFornecedor(f.id)}
-          // Mantive o clique na foto para abrir o modal
-          onFotoClick={() => abrirModalFornecedor(f.nome, f.foto)} onMensagem={function (e: React.MouseEvent<HTMLButtonElement>): void {
-            throw new Error('Function not implemented.')
-          } }        />
-      ))
-    ) : (
-      <p className="text-center text-gray-500">Nenhum fornecedor encontrado.</p>
-    )}
-  </div>
-)}
+          <div className="space-y-2">
+            {fornecedoresFiltrados.length > 0 ? (
+              fornecedoresFiltrados.map((f) => (
+                <PessoaCard
+                  key={f.id}
+                  pessoa={f}
+                  // Clique no card inteiro vai para o fornecedor
+                  onClick={() => abrirFornecedor(f.id)}
+                  // Mantive o clique na foto para abrir o modal
+                  onFotoClick={() => abrirModalFornecedor(f.nome, f.foto)} onMensagem={function (e: React.MouseEvent<HTMLButtonElement>): void {
+                    throw new Error('Function not implemented.')
+                  } }        />
+              ))
+            ) : (
+              <p className="text-center text-gray-500">Nenhum fornecedor encontrado.</p>
+            )}
+          </div>
+        )}
 
         {fornecedoresTab === 1 && (
           <div className="space-y-2">

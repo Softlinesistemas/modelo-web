@@ -1,4 +1,4 @@
-import { getUserInfo } from '@/services/api/user';
+import { getUserInfo, getUserByUserName } from '@/services/api/user';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { Usuario } from "@/types/User"; 
 
@@ -18,4 +18,13 @@ export function useUser(options?: UseQueryOptions<Usuario>) {
     //     // Caso precise tratar os dados antes de listar
     //   }))
   })
+}
+
+export function useUserByUserName(id: string, options?: UseQueryOptions<Usuario>) {
+  return useQuery<Usuario>({
+    queryKey: userKeys.detail(id),
+    queryFn: () => getUserByUserName(id),
+    enabled: !!id,
+    ...options,
+  });
 }
