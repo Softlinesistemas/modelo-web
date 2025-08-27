@@ -19,6 +19,7 @@ const protectedPaths: string[] = [
   "/mensageiro",
   "/message",
   "/sobre",
+  "/"
 ];
 
 const routePermissions: Record<string, string[]> = {
@@ -80,7 +81,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/",
     ...protectedPaths,
   ],
 };

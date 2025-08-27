@@ -113,3 +113,18 @@ export type Usuario = {
   Produtos: any[];
 //   Produtos: Produtos[];
 };
+
+export interface RegisterResponse {
+  token?: string;
+  message?: string;
+}
+
+export interface LoginPayload {
+  Usuario: string;
+  Senha: string;
+}
+
+export interface LoginResponse {
+  token?: string;
+  message?: string;
+}

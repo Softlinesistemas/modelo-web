@@ -20,7 +20,7 @@ export interface ProducerCardProps {
   extraInfo?: string;
   initialIsFriend?: boolean;
   dataFundacao?: string;
-  fetchUser?: boolean; // Se true, busca `/user/me`, senão usa props
+  fetchUser?: boolean;
   dataUser?: Usuario
 }
 

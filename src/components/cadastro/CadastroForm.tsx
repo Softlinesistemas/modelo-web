@@ -23,6 +23,7 @@ import { cadastroInfo } from "./cadastroInfo";
 import axios from "axios";
 import z from "zod";
 import { server } from "@/utils/server";
+import { useRegister } from "@/hooks/mutations/useRegister";
 
 interface Estado {
   id: number;
@@ -59,9 +60,10 @@ export const CadastroForm: React.FC = () => {
       //   Privacidade: "PUBLICO",
     },
   });
+
+  const { mutate: newUserRegister, isLoading: loadingRegister} = useRegister();
   console.log(errors);
 
-  const [loading, setLoading] = useState(false);
   const [listaEstados, setListaEstados] = useState<Estado[]>([]);
   const [listaPaises, setListaPaises] = useState<Pais[]>([]);
   const [usarGps, setUsarGps] = useState(false);
@@ -112,28 +114,8 @@ export const CadastroForm: React.FC = () => {
     }
   };
 
-  const onSubmit = async (data: UserBasicSchema) => {
-    try {
-      setLoading(true);
-
-      // Chamada ao backend
-      const response = await server.post("/auth/register", data);
-
-      toast.success("Conta criada com sucesso!");
-
-      // Salvar token se backend retornar
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-      }
-      
-      // Redirecionar para o feed após cadastro bem-sucedido
-      window.location.href = '/feed';
-    } catch (error: any) {
-      const message = error.response?.data?.message || "Erro ao criar conta.";
-      toast.error(message);
-    } finally {
-      setLoading(false);
-    }
+  const onSubmit = (data: UserBasicSchema) => {
+    newUserRegister(data);
   };
 
   return (

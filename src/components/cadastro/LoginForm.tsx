@@ -3,38 +3,19 @@ import React, { useState } from 'react'
 import { Input } from '@/utils/ui/Input'
 import { Label } from '@/utils/ui/Label'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
-import { toast } from 'react-hot-toast'
-import { server } from '@/utils/server'
-import { AxiosError } from 'axios'
+import { useLogin } from '@/hooks/mutations/useLogin'
 
 export const LoginForm = () => {
   const [usuario, setUsuario] = useState('')
   const [senha, setSenha] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const { mutate: userLogin, isLoading: loginLoading } = useLogin();
 
-  const onClickLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      setLoading(true)
-      const { data: response } = await server.post('/auth/login', {
-        Usuario: usuario,
-        Senha: senha,
-      })
-      toast.success('Login realizado com sucesso!')
-      if (response.token) localStorage.setItem('token', response.token)
-      // Redirecionar para o feed após login bem-sucedido
-      window.location.href = '/feed'
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data?.message || 'Erro ao fazer login.')
-      } else {
-        toast.error('Erro inesperado ao fazer login.')
-      }
-    } finally {
-      setLoading(false)
-    }
-  }
+  const onClickLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    userLogin({ Usuario: usuario, Senha: senha });
+  };
 
   return (
     <form onSubmit={onClickLogin} className="space-y-3">

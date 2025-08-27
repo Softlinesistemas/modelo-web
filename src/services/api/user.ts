@@ -1,5 +1,6 @@
 import { server } from "@/utils/server";
-import { Usuario } from "@/types/User";
+import { Usuario, RegisterResponse, LoginPayload, LoginResponse } from "@/types/User";
+import { UserBasicSchema } from "@/schemas/userSchema";
 
 export async function getUserInfo(){
     const { data } = await server.get("/user");
@@ -8,5 +9,15 @@ export async function getUserInfo(){
 
 export async function getUserByUserName(userName: string | number) {
   const { data } = await server.get(`/user/${userName}`);
-  return data as Usuario;
+  return data?.user as Usuario;
+}
+
+export async function registerUser(data: UserBasicSchema) {
+  const { data: response } = await server.post<RegisterResponse>("/auth/register", data);
+  return response;
+}
+
+export async function loginUser(data: LoginPayload) {
+  const { data: response } = await server.post<LoginResponse>("/auth/login", data);
+  return response;
 }
