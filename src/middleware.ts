@@ -1,18 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { jwtVerify } from "jose";
+import { jwtVerify, JWTPayload } from "jose";
+import { Usuario } from "./types/User";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
-interface SafeUser {
-  CodUsuario: string;
-  Usuario: string;
-  Nome: string;
-  Role: string;
-  PerfilId: string;
-  Fornecedor: boolean;
-}
-
-const protectedPaths = [
+const protectedPaths: string[] = [
   "/amigos",
   "/buscador",
   "/chat",
@@ -34,38 +26,44 @@ const routePermissions: Record<string, string[]> = {
   "/feed": ["ADMIN", "USER", "MOD"],
 };
 
+function redirectToLogin(request: NextRequest) {
+  const response = NextResponse.redirect(new URL("/login", request.url));
+  response.cookies.delete("token");
+  return response;
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
   const isProtected = protectedPaths.includes(pathname);
 
   const token = request.cookies.get("token")?.value;
-  let decoded: any = null;
-
   if (!token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    if (isProtected) return redirectToLogin(request);
+    return NextResponse.next();
   }
 
+  let decoded: JWTPayload & Partial<Usuario>;
   try {
     const { payload } = await jwtVerify(token, SECRET);
-    decoded = payload
-  } catch (err) {    
-    return NextResponse.redirect(new URL("/login", request.url));
+    decoded = payload as JWTPayload & Usuario;
+  } catch {
+    return redirectToLogin(request);
   }
 
-  // 🔒 bloqueia rota protegida se não tiver token válido
-  if (isProtected && (!decoded || !decoded.CodUsuario)) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (isProtected && !decoded?.CodUsuario) {
+    return redirectToLogin(request);
   }
 
   const requiredRoles = routePermissions[pathname];
-  if (requiredRoles && !requiredRoles.includes(decoded?.Role)) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (requiredRoles && !requiredRoles.includes(decoded?.Role as string)) {
+    return redirectToLogin(request);
   }
 
   const response = NextResponse.next();
 
   if (decoded) {
-    const safeUser: SafeUser = {
+    const safeUser: Partial<Usuario> = {
       CodUsuario: decoded.CodUsuario,
       Usuario: decoded.Usuario,
       Nome: decoded.Nome,
@@ -82,7 +80,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/login",
     "/",
     ...protectedPaths,
   ],
