@@ -8,7 +8,7 @@ export async function getUserInfo(){
 }
 
 export async function getUserByUserName(userName: string | number) {
-  const { data } = await server.get(`/user/${userName}`);
+  const { data } = await server.get(`/user/profile/${userName}`);
   return data?.user as Usuario;
 }
 
@@ -19,5 +19,6 @@ export async function registerUser(data: UserBasicSchema) {
 
 export async function loginUser(data: LoginPayload) {
   const { data: response } = await server.post<LoginResponse>("/auth/login", data);
+  console.log(response)
   return response;
 }

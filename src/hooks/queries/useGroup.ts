@@ -2,15 +2,15 @@ import { getGroupInfo } from '@/services/api/group';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { Grupo } from '@/types/Group';
 
-export const profileKeys = {
+export const groupKeys = {
   all: ["group"] as const,
-  list: () => [...profileKeys.all, "list"] as const,
-  detail: (id: string) => [...profileKeys.all, "detail", id] as const
+  list: () => [...groupKeys.all, "list"] as const,
+  detail: (id: string) => [...groupKeys.all, "detail", id] as const
 }
 
 export function useGroup(options?: UseQueryOptions<Grupo>) {
   return useQuery<Grupo>({
-    queryKey: profileKeys.list(),
+    queryKey: groupKeys.list(),
     queryFn: getGroupInfo,
     ...options,
     // select: (data: any) =>

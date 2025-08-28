@@ -38,9 +38,7 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
 }) => {
   const [isFriend, setIsFriend] = useState(initialIsFriend);
 
-  if (!dataUser) return <div>Carregando perfil...</div>;
-
-  const isFornecedor = dataUser.Fornecedor;
+  const isFornecedor = dataUser?.Fornecedor;
   const isGrupo = false;
 
   const toggleFriendship = () => setIsFriend(!isFriend);
@@ -52,14 +50,14 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
         <div className="flex items-start">
           <Image
             src={mainImage || "/default-profile.png"}
-            alt={`Foto de ${dataUser.Nome}`}
+            alt={`Foto de ${dataUser?.Nome}`}
             width={96}
             height={96}
             className="h-24 w-24 rounded overflow-hidden flex-fit border-2 border-black cursor-pointer"
           />
           <div className="flex-1 ml-3 items-start">
-            <div className="text-md font-bold text-black">{dataUser.Nome}</div>
-            <div className="text-md text-gray-900">{dataUser.Apresentacao}</div>
+            <div className="text-md font-bold text-black">{dataUser?.Nome}</div>
+            <div className="text-md text-gray-900">{dataUser?.Apresentacao}</div>
             {/* {dataUser.extraInfo && <div className="text-md font-bold text-black">{userData.extraInfo}</div>} */}
           </div>
           {(tipo === "pessoal" || isFornecedor) && (

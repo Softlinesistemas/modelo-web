@@ -3,6 +3,8 @@ import React from "react";
 import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { useUserByUserName } from "@/hooks/queries/useUser";
+import { useAuthUser } from "@/hooks/dynamic/useAuthUser";
+import { usePostsByUserName } from "@/hooks/queries/usePosts";
 
 const FeedPage = dynamic(() => import("@/components/feed/FeedPage"), {
   ssr: false,
@@ -11,8 +13,15 @@ const FeedPage = dynamic(() => import("@/components/feed/FeedPage"), {
 export default function pessoalPage() {
   const params = useParams();
   const { username } = params;
+  const authUser = useAuthUser();
 
-  const { data: dataUser, isLoading: loadingUser } = useUserByUserName(username as string);
+  const { data: dataUser, isLoading: loadingUser } = useUserByUserName(username as string, { 
+    enabled: !!authUser
+  });
 
-  return <FeedPage dataUser={dataUser} tipo="pessoal" id={username as string} />;
+  const { data: dataPosts, isLoading: loadingPosts } = usePostsByUserName(authUser?.Usuario, { 
+    enabled: !!authUser
+  });
+
+  return <FeedPage dataUser={dataUser} dataPosts={dataPosts} tipo="pessoal" id={username as string} />;
 }

@@ -51,41 +51,40 @@ export default function PessoalPage() {
   const { data: dataUser, isLoading: loadingUser } = useUser({
     enabled: !!authUser && authUser.Role === "USER",
   });
+  
+  if (!authUser) return <div>Carregando...</div>;
 
-
-  if (!dataUser) return <div>Carregando perfil...</div>;
-
-  // const photosGallery = dataUser.galleryImages?.map((url) => ({ url, date: "" })) || [];
+  // const photosGallery = dataUser?.galleryImages?.map((url) => ({ url, date: "" })) || [];
 
   return (
     <div className="w-full mb-4">
       <MainBanner />
 
       <ProducerCard
-        mainImage={dataUser.FotoPerfil || "/default-profile.png"}
+        mainImage={dataUser?.FotoPerfil || "/default-profile.png"}
         galleryImages={false || []}
-        tipo={dataUser.Fornecedor ? "fornecedor" : "pessoal"}
-        nome={dataUser.Nome}
-        descricao={dataUser.Email}
-        extraInfo={dataUser.Privacidade}
+        tipo={dataUser?.Fornecedor ? "fornecedor" : "pessoal"}
+        nome={dataUser?.Nome}
+        descricao={dataUser?.Email}
+        extraInfo={dataUser?.Privacidade}
         initialIsFriend={false}
         dataFundacao={undefined}
       />
 
       <div className="mt-1">
-        <ProducerLocationCard endereco={{bairro: dataUser.Bairro, rua: dataUser.Endereco, cidade: dataUser.Cidade, estado: dataUser.Estado, pais: dataUser.Pais, cep: dataUser.Cep}} gps={{lng: dataUser.Latitude, lat: dataUser.Longitude}} />
+        <ProducerLocationCard endereco={{bairro: dataUser?.Bairro, rua: dataUser?.Endereco, cidade: dataUser?.Cidade, estado: dataUser?.Estado, pais: dataUser?.Pais, cep: dataUser?.Cep}} gps={{lng: dataUser?.Latitude, lat: dataUser?.Longitude}} />
       </div>
 
       <FeedPhotoGallery photos={[]} />
 
       <div className="mt-2">
-        {/* <SocialIcons links={dataUser.socialLinks} /> */}
+        {/* <SocialIcons links={dataUser?.socialLinks} /> */}
 
         <SocialIcons
           links={{
             gps: { lat: -23.55052, lng: -46.633308 },
             site: "https://meusite.com",
-            email: dataUser.Email,
+            email: dataUser?.Email,
             altEmail: "suporte@meusite.com",
             instagram: "https://instagram.com/user",
             facebook: "https://facebook.com/page",

@@ -18,7 +18,7 @@ const FeedPhotoGallery = dynamic(
 );
 
 const ProducerCard = dynamic(
-  () => import("@/components/feed/ProducerCard").then((mod) => mod.ProducerCard),
+  () => import("@/components/feed/ProducerCard").then((mod) => mod.ProducerCardForm),
   { ssr: false }
 );
 

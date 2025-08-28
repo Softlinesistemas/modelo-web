@@ -12,16 +12,18 @@ import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
 import { GeographicReference } from "@/components/groups/GeographicReference";
 import { FeedPostCard } from "@/components/feed/FeedPostCard";
 import { Usuario } from "@/types/User";
+import { Publicacoes } from "@/types/Posts";
 
 interface Props {
   tipo: "grupo" | "pessoal" | "fornecedor" | "empresa";
   id?: number | string;
-  dataUser?: Usuario
+  dataUser?: Usuario;
+  dataPosts?: Publicacoes[];
 }
 
 const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "https://gogroups.s3.us-east-005.backblazeb2.com/";
 
-export default function FeedPage({ tipo, id, dataUser }: Props) {  
+export default function FeedPage({ tipo, id, dataUser, dataPosts }: Props) {  
   const grupos: Record<
     string,
     {
@@ -280,8 +282,19 @@ export default function FeedPage({ tipo, id, dataUser }: Props) {
           </h2>
         </div>
 
-        {entidade.posts.map((post, idx) => (
-          <FeedPostCard key={idx} images={post.images} date={post.date} text={post.text} />
+        {dataPosts?.map((post: Publicacoes) => (
+          <FeedPostCard
+            key={post.CodPublicacao}
+            images={post.FotosPublicacoes}
+            date={new Date(post.CriadaEm).toLocaleString("pt-BR", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}
+            text={post.Legenda || ""}
+          />
         ))}
       </div>
     </div>

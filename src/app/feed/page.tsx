@@ -6,15 +6,17 @@ import { useGroup } from "@/hooks/queries/useGroup";
 import { useCompany } from "@/hooks/queries/useCompany";
 import { useFeedType } from "@/hooks/dynamic/useFeedType";
 import { useAuthUser } from "@/hooks/dynamic/useAuthUser";
+import { usePostsByUserName } from "@/hooks/queries/usePosts";
 
 const FeedPage = dynamic(() => import("@/components/feed/FeedPage"), {
   ssr: false,
+  loading: () => <p>Carregando...</p>
 });
 
 export default function PersonalFeedPage() {
   const authUser = useAuthUser();
 
- const { data: dataUser, isLoading: loadingUser } = useUser({
+  const { data: dataUser, isLoading: loadingUser } = useUser({
     enabled: !!authUser && authUser.Role === "USER",
   });
 
@@ -26,11 +28,17 @@ export default function PersonalFeedPage() {
     enabled: !!authUser && authUser.Role === "COMPANY",
   });
 
+  const { data: dataPosts, isLoading: loadingPosts } = usePostsByUserName(authUser?.Usuario, { 
+    enabled: !!authUser
+  });
+
+  if (!authUser) return <div>Carregando...</div>;
+
   const { tipo, id } = useFeedType(
     dataUser,
     dataGroup,
     dataCompany
   );
 
-  return <FeedPage dataUser={dataUser} tipo={tipo} id={id} />;
+  return <FeedPage dataUser={dataUser} dataPosts={dataPosts} tipo={tipo} id={id} />;
 }

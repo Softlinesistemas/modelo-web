@@ -9,9 +9,10 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from 'react-icons/fa';
+import Image from 'next/image';
 
 interface FeedPostCardProps {
-  images: string[];
+  images: any[];
   date: string;
   text: string;
 }
@@ -27,20 +28,15 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
   const goToNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      prevIndex === images?.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const goToPrevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? images?.length - 1 : prevIndex - 1
     );
-  };
-
-  const formatDate = (dateStr: string) => {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('pt-BR');
   };
 
   return (
@@ -49,8 +45,10 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
       <div className="bg-green-100 border-2 shadow overflow-hidden">
         {/* Carrossel de Imagens */}
         <div className="relative">
-          <img
-            src={images[currentImageIndex]}
+          <Image
+            width={1000}
+            height={1000}
+            src={process.env.NEXT_PUBLIC_IMAGE_URL + images[currentImageIndex]?.Url}
             alt={`Imagem ${currentImageIndex + 1} do post`}
             onError={(e) => {
               e.currentTarget.onerror = null;
@@ -59,7 +57,7 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
             className="w-full h-80 object-cover"
           />
 
-          {images.length > 1 && (
+          {images?.length > 1 && (
             <>
               <button
                 onClick={goToPrevImage}
@@ -76,7 +74,7 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
                 <FaChevronRight />
               </button>
               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-                {images.map((_, index) => (
+                {images?.map((_, index) => (
                   <span
                     key={index}
                     className={`block w-2 h-2 rounded-full ${
@@ -128,14 +126,14 @@ export const FeedPostCard = ({ images, date, text }: FeedPostCardProps) => {
           {/* Indicador de imagem */}
           <div className="flex items-center gap-1">
             <span className="text-xs text-gray-500">
-              {currentImageIndex + 1}/{images.length}
+              {currentImageIndex + 1}/{images?.length}
             </span>
           </div>
         </div>
-                    {/* Data */}
-            <p className="text-center text-sm font-semibold text-gray-800 mt-1">
-              {formatDate(date)}
-            </p>
+          {/* Data */}
+          <p className="text-center text-sm font-semibold text-gray-800 mt-1">
+            {date}
+          </p>
       </div>
 
       {/* Área branca (descrição) */}

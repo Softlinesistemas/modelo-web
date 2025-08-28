@@ -31,10 +31,11 @@ export const useAuth = () => {
       }
 
       const response = await server.get("/user");
+      console.log(response)
       setUser(response.data);
       setIsAuthenticated(true);
 
-      localStorage.setItem("user", JSON.stringify(response.data)); //Para ser usado no front-end
+      localStorage.setItem("user", JSON.stringify(response.data));
     } catch (error) {
       console.error("Erro ao verificar autenticação:", error);
       localStorage.removeItem("token");
@@ -53,10 +54,6 @@ export const useAuth = () => {
     setIsAuthenticated(false);
     window.location.href = "/login";
   };
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
 
   return {
     user,

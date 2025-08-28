@@ -39,6 +39,7 @@ export async function middleware(request: NextRequest) {
   const isProtected = protectedPaths.includes(pathname);
 
   const token = request.cookies.get("token")?.value;
+  console.log("sem token: " + token)
   if (!token) {
     if (isProtected) return redirectToLogin(request);
     return NextResponse.next();
