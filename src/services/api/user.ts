@@ -1,5 +1,5 @@
 import { server } from "@/utils/server";
-import { Usuario, RegisterResponse, LoginPayload, LoginResponse } from "@/types/User";
+import { Usuario, RegisterResponse, LoginPayload, LoginResponse, Amizade } from "@/types/User";
 import { UserBasicSchema } from "@/schemas/userSchema";
 
 export async function getUserInfo(){
@@ -9,7 +9,10 @@ export async function getUserInfo(){
 
 export async function getUserByUserName(userName: string | number) {
   const { data } = await server.get(`/user/profile/${userName}`);
-  return data?.user as Usuario;
+   return {
+    ...data.user,
+    friendship: data.friendship ?? [],
+  } as Usuario & { friendship: Amizade[] };
 }
 
 export async function registerUser(data: UserBasicSchema) {

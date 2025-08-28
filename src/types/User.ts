@@ -114,6 +114,16 @@ export type Usuario = {
 //   Produtos: Produtos[];
 };
 
+export type Amizade = {
+  CodAmizade: number;
+  PerfilAmizadeId1: number;
+  PerfilAmizadeId2: number;
+  SolicitanteId: number;
+  Aceita: boolean;
+  CriadoEm: string;     // DateTime no banco → string no JSON
+  AtualizadoEm: string;
+};
+
 export interface RegisterResponse {
   token?: string;
   message?: string;

@@ -9,7 +9,9 @@ import { CardAlter, CardContent } from "@/components/common/Card";
 import { Button } from "@/utils/ui/Button";
 import DescricaoCard from "./DescricaoFeed";
 import { server } from "@/utils/server"; // Axios configurado com token
-import { Usuario } from "@/types/User";
+import { Usuario, Amizade } from "@/types/User";
+
+type UsuarioComFriendship = Usuario & { friendship: Amizade[] };
 
 export interface ProducerCardProps {
   mainImage?: string;
@@ -21,7 +23,7 @@ export interface ProducerCardProps {
   initialIsFriend?: boolean;
   dataFundacao?: string;
   fetchUser?: boolean;
-  dataUser?: Usuario
+  dataUser?: UsuarioComFriendship;
 }
 
 export const ProducerCardForm: React.FC<ProducerCardProps> = ({
@@ -36,12 +38,16 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
   fetchUser = true,
   dataUser,
 }) => {
-  const [isFriend, setIsFriend] = useState(initialIsFriend);
 
   const isFornecedor = dataUser?.Fornecedor;
   const isGrupo = false;
 
-  const toggleFriendship = () => setIsFriend(!isFriend);
+  const isFriend = dataUser?.friendship.some(f => f.Aceita) ?? false;
+  const isPending = dataUser?.friendship.some(f => !f.Aceita) ?? false;
+
+  const toggleFriendship = () => {
+    // Chamar API para adicionar/remover amizade
+  };
 
   return (
     <>
@@ -107,10 +113,20 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
                 variant={isFriend ? "friend" : "primary"}
                 size="sm"
                 className={`ml-2 flex items-center gap-1 px-2 py-1 text-2xl ${
-                  isFriend ? "border border-green-600 text-green-900" : "text-white"
+                  isFriend
+                    ? "border border-green-600 text-green-900"
+                    : isPending
+                    ? "border border-yellow-500 text-yellow-800"
+                    : "text-white"
                 }`}
               >
-                <span>{isFriend ? "AMIGO" : "Ser AMIGO"}</span>
+                <span>
+                  {isFriend
+                    ? "AMIGO"
+                    : isPending
+                    ? "Solicitação enviada"
+                    : "Ser AMIGO"}
+                </span>
               </Button>
             )}
 
@@ -120,7 +136,9 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
                 variant={isFriend ? "friend" : "primary"}
                 size="sm"
                 className={`ml-2 flex items-center gap-1 px-2 py-1 text-2xl ${
-                  isFriend ? "border border-green-600 text-green-900" : "text-white"
+                  isFriend
+                    ? "border border-green-600 text-green-900"
+                    : "text-white"
                 }`}
               >
                 <span>{isFriend ? "Participando" : "Participar"}</span>
