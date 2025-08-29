@@ -20,3 +20,9 @@ export type Publicacoes = {
   CurtidasPublicacoes: any[];
   ComentariosPublicacoes: any[];
 };
+
+export interface CreatePostInput {
+  Legenda?: string;
+  DataEncontro?: string;
+  files?: File[];
+}

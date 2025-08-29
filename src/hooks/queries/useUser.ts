@@ -1,6 +1,8 @@
 import { getUserInfo, getUserByUserName } from '@/services/api/user';
 import { useQuery, UseQueryOptions } from 'react-query';
-import { Usuario } from "@/types/User"; 
+import { Usuario, Amizade } from "@/types/User"; 
+
+type UsuarioComFriendship = Usuario & { friendship: Amizade[] };
 
 export const userKeys = {
   all: ["user"] as const,
@@ -20,8 +22,8 @@ export function useUser(options?: UseQueryOptions<Usuario>) {
   })
 }
 
-export function useUserByUserName(id: string, options?: UseQueryOptions<Usuario>) {
-  return useQuery<Usuario>({
+export function useUserByUserName(id: string, options?: UseQueryOptions<UsuarioComFriendship>) {
+  return useQuery<UsuarioComFriendship>({
     queryKey: userKeys.detail(id),
     queryFn: () => getUserByUserName(id),
     enabled: !!id,

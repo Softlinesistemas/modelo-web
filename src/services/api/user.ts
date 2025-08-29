@@ -25,3 +25,21 @@ export async function loginUser(data: LoginPayload) {
   console.log(response)
   return response;
 }
+
+export async function getFriendships(): Promise<Amizade[]> {
+  const { data } = await server.get("/friends");
+  return data;
+}
+
+export async function getFriendshipsByUserId(id: string | number): Promise<Amizade[]> {
+  const { data } = await server.get(`/friends/user/${id}`);
+  return data;
+}
+
+export async function registerFriendship(friendId: string | number): Promise<Amizade> {
+  const { data } = await server.post("/friends/requests", {
+    friendId: friendId,
+  });
+
+  return data as Amizade;
+}

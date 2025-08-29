@@ -42,8 +42,8 @@ export const ProducerCardForm: React.FC<ProducerCardProps> = ({
   const isFornecedor = dataUser?.Fornecedor;
   const isGrupo = false;
 
-  const isFriend = dataUser?.friendship.some(f => f.Aceita) ?? false;
-  const isPending = dataUser?.friendship.some(f => !f.Aceita) ?? false;
+  const isFriend = dataUser?.friendship?.some(f => f.Aceita) ?? false;
+  const isPending = dataUser?.friendship?.some(f => !f.Aceita) ?? false;
 
   const toggleFriendship = () => {
     // Chamar API para adicionar/remover amizade

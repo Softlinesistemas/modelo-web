@@ -11,19 +11,23 @@ import { BotaoAgrupado } from "@/components/feed/BotaoAgrupado";
 import { SocialLinksSection } from "@/components/buscador/SocialLinksSection";
 import { GeographicReference } from "@/components/groups/GeographicReference";
 import { FeedPostCard } from "@/components/feed/FeedPostCard";
-import { Usuario } from "@/types/User";
+import { Usuario, Amizade } from "@/types/User";
 import { Publicacoes } from "@/types/Posts";
+
+type UsuarioComFriendship = Usuario & { friendship: Amizade[] };
 
 interface Props {
   tipo: "grupo" | "pessoal" | "fornecedor" | "empresa";
   id?: number | string;
-  dataUser?: Usuario;
+  dataUser?: UsuarioComFriendship;
   dataPosts?: Publicacoes[];
+  handleCreatePost: (files: FileList, legenda: string) => void;
 }
 
 const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "https://gogroups.s3.us-east-005.backblazeb2.com/";
 
-export default function FeedPage({ tipo, id, dataUser, dataPosts }: Props) {  
+export default function FeedPage({ tipo, id, dataUser, dataPosts, handleCreatePost }: Props) {  
+
   const grupos: Record<
     string,
     {

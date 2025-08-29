@@ -7,6 +7,7 @@ import { useCompany } from "@/hooks/queries/useCompany";
 import { useFeedType } from "@/hooks/dynamic/useFeedType";
 import { useAuthUser } from "@/hooks/dynamic/useAuthUser";
 import { usePostsByUserName } from "@/hooks/queries/usePosts";
+import { useCreatePost } from "@/hooks/mutations/usePost";
 
 const FeedPage = dynamic(() => import("@/components/feed/FeedPage"), {
   ssr: false,
@@ -15,22 +16,34 @@ const FeedPage = dynamic(() => import("@/components/feed/FeedPage"), {
 
 export default function PersonalFeedPage() {
   const authUser = useAuthUser();
-
+  
+  {/* Fetch de dados */}
   const { data: dataUser, isLoading: loadingUser } = useUser({
     enabled: !!authUser && authUser.Role === "USER",
   });
-
+  
   const { data: dataGroup, isLoading: loadingGroup } = useGroup({
     enabled: !!authUser && authUser.Role === "GROUP",
   });
-
+  
   const { data: dataCompany, isLoading: loadingCompany } = useCompany({
     enabled: !!authUser && authUser.Role === "COMPANY",
   });
-
+  
   const { data: dataPosts, isLoading: loadingPosts } = usePostsByUserName(authUser?.Usuario, { 
     enabled: !!authUser
   });
+
+  const { mutate: addPost, isLoading: isLoadingNewPost } = useCreatePost();
+
+  {/* Tratamento de funções */}
+  const handleCreatePost = (files: FileList, legenda: string) => {
+    addPost({
+      Legenda: legenda,
+      files: Array.from(files),
+      DataEncontro: new Date().toISOString(),
+    });
+  };
 
   if (!authUser) return <div>Carregando...</div>;
 
@@ -40,5 +53,5 @@ export default function PersonalFeedPage() {
     dataCompany
   );
 
-  return <FeedPage dataUser={dataUser} dataPosts={dataPosts} tipo={tipo} id={id} />;
+  return <FeedPage dataUser={dataUser as any} dataPosts={dataPosts} handleCreatePost={handleCreatePost} tipo={tipo} id={id} />;
 }
